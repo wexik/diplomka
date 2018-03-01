@@ -1,0 +1,16 @@
+.project
+.classpath
+.settings
+*.ipr
+.idea
+*.iws
+*.iml
+*~
+*/rebel.xml
+.DS_Store
+target
+test-output
+.externalToolBuilders
+
+.settings/*
+!.settings/.jsdtscope

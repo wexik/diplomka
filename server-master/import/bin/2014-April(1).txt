@@ -1,0 +1,3891 @@
+From Mark.Vallevand@UNISYS.com Thu Apr  3 16:58:44 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33Kwin8022940 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 16:58:44 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s33KwiWd002006
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 16:58:44 -0400
+Received: from mail1.bemta12.messagelabs.com (mail1.bemta12.messagelabs.com
+	[216.82.251.12])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33KwZcv025435
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 16:58:36 -0400
+Received: from [216.82.249.131:17202] by server-12.bemta-12.messagelabs.com id
+	0D/00-07335-B7BCD335; Thu, 03 Apr 2014 20:58:35 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-11.tower-28.messagelabs.com!1396558713!27008484!1
+X-Originating-IP: [192.61.61.105]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 28003 invoked from network); 3 Apr 2014 20:58:34 -0000
+Received: from naedge.unisys.com (HELO USEA-NAEDGE2.unisys.com) (192.61.61.105)
+	by server-11.tower-28.messagelabs.com with RC4-SHA encrypted SMTP;
+	3 Apr 2014 20:58:34 -0000
+Received: from USEA-NAHUBCAS4.na.uis.unisys.com (129.224.76.29) by
+	USEA-NAEDGE2.unisys.com (192.61.61.105) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Thu, 3 Apr 2014 15:58:33 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	USEA-NAHUBCAS4.na.uis.unisys.com ([129.224.76.29]) with mapi;
+	Thu, 3 Apr 2014 15:58:33 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: linux clustering <linux-cluster@redhat.com>
+Date: Thu, 3 Apr 2014 15:58:30 -0500
+Thread-Topic: Simple data replication in a cluster
+Thread-Index: Ac9Pf3ezZemHXOoLR+a/m/Y5L/1ngA==
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -2.008  (BAYES_00, DCC_REPUT_13_19, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE, SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 20:58:44 -0000
+
+--_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I'm looking for a simple way to replicate data within a cluster.
+
+It looks like my resources will be self-configuring and may need to push ch=
+anges they see to all nodes in the cluster.  The idea being that when a nod=
+e crashes, the resource will have its configuration present on the node on =
+which it is restarted.  We're talking about a few kb of data, probably in o=
+ne file, probably text.  A typical cluster would have multiple resources (m=
+ore than two), one resource per node and one extra node.
+
+Ideas?
+
+Could I use the CIB directly to replicate data?  Use cibadmin to update som=
+ething and sync?
+How big can a resource parameter be?  Could a resource modify its parameter=
+s so that they are replicated throughout the cluster?
+Is there a simple file replication Resource Agent?
+Drdb seems like overkill.
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com<mailto:Mark.Vallevand@Unisys.c=
+om>
+May you live in interesting times, may you come to the attention of importa=
+nt people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MA=
+TERIAL and is thus for use only by the intended recipient. If you received =
+this in error, please contact the sender and delete the e-mail and its atta=
+chments from all computers.
+
+
+--_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head><meta http-equiv=3DContent-Type content=
+=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
+oft Word 12 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue vli=
+nk=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>I&#8217;m lookin=
+g for a simple way to replicate data within a cluster.<o:p></o:p></p><p cla=
+ss=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>It looks like my r=
+esources will be self-configuring and may need to push changes they see to =
+all nodes in the cluster.&nbsp; The idea being that when a node crashes, th=
+e resource will have its configuration present on the node on which it is r=
+estarted.&nbsp; We&#8217;re talking about a few kb of data, probably in one=
+ file, probably text.&nbsp; A typical cluster would have multiple resources=
+ (more than two), one resource per node and one extra node.<o:p></o:p></p><=
+p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Ideas?<o:p></=
+o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Coul=
+d I use the CIB directly to replicate data?&nbsp; Use cibadmin to update so=
+mething and sync?<o:p></o:p></p><p class=3DMsoNormal>How big can a resource=
+ parameter be?&nbsp; Could a resource modify its parameters so that they ar=
+e replicated throughout the cluster?<o:p></o:p></p><p class=3DMsoNormal>Is =
+there a simple file replication Resource Agent?<o:p></o:p></p><p class=3DMs=
+oNormal>Drdb seems like overkill.<o:p></o:p></p><p class=3DMsoNormal><o:p>&=
+nbsp;</o:p></p><p class=3DMsoNormal style=3D'mso-margin-top-alt:auto;mso-ma=
+rgin-bottom-alt:auto'><span style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif";color:black'>Regards.</span><span style=3D'font-size:12.0pt;fon=
+t-family:"Times New Roman","serif"'><br></span><span style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif";color:black'>Mark K Vallevand&nbsp;&nb=
+sp; <a href=3D"mailto:Mark.Vallevand@Unisys.com"><span style=3D'color:blue'=
+>Mark.Vallevand@Unisys.com</span></a></span><span style=3D'font-size:12.0pt=
+;font-family:"Times New Roman","serif"'><o:p></o:p></span></p><p class=3DMs=
+oNormal style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
+style=3D'font-size:12.0pt;font-family:"Times New Roman","serif"'>May you li=
+ve in interesting times, may you come to the attention of important people =
+and may all your wishes come true.<o:p></o:p></span></p><p class=3DMsoNorma=
+l style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span style=
+=3D'font-size:10.0pt;font-family:"Times New Roman","serif"'>THIS COMMUNICAT=
+ION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is t=
+hus for use only by the intended recipient. If you received this in error, =
+please contact the sender and delete the e-mail and its attachments from al=
+l computers.</span><span style=3D'font-size:12.0pt;font-family:"Times New R=
+oman","serif"'><o:p></o:p></span></p><p class=3DMsoNormal><o:p>&nbsp;</o:p>=
+</p></div></body></html>=
+
+--_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_--
+
+From lists@alteeve.ca Thu Apr  3 17:17:44 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LHiq4009244 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 17:17:44 -0400
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.20])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LHiJO026870
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:17:44 -0400
+Received: from vm08-mail01.alteeve.ca (mail.alteeve.ca [65.39.153.71])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33LHfi2026501
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:17:42 -0400
+Received: from lemass.alteeve.ca (dhcp-108-168-20-202.cable.user.start.ca
+	[108.168.20.202])
+	by vm08-mail01.alteeve.ca (Postfix) with ESMTPSA id 7B3F120171
+	for <linux-cluster@redhat.com>; Thu,  3 Apr 2014 17:17:39 -0400 (EDT)
+Message-ID: <533DCFF4.2070404@alteeve.ca>
+Date: Thu, 03 Apr 2014 17:17:40 -0400
+From: Digimer <lists@alteeve.ca>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: linux clustering <linux-cluster@redhat.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+In-Reply-To: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+X-RedHat-Spam-Score: -2.451  (BAYES_00,RP_MATCHES_RCVD,URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.20
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 21:17:44 -0000
+
+On 03/04/14 04:58 PM, Vallevand, Mark K wrote:
+> I’m looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We’re talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+>
+> Regards.
+> Mark K Vallevand Mark.Vallevand@Unisys.com
+
+If you don't want to use DRBD + gfs2 (what I use), then you'll probably 
+want to look at corosync directly for keeping the data in sync. 
+Pacemaker itself is a cluster resource manager and I don't think the cib 
+is well suited for general data sync'ing.
+
+-- 
+Digimer
+Papers and Projects: https://alteeve.ca/w/
+What if the cure for cancer is trapped in the mind of a person without 
+access to education?
+
+From morpheus.ibis@gmail.com Thu Apr  3 17:36:23 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LaN4A030241 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 17:36:23 -0400
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.16])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s33LaMiP016840
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:36:22 -0400
+Received: from mail-wi0-f178.google.com (mail-wi0-f178.google.com
+	[209.85.212.178])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33LaLVP017497
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:36:21 -0400
+Received: by mail-wi0-f178.google.com with SMTP id bs8so161409wib.17
+	for <linux-cluster@redhat.com>; Thu, 03 Apr 2014 14:36:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:cc:subject:date:message-id:user-agent:in-reply-to
+	:references:mime-version:content-transfer-encoding:content-type;
+	bh=aoKnNJWa3IDoQcWgoM9rcWbd/xyAY3EF/s3KOf93luo=;
+	b=xpWUmkYd2XBrIxHYxPoiHyALRZ1kTEsV2CbMoi0p1HiDWixcjiQcRvQt2UfWKs/6RJ
+	/qNIbHoVOHzsKx8X0BvBwJxgk7M5uSn3A7DTb9V6NYSvum0/0LG+rk9Cd2NVnPFRgaOr
+	z1ZFAae+8CphOFYCckAY2CLEcjuuR1KjjZpW7pxyhwCrNYtF9ahBhUhc23+9JvhhBirB
+	jAEexOObORXJQX43xcbb1+kCc/HGl91B0N05oTIo5ZE5veT1RGXpflnqHhxR3iWpoT0Z
+	4hAmAUpQHSOwfI4oLiGVfAtaVG4XySi41Qy8ozIoOp79YqSGXCAF0TcVI05taKsVKR9A
+	ZaYw==
+X-Received: by 10.180.185.197 with SMTP id fe5mr41372671wic.56.1396560633770; 
+	Thu, 03 Apr 2014 14:30:33 -0700 (PDT)
+Received: from bloomfield.localnet ([2001:718:1e03:a01::514])
+	by mx.google.com with ESMTPSA id
+	h47sm14785006eey.13.2014.04.03.14.30.32 for <multiple recipients>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Thu, 03 Apr 2014 14:30:32 -0700 (PDT)
+From: Pavel Herrmann <morpheus.ibis@gmail.com>
+To: linux-cluster@redhat.com
+Date: Thu, 03 Apr 2014 23:30:32 +0200
+Message-ID: <2878037.uhyBF5WAPy@bloomfield>
+User-Agent: KMail/4.12.2 (Linux/3.10.9-gentoo; KDE/4.12.2; x86_64; ; )
+In-Reply-To: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-RedHat-Spam-Score: -3.099  (BAYES_00, DCC_REPUT_00_12, DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_LOW,
+	SPF_PASS, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.16
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 21:36:23 -0000
+
+Hi
+
+On Thursday 03 of April 2014 15:58:30 Vallevand, Mark K wrote:
+> I'm looking for a simple way to replicate data within a cluster.
+> 
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when a
+> node crashes, the resource will have its configuration present on the node
+> on which it is restarted.  We're talking about a few kb of data, probably
+> in one file, probably text.  A typical cluster would have multiple
+> resources (more than two), one resource per node and one extra node.
+
+I was facing a similar issue, but instead of going for full cluster stack (i 
+didnt need it for the failover), I went for csync2
+
+if you absolutely need to have the changes propagated instantly, you need to 
+hook csync2 to inotify (google should give you options), or if you dont expect 
+any changes right before crashes, running with cron every few minutes might 
+suit your needs
+
+Regards
+Pavel Herrmann
+
+> 
+> Ideas?
+> 
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync? How big can a resource parameter be?  Could a resource
+> modify its parameters so that they are replicated throughout the cluster?
+> Is there a simple file replication Resource Agent?
+> Drdb seems like overkill.
+> 
+> Regards.
+> Mark K Vallevand  
+> Mark.Vallevand@Unisys.com<mailto:Mark.Vallevand@Unisys.com> May you live in
+> interesting times, may you come to the attention of important people and
+> may all your wishes come true. THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL
+> AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the
+> intended recipient. If you received this in error, please contact the
+> sender and delete the e-mail and its attachments from all computers.
+
+From prvs=017099ED5C=ricks@alldigital.com Thu Apr  3 17:51:43 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33Lph6M011314 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 17:51:43 -0400
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.19])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LpgsF005789
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:51:43 -0400
+Received: from corp.alldigital.com (mex2-r1.alldigital.com [70.183.30.217])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33LpelY006859
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:51:41 -0400
+Received: from prophead.hci.com (208.91.205.182) by
+	mex2-r1.corp.alldigital.com (192.168.4.180) with Microsoft SMTP Server
+	(TLS) id 14.1.438.0; Thu, 3 Apr 2014 14:51:37 -0700
+Message-ID: <533DD7E5.2020709@alldigital.com>
+Date: Thu, 3 Apr 2014 14:51:33 -0700
+From: Rick Stevens <ricks@alldigital.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: linux clustering <linux-cluster@redhat.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+In-Reply-To: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [208.91.205.182]
+X-RedHat-Spam-Score: -2.453  (BAYES_00, RP_MATCHES_RCVD, SPF_HELO_PASS,
+	SPF_PASS, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.19
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 21:51:43 -0000
+
+On 04/03/2014 01:58 PM, Vallevand, Mark K issued this missive:
+> I’m looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We’re talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+
+If you're OK with it and it's a small group of files/directories,
+why not use something like inotifywait and have it run a script that
+rsyncs the altered files to the other nodes when the files change? I've
+done it before and it works pretty well.
+-- 
+----------------------------------------------------------------------
+- Rick Stevens, Systems Engineer, AllDigital    ricks@alldigital.com -
+- AIM/Skype: therps2        ICQ: 22643734            Yahoo: origrps2 -
+-                                                                    -
+-              Never eat anything larger than your head              -
+----------------------------------------------------------------------
+
+From Mark.Vallevand@UNISYS.com Fri Apr  4 10:44:54 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34Eis6c022237 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 4 Apr 2014 10:44:54 -0400
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.17])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s34EirQn002882
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:44:54 -0400
+Received: from mail1.bemta8.messagelabs.com (mail1.bemta8.messagelabs.com
+	[216.82.243.202])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s34EiqTx008585
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:44:52 -0400
+Received: from [216.82.241.132:43665] by server-10.bemta-8.messagelabs.com id
+	B7/3A-27324-465CE335; Fri, 04 Apr 2014 14:44:52 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-15.tower-45.messagelabs.com!1396622687!29889044!13
+X-Originating-IP: [192.61.61.104]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 4901 invoked from network); 4 Apr 2014 14:44:51 -0000
+Received: from unknown (HELO USEA-NAEDGE1.unisys.com) (192.61.61.104)
+	by server-15.tower-45.messagelabs.com with RC4-SHA encrypted SMTP;
+	4 Apr 2014 14:44:51 -0000
+Received: from usea-nahubcas2.na.uis.unisys.com (129.224.76.115) by
+	USEA-NAEDGE1.unisys.com (192.61.61.104) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Fri, 4 Apr 2014 09:44:30 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	usea-nahubcas2.na.uis.unisys.com ([129.224.76.115]) with mapi;
+	Fri, 4 Apr 2014 09:44:28 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: linux clustering <linux-cluster@redhat.com>
+Date: Fri, 4 Apr 2014 09:44:26 -0500
+Thread-Topic: [Linux-cluster] Simple data replication in a cluster
+Thread-Index: Ac9Pg4iVDIIhyw3ATO6rCFvFm/n21gAkKjQQ
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E48A8EE3@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+	<533DCFF4.2070404@alteeve.ca>
+In-Reply-To: <533DCFF4.2070404@alteeve.ca>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: 0.691  (BAYES_50, DCC_REPUT_13_19, RCVD_IN_DNSWL_NONE,
+	SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.17
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s34Eis6c022237
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 04 Apr 2014 14:44:54 -0000
+
+Thanks.  I'll check out corosync.
+
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com
+May you live in interesting times, may you come to the attention of important people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the intended recipient. If you received this in error, please contact the sender and delete the e-mail and its attachments from all computers.
+
+
+-----Original Message-----
+From: linux-cluster-bounces@redhat.com [mailto:linux-cluster-bounces@redhat.com] On Behalf Of Digimer
+Sent: Thursday, April 03, 2014 04:18 PM
+To: linux clustering
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+
+On 03/04/14 04:58 PM, Vallevand, Mark K wrote:
+> I'm looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We're talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+>
+> Regards.
+> Mark K Vallevand Mark.Vallevand@Unisys.com
+
+If you don't want to use DRBD + gfs2 (what I use), then you'll probably 
+want to look at corosync directly for keeping the data in sync. 
+Pacemaker itself is a cluster resource manager and I don't think the cib 
+is well suited for general data sync'ing.
+
+-- 
+Digimer
+Papers and Projects: https://alteeve.ca/w/
+What if the cure for cancer is trapped in the mind of a person without 
+access to education?
+
+-- 
+Linux-cluster mailing list
+Linux-cluster@redhat.com
+https://www.redhat.com/mailman/listinfo/linux-cluster
+
+From Mark.Vallevand@UNISYS.com Fri Apr  4 10:48:51 2014
+Received: from int-mx13.intmail.prod.int.phx2.redhat.com
+	(int-mx13.intmail.prod.int.phx2.redhat.com [10.5.11.26])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34Emp24031319 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 4 Apr 2014 10:48:51 -0400
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.20])
+	by int-mx13.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s34EmocS027618
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:48:51 -0400
+Received: from mail1.bemta8.messagelabs.com (mail1.bemta8.messagelabs.com
+	[216.82.243.206])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s34Emdrf018943
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:48:39 -0400
+Received: from [216.82.241.196:53041] by server-14.bemta-8.messagelabs.com id
+	3D/C8-17171-646CE335; Fri, 04 Apr 2014 14:48:38 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-10.tower-46.messagelabs.com!1396622917!3040143!1
+X-Originating-IP: [192.61.61.104]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 26721 invoked from network); 4 Apr 2014 14:48:38 -0000
+Received: from unknown (HELO USEA-NAEDGE1.unisys.com) (192.61.61.104)
+	by server-10.tower-46.messagelabs.com with RC4-SHA encrypted SMTP;
+	4 Apr 2014 14:48:38 -0000
+Received: from USEA-NAHUBCAS4.na.uis.unisys.com (129.224.76.29) by
+	USEA-NAEDGE1.unisys.com (192.61.61.104) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Fri, 4 Apr 2014 09:48:33 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	USEA-NAHUBCAS4.na.uis.unisys.com ([129.224.76.29]) with mapi;
+	Fri, 4 Apr 2014 09:48:34 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: Pavel Herrmann <morpheus.ibis@gmail.com>, "linux-cluster@redhat.com"
+	<linux-cluster@redhat.com>
+Date: Fri, 4 Apr 2014 09:48:31 -0500
+Thread-Topic: [Linux-cluster] Simple data replication in a cluster
+Thread-Index: Ac9Pg/qPH7mlDJjRTxCCIHpnq6wHwgAkJd1A
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E48A8EFD@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+	<2878037.uhyBF5WAPy@bloomfield>
+In-Reply-To: <2878037.uhyBF5WAPy@bloomfield>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -0.11  (BAYES_40, DCC_REPUT_13_19, RCVD_IN_DNSWL_NONE,
+	SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.26
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.20
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s34Emp24031319
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 04 Apr 2014 14:48:51 -0000
+
+Thanks.  A good idea.  I've considered using csync2 (and similar things).  I use unison for syncing in my current clusters.  But that is done to simplify installation/configuration by the user.  My scripts push the static application data around the cluster when the user is installing.  
+
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com
+May you live in interesting times, may you come to the attention of important people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the intended recipient. If you received this in error, please contact the sender and delete the e-mail and its attachments from all computers.
+
+
+-----Original Message-----
+From: Pavel Herrmann [mailto:morpheus.ibis@gmail.com] 
+Sent: Thursday, April 03, 2014 04:31 PM
+To: linux-cluster@redhat.com
+Cc: Vallevand, Mark K
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+
+Hi
+
+On Thursday 03 of April 2014 15:58:30 Vallevand, Mark K wrote:
+> I'm looking for a simple way to replicate data within a cluster.
+> 
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when a
+> node crashes, the resource will have its configuration present on the node
+> on which it is restarted.  We're talking about a few kb of data, probably
+> in one file, probably text.  A typical cluster would have multiple
+> resources (more than two), one resource per node and one extra node.
+
+I was facing a similar issue, but instead of going for full cluster stack (i 
+didnt need it for the failover), I went for csync2
+
+if you absolutely need to have the changes propagated instantly, you need to 
+hook csync2 to inotify (google should give you options), or if you dont expect 
+any changes right before crashes, running with cron every few minutes might 
+suit your needs
+
+Regards
+Pavel Herrmann
+
+> 
+> Ideas?
+> 
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync? How big can a resource parameter be?  Could a resource
+> modify its parameters so that they are replicated throughout the cluster?
+> Is there a simple file replication Resource Agent?
+> Drdb seems like overkill.
+> 
+> Regards.
+> Mark K Vallevand  
+> Mark.Vallevand@Unisys.com<mailto:Mark.Vallevand@Unisys.com> May you live in
+> interesting times, may you come to the attention of important people and
+> may all your wishes come true. THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL
+> AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the
+> intended recipient. If you received this in error, please contact the
+> sender and delete the e-mail and its attachments from all computers.
+
+
+From Mark.Vallevand@UNISYS.com Fri Apr  4 10:49:50 2014
+Received: from int-mx01.intmail.prod.int.phx2.redhat.com
+	(int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34EnoUl009158 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 4 Apr 2014 10:49:50 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx01.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34EnnlY013936
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:49:50 -0400
+Received: from mail1.bemta8.messagelabs.com (mail1.bemta8.messagelabs.com
+	[216.82.243.207])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s34EnlcZ024004
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:49:48 -0400
+Received: from [216.82.241.196:9577] by server-15.bemta-8.messagelabs.com id
+	68/8E-11047-B86CE335; Fri, 04 Apr 2014 14:49:47 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-11.tower-46.messagelabs.com!1396622981!27783220!14
+X-Originating-IP: [192.61.61.104]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 18310 invoked from network); 4 Apr 2014 14:49:46 -0000
+Received: from unknown (HELO USEA-NAEDGE1.unisys.com) (192.61.61.104)
+	by server-11.tower-46.messagelabs.com with RC4-SHA encrypted SMTP;
+	4 Apr 2014 14:49:46 -0000
+Received: from usea-nahubcas2.na.uis.unisys.com (129.224.76.115) by
+	USEA-NAEDGE1.unisys.com (192.61.61.104) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Fri, 4 Apr 2014 09:49:01 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	usea-nahubcas2.na.uis.unisys.com ([129.224.76.115]) with mapi;
+	Fri, 4 Apr 2014 09:49:01 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: linux clustering <linux-cluster@redhat.com>
+Date: Fri, 4 Apr 2014 09:48:58 -0500
+Thread-Topic: [Linux-cluster] Simple data replication in a cluster
+Thread-Index: Ac9PiBn5+3hg1lfCTKujYgvDmfJP+AAjN8iQ
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E48A8F02@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+	<533DD7E5.2020709@alldigital.com>
+In-Reply-To: <533DD7E5.2020709@alldigital.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: 0.691  (BAYES_50, DCC_REPUT_13_19, RCVD_IN_DNSWL_NONE,
+	SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s34EnoUl009158
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 04 Apr 2014 14:49:50 -0000
+
+Yup.  I've considered similar.  Thanks!
+
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com
+May you live in interesting times, may you come to the attention of important people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the intended recipient. If you received this in error, please contact the sender and delete the e-mail and its attachments from all computers.
+
+
+-----Original Message-----
+From: linux-cluster-bounces@redhat.com [mailto:linux-cluster-bounces@redhat.com] On Behalf Of Rick Stevens
+Sent: Thursday, April 03, 2014 04:52 PM
+To: linux clustering
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+
+On 04/03/2014 01:58 PM, Vallevand, Mark K issued this missive:
+> I'm looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We're talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+
+If you're OK with it and it's a small group of files/directories,
+why not use something like inotifywait and have it run a script that
+rsyncs the altered files to the other nodes when the files change? I've
+done it before and it works pretty well.
+-- 
+----------------------------------------------------------------------
+- Rick Stevens, Systems Engineer, AllDigital    ricks@alldigital.com -
+- AIM/Skype: therps2        ICQ: 22643734            Yahoo: origrps2 -
+-                                                                    -
+-              Never eat anything larger than your head              -
+----------------------------------------------------------------------
+
+-- 
+Linux-cluster mailing list
+Linux-cluster@redhat.com
+https://www.redhat.com/mailman/listinfo/linux-cluster
+
+From bjoern.teipel@internetbrands.com Mon Apr  7 03:26:46 2014
+Received: from int-mx11.intmail.prod.int.phx2.redhat.com
+	(int-mx11.intmail.prod.int.phx2.redhat.com [10.5.11.24])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s377Qktl019267 for <linux-cluster@listman.util.phx.redhat.com>;
+	Mon, 7 Apr 2014 03:26:46 -0400
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.16])
+	by int-mx11.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s377QkgM023030
+	for <linux-cluster@redhat.com>; Mon, 7 Apr 2014 03:26:46 -0400
+Received: from mail-qc0-f173.google.com (mail-qc0-f173.google.com
+	[209.85.216.173])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s377QhQ9030428
+	for <linux-cluster@redhat.com>; Mon, 7 Apr 2014 03:26:44 -0400
+Received: by mail-qc0-f173.google.com with SMTP id r5so5971642qcx.18
+	for <linux-cluster@redhat.com>; Mon, 07 Apr 2014 00:26:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:date:message-id:subject:from:to
+	:content-type;
+	bh=6q4LaewFQRLCvLplJdMS7rq4mB28wtxMZc5VnmLQxJM=;
+	b=IXPdzcLwnsssyRd8Heyz465f0b2J0z5mg5j6QfPsP8yQUO79OdFPPmwD4EtCi/8v2F
+	TuJOY7OYxSBdnDDrTb4J2cbSZaAXktd2BG58d9oVYOUhJwKdjkMEjcDeFWvfcJKCoAj2
+	3MSBLK2ClC4sdeeWry48DPXD3JRed2XXs6JGI5RH2UkROnNZrZiLYsvBhgfG+6mu1nee
+	Nvg4FtlmbjYJB3hReR4A2rprxNzfqRrj7bK3P3z3CQgAYOuLlFNskjMz8497v/Hm8Ax5
+	hPkTh9l/FkDlhcPjlasgbwoq68km28D/M+Mi/HOMwUFLiupu838tPm0m776iImG0na4K
+	+SSQ==
+X-Gm-Message-State: ALoCoQnballfKO/ZKyX8gRUAJfotv5hIf1ro3dYsgPGwTl7hCWSLd9YmCMTvHJOjc5Abu5BuTAeD
+MIME-Version: 1.0
+X-Received: by 10.224.49.67 with SMTP id u3mr13287900qaf.63.1396855603430;
+	Mon, 07 Apr 2014 00:26:43 -0700 (PDT)
+Received: by 10.96.19.67 with HTTP; Mon, 7 Apr 2014 00:26:43 -0700 (PDT)
+Date: Mon, 7 Apr 2014 00:26:43 -0700
+Message-ID: <CAE6679=O70LmPCRD2HD7uwNpC+exQMqaStkqinEf0W+v2=4iBg@mail.gmail.com>
+From: Bjoern Teipel <bjoern.teipel@internetbrands.com>
+To: linux clustering <linux-cluster@redhat.com>
+Content-Type: text/plain; charset=ISO-8859-1
+X-RedHat-Spam-Score: -2.601  (BAYES_00,RCVD_IN_DNSWL_LOW,SPF_PASS)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.24
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.16
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster] DLM nodes disconnected issue
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Mon, 07 Apr 2014 07:26:46 -0000
+
+H all,
+
+i did a dlm_tool leave clvmd on one node (node06) of a CMAN cluster with CLVMD
+Now I have the problem that clvmd is stuck and all nodes lost
+connections to DLM.
+For some reason dlm want's to fence member 8 I guess and that might
+stuck the whole dlm?
+All other stacks, cman, corosync look fine...
+
+Thanks,
+Bjoern
+
+Error:
+
+dlm: closing connection to node 2
+dlm: closing connection to node 3
+dlm: closing connection to node 4
+dlm: closing connection to node 5
+dlm: closing connection to node 6
+dlm: closing connection to node 8
+dlm: closing connection to node 9
+dlm: closing connection to node 10
+dlm: closing connection to node 2
+dlm: closing connection to node 3
+dlm: closing connection to node 4
+dlm: closing connection to node 5
+dlm: closing connection to node 6
+dlm: closing connection to node 8
+dlm: closing connection to node 9
+dlm: closing connection to node 10
+INFO: task dlm_tool:33699 blocked for more than 120 seconds.
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+dlm_tool      D 0000000000000003     0 33699  33698 0x00000080
+ ffff88138905dcc0 0000000000000082 ffffffff81168043 ffff88138905dd18
+ ffff88138905dd08 ffff88305b30ccc0 ffff88304fa5c800 ffff883058e49900
+ ffff881857329058 ffff88138905dfd8 000000000000fb88 ffff881857329058
+Call Trace:
+ [<ffffffff81168043>] ? kmem_cache_alloc_trace+0x1a3/0x1b0
+ [<ffffffff8132f79a>] ? misc_open+0x1ca/0x320
+ [<ffffffff81510725>] rwsem_down_failed_common+0x95/0x1d0
+ [<ffffffff81185505>] ? chrdev_open+0x125/0x230
+ [<ffffffff815108b6>] rwsem_down_read_failed+0x26/0x30
+ [<ffffffff8117e5ff>] ? __dentry_open+0x23f/0x360
+ [<ffffffff81283894>] call_rwsem_down_read_failed+0x14/0x30
+ [<ffffffff8150fdb4>] ? down_read+0x24/0x30
+ [<ffffffffa06d948d>] dlm_clear_proc_locks+0x3d/0x2a0 [dlm]
+ [<ffffffff811dfed6>] ? generic_acl_chmod+0x46/0xd0
+ [<ffffffffa06e4b36>] device_close+0x66/0xc0 [dlm]
+ [<ffffffff81182b45>] __fput+0xf5/0x210
+ [<ffffffff81182c85>] fput+0x25/0x30
+ [<ffffffff8117e0dd>] filp_close+0x5d/0x90
+ [<ffffffff8117e1b5>] sys_close+0xa5/0x100
+ [<ffffffff8100b072>] system_call_fastpath+0x16/0x1b
+
+
+
+Status:
+
+cman_tool nodes
+Node  Sts   Inc   Joined               Name
+   1   M  18908   2014-03-24 19:01:00  node01
+   2   M  18972   2014-04-06 22:47:57  node02
+   3   M  18972   2014-04-06 22:47:57  node03
+   4   M  18972   2014-04-06 22:47:57  node04
+   5   M  18972   2014-04-06 22:47:57  node05
+   6   X  18960                        node06
+   7   X  18928                        node07
+   8   M  18972   2014-04-06 22:47:57  node08
+   9   M  18972   2014-04-06 22:47:57  node09
+  10   M  18972   2014-04-06 22:47:57  node10
+
+dlm lockspaces
+name          clvmd
+id            0x4104eefa
+flags         0x00000004 kern_stop
+change        member 8 joined 0 remove 1 failed 0 seq 11,11
+members       1 2 3 4 5 8 9 10
+new change    member 8 joined 1 remove 0 failed 0 seq 12,41
+new status    wait_messages 0 wait_condition 1 fencing
+new members   1 2 3 4 5 8 9 10
+
+
+
+DLM dump:
+1396849677 cluster node 2 added seq 18972
+1396849677 set_configfs_node 2 10.14.18.66 local 0
+1396849677 cluster node 3 added seq 18972
+1396849677 set_configfs_node 3 10.14.18.67 local 0
+1396849677 cluster node 4 added seq 18972
+1396849677 set_configfs_node 4 10.14.18.68 local 0
+1396849677 cluster node 5 added seq 18972
+1396849677 set_configfs_node 5 10.14.18.70 local 0
+1396849677 cluster node 8 added seq 18972
+1396849677 set_configfs_node 8 10.14.18.80 local 0
+1396849677 cluster node 9 added seq 18972
+1396849677 set_configfs_node 9 10.14.18.81 local 0
+1396849677 cluster node 10 added seq 18972
+1396849677 set_configfs_node 10 10.14.18.77 local 0
+1396849677 dlm:ls:clvmd conf 2 1 0 memb 1 3 join 3 left
+1396849677 clvmd add_change cg 35 joined nodeid 3
+1396849677 clvmd add_change cg 35 counts member 2 joined 1 remove 0 failed 0
+1396849677 dlm:ls:clvmd conf 3 1 0 memb 1 2 3 join 2 left
+1396849677 clvmd add_change cg 36 joined nodeid 2
+1396849677 clvmd add_change cg 36 counts member 3 joined 1 remove 0 failed 0
+1396849677 dlm:ls:clvmd conf 4 1 0 memb 1 2 3 9 join 9 left
+1396849677 clvmd add_change cg 37 joined nodeid 9
+1396849677 clvmd add_change cg 37 counts member 4 joined 1 remove 0 failed 0
+1396849677 dlm:ls:clvmd conf 5 1 0 memb 1 2 3 8 9 join 8 left
+1396849677 clvmd add_change cg 38 joined nodeid 8
+1396849677 clvmd add_change cg 38 counts member 5 joined 1 remove 0 failed 0
+1396849677 dlm:ls:clvmd conf 6 1 0 memb 1 2 3 8 9 10 join 10 left
+1396849677 clvmd add_change cg 39 joined nodeid 10
+1396849677 clvmd add_change cg 39 counts member 6 joined 1 remove 0 failed 0
+1396849677 dlm:ls:clvmd conf 7 1 0 memb 1 2 3 5 8 9 10 join 5 left
+1396849677 clvmd add_change cg 40 joined nodeid 5
+1396849677 clvmd add_change cg 40 counts member 7 joined 1 remove 0 failed 0
+1396849677 dlm:ls:clvmd conf 8 1 0 memb 1 2 3 4 5 8 9 10 join 4 left
+1396849677 clvmd add_change cg 41 joined nodeid 4
+1396849677 clvmd add_change cg 41 counts member 8 joined 1 remove 0 failed 0
+1396849677 dlm:controld conf 2 1 0 memb 1 3 join 3 left
+1396849677 dlm:controld conf 3 1 0 memb 1 2 3 join 2 left
+1396849677 dlm:controld conf 4 1 0 memb 1 2 3 9 join 9 left
+1396849677 dlm:controld conf 5 1 0 memb 1 2 3 8 9 join 8 left
+1396849677 dlm:controld conf 6 1 0 memb 1 2 3 8 9 10 join 10 left
+1396849677 dlm:controld conf 7 1 0 memb 1 2 3 5 8 9 10 join 5 left
+1396849677 dlm:controld conf 8 1 0 memb 1 2 3 4 5 8 9 10 join 4 left
+
+From emi2fast@gmail.com Mon Apr  7 03:44:06 2014
+Received: from int-mx13.intmail.prod.int.phx2.redhat.com
+	(int-mx13.intmail.prod.int.phx2.redhat.com [10.5.11.26])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s377i6A3029519 for <linux-cluster@listman.util.phx.redhat.com>;
+	Mon, 7 Apr 2014 03:44:06 -0400
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.17])
+	by int-mx13.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s377i6MF025413
+	for <linux-cluster@redhat.com>; Mon, 7 Apr 2014 03:44:06 -0400
+Received: from mail-oa0-f51.google.com (mail-oa0-f51.google.com
+	[209.85.219.51])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s377i42R008385
+	for <linux-cluster@redhat.com>; Mon, 7 Apr 2014 03:44:04 -0400
+Received: by mail-oa0-f51.google.com with SMTP id i4so6304093oah.10
+	for <linux-cluster@redhat.com>; Mon, 07 Apr 2014 00:44:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type; bh=WO6epcovBo3gaYeMXEfoKzoSx9PxLLZ9A1UZ+EKgfZo=;
+	b=J6LwWCkoiILrc1czYS6AaKTh9JS8K/QPeOElA9f8AqMthivRpkorwzvP8U3DIRdvP9
+	jQC6479AbshEmMJKPvWKFAws7ZJkuYld6PQ2krPbBeJqYqEC9O+axtQmt8lEnC6ewTEQ
+	Kadyj7KoDudwat3Ofou1x3+wP1S3wesK8fb6vEQogF+Jn5UOV3JYkUbaypmMmydLyvUP
+	ov+rad8GJMKqlWQn/lppHv7GXXsGvoFkkkWAcZyjP0zSWJ6P7Sf8q2GzukICrGwwDvUk
+	qA13YkICW0PiuCvIJRp6sMSnveFntfWc0Lb8+zMXnCdvVUxQbpnutB91Y4fzMuj5uI5i
+	Q6/w==
+MIME-Version: 1.0
+X-Received: by 10.60.58.7 with SMTP id m7mr581497oeq.59.1396856643743; Mon, 07
+	Apr 2014 00:44:03 -0700 (PDT)
+Received: by 10.76.81.3 with HTTP; Mon, 7 Apr 2014 00:44:03 -0700 (PDT)
+In-Reply-To: <CAE6679=O70LmPCRD2HD7uwNpC+exQMqaStkqinEf0W+v2=4iBg@mail.gmail.com>
+References: <CAE6679=O70LmPCRD2HD7uwNpC+exQMqaStkqinEf0W+v2=4iBg@mail.gmail.com>
+Date: Mon, 7 Apr 2014 09:44:03 +0200
+Message-ID: <CAE7pJ3B9Z3EmS9YhAfq7iRasj31EW7R_DMLy+UH6zQaTN08e6w@mail.gmail.com>
+From: emmanuel segura <emi2fast@gmail.com>
+To: linux clustering <linux-cluster@redhat.com>
+Content-Type: multipart/alternative; boundary=089e01538c560d74cb04f66f08ad
+X-RedHat-Spam-Score: -2.698  (BAYES_00, DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, HTML_MESSAGE, RCVD_IN_DNSWL_LOW, SPF_PASS,
+	URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.26
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.17
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] DLM nodes disconnected issue
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Mon, 07 Apr 2014 07:44:06 -0000
+
+--089e01538c560d74cb04f66f08ad
+Content-Type: text/plain; charset=ISO-8859-1
+
+your fencing is working ? because i see this from your dlm lockspace "new
+status    wait_messages 0 wait_condition 1 fencing".
+
+
+2014-04-07 9:26 GMT+02:00 Bjoern Teipel <bjoern.teipel@internetbrands.com>:
+
+> H all,
+>
+> i did a dlm_tool leave clvmd on one node (node06) of a CMAN cluster with
+> CLVMD
+> Now I have the problem that clvmd is stuck and all nodes lost
+> connections to DLM.
+> For some reason dlm want's to fence member 8 I guess and that might
+> stuck the whole dlm?
+> All other stacks, cman, corosync look fine...
+>
+> Thanks,
+> Bjoern
+>
+> Error:
+>
+> dlm: closing connection to node 2
+> dlm: closing connection to node 3
+> dlm: closing connection to node 4
+> dlm: closing connection to node 5
+> dlm: closing connection to node 6
+> dlm: closing connection to node 8
+> dlm: closing connection to node 9
+> dlm: closing connection to node 10
+> dlm: closing connection to node 2
+> dlm: closing connection to node 3
+> dlm: closing connection to node 4
+> dlm: closing connection to node 5
+> dlm: closing connection to node 6
+> dlm: closing connection to node 8
+> dlm: closing connection to node 9
+> dlm: closing connection to node 10
+> INFO: task dlm_tool:33699 blocked for more than 120 seconds.
+> "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+> dlm_tool      D 0000000000000003     0 33699  33698 0x00000080
+>  ffff88138905dcc0 0000000000000082 ffffffff81168043 ffff88138905dd18
+>  ffff88138905dd08 ffff88305b30ccc0 ffff88304fa5c800 ffff883058e49900
+>  ffff881857329058 ffff88138905dfd8 000000000000fb88 ffff881857329058
+> Call Trace:
+>  [<ffffffff81168043>] ? kmem_cache_alloc_trace+0x1a3/0x1b0
+>  [<ffffffff8132f79a>] ? misc_open+0x1ca/0x320
+>  [<ffffffff81510725>] rwsem_down_failed_common+0x95/0x1d0
+>  [<ffffffff81185505>] ? chrdev_open+0x125/0x230
+>  [<ffffffff815108b6>] rwsem_down_read_failed+0x26/0x30
+>  [<ffffffff8117e5ff>] ? __dentry_open+0x23f/0x360
+>  [<ffffffff81283894>] call_rwsem_down_read_failed+0x14/0x30
+>  [<ffffffff8150fdb4>] ? down_read+0x24/0x30
+>  [<ffffffffa06d948d>] dlm_clear_proc_locks+0x3d/0x2a0 [dlm]
+>  [<ffffffff811dfed6>] ? generic_acl_chmod+0x46/0xd0
+>  [<ffffffffa06e4b36>] device_close+0x66/0xc0 [dlm]
+>  [<ffffffff81182b45>] __fput+0xf5/0x210
+>  [<ffffffff81182c85>] fput+0x25/0x30
+>  [<ffffffff8117e0dd>] filp_close+0x5d/0x90
+>  [<ffffffff8117e1b5>] sys_close+0xa5/0x100
+>  [<ffffffff8100b072>] system_call_fastpath+0x16/0x1b
+>
+>
+>
+> Status:
+>
+> cman_tool nodes
+> Node  Sts   Inc   Joined               Name
+>    1   M  18908   2014-03-24 19:01:00  node01
+>    2   M  18972   2014-04-06 22:47:57  node02
+>    3   M  18972   2014-04-06 22:47:57  node03
+>    4   M  18972   2014-04-06 22:47:57  node04
+>    5   M  18972   2014-04-06 22:47:57  node05
+>    6   X  18960                        node06
+>    7   X  18928                        node07
+>    8   M  18972   2014-04-06 22:47:57  node08
+>    9   M  18972   2014-04-06 22:47:57  node09
+>   10   M  18972   2014-04-06 22:47:57  node10
+>
+> dlm lockspaces
+> name          clvmd
+> id            0x4104eefa
+> flags         0x00000004 kern_stop
+> change        member 8 joined 0 remove 1 failed 0 seq 11,11
+> members       1 2 3 4 5 8 9 10
+> new change    member 8 joined 1 remove 0 failed 0 seq 12,41
+> new status    wait_messages 0 wait_condition 1 fencing
+> new members   1 2 3 4 5 8 9 10
+>
+>
+>
+> DLM dump:
+> 1396849677 cluster node 2 added seq 18972
+> 1396849677 set_configfs_node 2 10.14.18.66 local 0
+> 1396849677 cluster node 3 added seq 18972
+> 1396849677 set_configfs_node 3 10.14.18.67 local 0
+> 1396849677 cluster node 4 added seq 18972
+> 1396849677 set_configfs_node 4 10.14.18.68 local 0
+> 1396849677 cluster node 5 added seq 18972
+> 1396849677 set_configfs_node 5 10.14.18.70 local 0
+> 1396849677 cluster node 8 added seq 18972
+> 1396849677 set_configfs_node 8 10.14.18.80 local 0
+> 1396849677 cluster node 9 added seq 18972
+> 1396849677 set_configfs_node 9 10.14.18.81 local 0
+> 1396849677 cluster node 10 added seq 18972
+> 1396849677 set_configfs_node 10 10.14.18.77 local 0
+> 1396849677 dlm:ls:clvmd conf 2 1 0 memb 1 3 join 3 left
+> 1396849677 clvmd add_change cg 35 joined nodeid 3
+> 1396849677 clvmd add_change cg 35 counts member 2 joined 1 remove 0 failed
+> 0
+> 1396849677 dlm:ls:clvmd conf 3 1 0 memb 1 2 3 join 2 left
+> 1396849677 clvmd add_change cg 36 joined nodeid 2
+> 1396849677 clvmd add_change cg 36 counts member 3 joined 1 remove 0 failed
+> 0
+> 1396849677 dlm:ls:clvmd conf 4 1 0 memb 1 2 3 9 join 9 left
+> 1396849677 clvmd add_change cg 37 joined nodeid 9
+> 1396849677 clvmd add_change cg 37 counts member 4 joined 1 remove 0 failed
+> 0
+> 1396849677 dlm:ls:clvmd conf 5 1 0 memb 1 2 3 8 9 join 8 left
+> 1396849677 clvmd add_change cg 38 joined nodeid 8
+> 1396849677 clvmd add_change cg 38 counts member 5 joined 1 remove 0 failed
+> 0
+> 1396849677 dlm:ls:clvmd conf 6 1 0 memb 1 2 3 8 9 10 join 10 left
+> 1396849677 clvmd add_change cg 39 joined nodeid 10
+> 1396849677 clvmd add_change cg 39 counts member 6 joined 1 remove 0 failed
+> 0
+> 1396849677 dlm:ls:clvmd conf 7 1 0 memb 1 2 3 5 8 9 10 join 5 left
+> 1396849677 clvmd add_change cg 40 joined nodeid 5
+> 1396849677 clvmd add_change cg 40 counts member 7 joined 1 remove 0 failed
+> 0
+> 1396849677 dlm:ls:clvmd conf 8 1 0 memb 1 2 3 4 5 8 9 10 join 4 left
+> 1396849677 clvmd add_change cg 41 joined nodeid 4
+> 1396849677 clvmd add_change cg 41 counts member 8 joined 1 remove 0 failed
+> 0
+> 1396849677 dlm:controld conf 2 1 0 memb 1 3 join 3 left
+> 1396849677 dlm:controld conf 3 1 0 memb 1 2 3 join 2 left
+> 1396849677 dlm:controld conf 4 1 0 memb 1 2 3 9 join 9 left
+> 1396849677 dlm:controld conf 5 1 0 memb 1 2 3 8 9 join 8 left
+> 1396849677 dlm:controld conf 6 1 0 memb 1 2 3 8 9 10 join 10 left
+> 1396849677 dlm:controld conf 7 1 0 memb 1 2 3 5 8 9 10 join 5 left
+> 1396849677 dlm:controld conf 8 1 0 memb 1 2 3 4 5 8 9 10 join 4 left
+>
+> --
+> Linux-cluster mailing list
+> Linux-cluster@redhat.com
+> https://www.redhat.com/mailman/listinfo/linux-cluster
+>
+
+
+
+-- 
+esta es mi vida e me la vivo hasta que dios quiera
+
+--089e01538c560d74cb04f66f08ad
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">your fencing is working ? because i see this from your dlm=
+ lockspace &quot;new status =A0 =A0wait_messages 0 wait_condition 1 fencing=
+&quot;. <br></div><div class=3D"gmail_extra"><br><br><div class=3D"gmail_qu=
+ote">2014-04-07 9:26 GMT+02:00 Bjoern Teipel <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:bjoern.teipel@internetbrands.com" target=3D"_blank">bjoern.teipe=
+l@internetbrands.com</a>&gt;</span>:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">H all,<br>
+<br>
+i did a dlm_tool leave clvmd on one node (node06) of a CMAN cluster with CL=
+VMD<br>
+Now I have the problem that clvmd is stuck and all nodes lost<br>
+connections to DLM.<br>
+For some reason dlm want&#39;s to fence member 8 I guess and that might<br>
+stuck the whole dlm?<br>
+All other stacks, cman, corosync look fine...<br>
+<br>
+Thanks,<br>
+Bjoern<br>
+<br>
+Error:<br>
+<br>
+dlm: closing connection to node 2<br>
+dlm: closing connection to node 3<br>
+dlm: closing connection to node 4<br>
+dlm: closing connection to node 5<br>
+dlm: closing connection to node 6<br>
+dlm: closing connection to node 8<br>
+dlm: closing connection to node 9<br>
+dlm: closing connection to node 10<br>
+dlm: closing connection to node 2<br>
+dlm: closing connection to node 3<br>
+dlm: closing connection to node 4<br>
+dlm: closing connection to node 5<br>
+dlm: closing connection to node 6<br>
+dlm: closing connection to node 8<br>
+dlm: closing connection to node 9<br>
+dlm: closing connection to node 10<br>
+INFO: task dlm_tool:33699 blocked for more than 120 seconds.<br>
+&quot;echo 0 &gt; /proc/sys/kernel/hung_task_timeout_secs&quot; disables th=
+is message.<br>
+dlm_tool =A0 =A0 =A0D 0000000000000003 =A0 =A0 0 33699 =A033698 0x00000080<=
+br>
+=A0ffff88138905dcc0 0000000000000082 ffffffff81168043 ffff88138905dd18<br>
+=A0ffff88138905dd08 ffff88305b30ccc0 ffff88304fa5c800 ffff883058e49900<br>
+=A0ffff881857329058 ffff88138905dfd8 000000000000fb88 ffff881857329058<br>
+Call Trace:<br>
+=A0[&lt;ffffffff81168043&gt;] ? kmem_cache_alloc_trace+0x1a3/0x1b0<br>
+=A0[&lt;ffffffff8132f79a&gt;] ? misc_open+0x1ca/0x320<br>
+=A0[&lt;ffffffff81510725&gt;] rwsem_down_failed_common+0x95/0x1d0<br>
+=A0[&lt;ffffffff81185505&gt;] ? chrdev_open+0x125/0x230<br>
+=A0[&lt;ffffffff815108b6&gt;] rwsem_down_read_failed+0x26/0x30<br>
+=A0[&lt;ffffffff8117e5ff&gt;] ? __dentry_open+0x23f/0x360<br>
+=A0[&lt;ffffffff81283894&gt;] call_rwsem_down_read_failed+0x14/0x30<br>
+=A0[&lt;ffffffff8150fdb4&gt;] ? down_read+0x24/0x30<br>
+=A0[&lt;ffffffffa06d948d&gt;] dlm_clear_proc_locks+0x3d/0x2a0 [dlm]<br>
+=A0[&lt;ffffffff811dfed6&gt;] ? generic_acl_chmod+0x46/0xd0<br>
+=A0[&lt;ffffffffa06e4b36&gt;] device_close+0x66/0xc0 [dlm]<br>
+=A0[&lt;ffffffff81182b45&gt;] __fput+0xf5/0x210<br>
+=A0[&lt;ffffffff81182c85&gt;] fput+0x25/0x30<br>
+=A0[&lt;ffffffff8117e0dd&gt;] filp_close+0x5d/0x90<br>
+=A0[&lt;ffffffff8117e1b5&gt;] sys_close+0xa5/0x100<br>
+=A0[&lt;ffffffff8100b072&gt;] system_call_fastpath+0x16/0x1b<br>
+<br>
+<br>
+<br>
+Status:<br>
+<br>
+cman_tool nodes<br>
+Node =A0Sts =A0 Inc =A0 Joined =A0 =A0 =A0 =A0 =A0 =A0 =A0 Name<br>
+=A0 =A01 =A0 M =A018908 =A0 2014-03-24 19:01:00 =A0node01<br>
+=A0 =A02 =A0 M =A018972 =A0 2014-04-06 22:47:57 =A0node02<br>
+=A0 =A03 =A0 M =A018972 =A0 2014-04-06 22:47:57 =A0node03<br>
+=A0 =A04 =A0 M =A018972 =A0 2014-04-06 22:47:57 =A0node04<br>
+=A0 =A05 =A0 M =A018972 =A0 2014-04-06 22:47:57 =A0node05<br>
+=A0 =A06 =A0 X =A018960 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0node=
+06<br>
+=A0 =A07 =A0 X =A018928 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0node=
+07<br>
+=A0 =A08 =A0 M =A018972 =A0 2014-04-06 22:47:57 =A0node08<br>
+=A0 =A09 =A0 M =A018972 =A0 2014-04-06 22:47:57 =A0node09<br>
+=A0 10 =A0 M =A018972 =A0 2014-04-06 22:47:57 =A0node10<br>
+<br>
+dlm lockspaces<br>
+name =A0 =A0 =A0 =A0 =A0clvmd<br>
+id =A0 =A0 =A0 =A0 =A0 =A00x4104eefa<br>
+flags =A0 =A0 =A0 =A0 0x00000004 kern_stop<br>
+change =A0 =A0 =A0 =A0member 8 joined 0 remove 1 failed 0 seq 11,11<br>
+members =A0 =A0 =A0 1 2 3 4 5 8 9 10<br>
+new change =A0 =A0member 8 joined 1 remove 0 failed 0 seq 12,41<br>
+new status =A0 =A0wait_messages 0 wait_condition 1 fencing<br>
+new members =A0 1 2 3 4 5 8 9 10<br>
+<br>
+<br>
+<br>
+DLM dump:<br>
+1396849677 cluster node 2 added seq 18972<br>
+1396849677 set_configfs_node 2 10.14.18.66 local 0<br>
+1396849677 cluster node 3 added seq 18972<br>
+1396849677 set_configfs_node 3 10.14.18.67 local 0<br>
+1396849677 cluster node 4 added seq 18972<br>
+1396849677 set_configfs_node 4 10.14.18.68 local 0<br>
+1396849677 cluster node 5 added seq 18972<br>
+1396849677 set_configfs_node 5 10.14.18.70 local 0<br>
+1396849677 cluster node 8 added seq 18972<br>
+1396849677 set_configfs_node 8 10.14.18.80 local 0<br>
+1396849677 cluster node 9 added seq 18972<br>
+1396849677 set_configfs_node 9 10.14.18.81 local 0<br>
+1396849677 cluster node 10 added seq 18972<br>
+1396849677 set_configfs_node 10 10.14.18.77 local 0<br>
+1396849677 dlm:ls:clvmd conf 2 1 0 memb 1 3 join 3 left<br>
+1396849677 clvmd add_change cg 35 joined nodeid 3<br>
+1396849677 clvmd add_change cg 35 counts member 2 joined 1 remove 0 failed =
+0<br>
+1396849677 dlm:ls:clvmd conf 3 1 0 memb 1 2 3 join 2 left<br>
+1396849677 clvmd add_change cg 36 joined nodeid 2<br>
+1396849677 clvmd add_change cg 36 counts member 3 joined 1 remove 0 failed =
+0<br>
+1396849677 dlm:ls:clvmd conf 4 1 0 memb 1 2 3 9 join 9 left<br>
+1396849677 clvmd add_change cg 37 joined nodeid 9<br>
+1396849677 clvmd add_change cg 37 counts member 4 joined 1 remove 0 failed =
+0<br>
+1396849677 dlm:ls:clvmd conf 5 1 0 memb 1 2 3 8 9 join 8 left<br>
+1396849677 clvmd add_change cg 38 joined nodeid 8<br>
+1396849677 clvmd add_change cg 38 counts member 5 joined 1 remove 0 failed =
+0<br>
+1396849677 dlm:ls:clvmd conf 6 1 0 memb 1 2 3 8 9 10 join 10 left<br>
+1396849677 clvmd add_change cg 39 joined nodeid 10<br>
+1396849677 clvmd add_change cg 39 counts member 6 joined 1 remove 0 failed =
+0<br>
+1396849677 dlm:ls:clvmd conf 7 1 0 memb 1 2 3 5 8 9 10 join 5 left<br>
+1396849677 clvmd add_change cg 40 joined nodeid 5<br>
+1396849677 clvmd add_change cg 40 counts member 7 joined 1 remove 0 failed =
+0<br>
+1396849677 dlm:ls:clvmd conf 8 1 0 memb 1 2 3 4 5 8 9 10 join 4 left<br>
+1396849677 clvmd add_change cg 41 joined nodeid 4<br>
+1396849677 clvmd add_change cg 41 counts member 8 joined 1 remove 0 failed =
+0<br>
+1396849677 dlm:controld conf 2 1 0 memb 1 3 join 3 left<br>
+1396849677 dlm:controld conf 3 1 0 memb 1 2 3 join 2 left<br>
+1396849677 dlm:controld conf 4 1 0 memb 1 2 3 9 join 9 left<br>
+1396849677 dlm:controld conf 5 1 0 memb 1 2 3 8 9 join 8 left<br>
+1396849677 dlm:controld conf 6 1 0 memb 1 2 3 8 9 10 join 10 left<br>
+1396849677 dlm:controld conf 7 1 0 memb 1 2 3 5 8 9 10 join 5 left<br>
+1396849677 dlm:controld conf 8 1 0 memb 1 2 3 4 5 8 9 10 join 4 left<br>
+<span class=3D"HOEnZb"><font color=3D"#888888"><br>
+--<br>
+Linux-cluster mailing list<br>
+<a href=3D"mailto:Linux-cluster@redhat.com">Linux-cluster@redhat.com</a><br=
+>
+<a href=3D"https://www.redhat.com/mailman/listinfo/linux-cluster" target=3D=
+"_blank">https://www.redhat.com/mailman/listinfo/linux-cluster</a><br>
+</font></span></blockquote></div><br><br clear=3D"all"><br>-- <br>esta es m=
+i vida e me la vivo hasta que dios quiera
+</div>
+
+--089e01538c560d74cb04f66f08ad--
+
+From mgrac@redhat.com Mon Apr  7 08:39:24 2014
+Received: from int-mx10.intmail.prod.int.phx2.redhat.com
+	(int-mx10.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s37CdOvb013298; Mon, 7 Apr 2014 08:39:24 -0400
+Received: from [10.34.131.208] (dhcp131-208.brq.redhat.com [10.34.131.208])
+	by int-mx10.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s37CdMVu004074; Mon, 7 Apr 2014 08:39:23 -0400
+Message-ID: <53429C7A.9050905@redhat.com>
+Date: Mon, 07 Apr 2014 14:39:22 +0200
+From: Marek Grac <mgrac@redhat.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.3.0
+MIME-Version: 1.0
+To: cluster-devel@redhat.com, linux clustering <linux-cluster@redhat.com>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.23
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster] fence-agents-4.0.8 stable release
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Mon, 07 Apr 2014 12:39:24 -0000
+
+Welcome to the fence-agents 4.0.8 release.
+
+This release includes new fence agent for Raritan and several bugfixes:
+
+* fence_wti respects delay option in telnet connections
+* fixed problem when using identity file for login via ssh
+* correct values in manual pages for symlinks
+* allow SSl connection to fallback to SSL 3.0 (--notls) used for HP iLO2
+
+
+The new source tarball can be downloaded here:
+
+https://fedorahosted.org/releases/f/e/fence-agents/fence-agents-4.0.8.tar.xz 
+
+
+To report bugs or issues:
+
+https://bugzilla.redhat.com/
+
+Would you like to meet the cluster team or members of its community?
+
+    Join us on IRC (irc.freenode.net #linux-cluster) and share your
+    experience  with other sysadministrators or power users.
+
+Thanks/congratulations to all people that contributed to achieve this
+great milestone.
+
+m,
+
+From lists@alteeve.ca Tue Apr 15 17:03:58 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3FL3wW3027855 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 15 Apr 2014 17:03:58 -0400
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.18])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3FL3wms017787
+	for <linux-cluster@redhat.com>; Tue, 15 Apr 2014 17:03:58 -0400
+Received: from vm08-mail01.alteeve.ca (mail.alteeve.ca [65.39.153.71])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3FL3uHi018452
+	for <linux-cluster@redhat.com>; Tue, 15 Apr 2014 17:03:56 -0400
+Received: from lemass.alteeve.ca (dhcp-108-168-20-202.cable.user.start.ca
+	[108.168.20.202])
+	by vm08-mail01.alteeve.ca (Postfix) with ESMTPSA id 4CC0920143
+	for <linux-cluster@redhat.com>; Tue, 15 Apr 2014 17:03:54 -0400 (EDT)
+Message-ID: <534D9EBB.80200@alteeve.ca>
+Date: Tue, 15 Apr 2014 17:03:55 -0400
+From: Digimer <lists@alteeve.ca>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: linux clustering <linux-cluster@redhat.com>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+X-RedHat-Spam-Score: -2.551  (BAYES_00,RP_MATCHES_RCVD,URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.18
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster] KVM Live migration when node's FS is read-only
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 15 Apr 2014 21:03:58 -0000
+
+Hi all,
+
+   So I hit a weird issue last week... (EL6 + cman + rgamanager + drbd)
+
+   For reasons unknown, a client thought they could start yanking and 
+replacing hard drives on a running node. Obviously, that did not end 
+well. The VMs that had been running on the node continues to operate 
+fine and they just started using the peer's storage.
+
+   The problem came when I tried to live-migrate the VMs over to the 
+still-good node. Obviously, the old host couldn't write to logs, and the 
+live-migration failed. Once failed, rgmanager also stopped working once 
+the migration failed. In the end, I had to manually fence the node 
+(corosync never failed, so it didn't get automatically fenced).
+
+   This obviously caused the VMs running on the node to reboot, causing 
+a ~40 second outage. It strikes me that the system *should* have been 
+able to migrate, had it not tried to write to the logs.
+
+   Is there a way, or can there be made a way, to migrate VMs off of a 
+node whose underlying FS is read-only/corrupt/destroyed, so long as the 
+programs in memory are still working?
+
+   I am sure this is part a part rgmanager, part KVM/qemu question.
+
+Thanks for any feedback!
+
+-- 
+Digimer
+Papers and Projects: https://alteeve.ca/w/
+What if the cure for cancer is trapped in the mind of a person without 
+access to education?
+
+From david.l.henley@hp.com Thu Apr 17 09:21:19 2014
+Received: from int-mx11.intmail.prod.int.phx2.redhat.com
+	(int-mx11.intmail.prod.int.phx2.redhat.com [10.5.11.24])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3HDLJXC015645 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 17 Apr 2014 09:21:19 -0400
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.18])
+	by int-mx11.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3HDLJJH019133
+	for <linux-cluster@redhat.com>; Thu, 17 Apr 2014 09:21:19 -0400
+Received: from g2t2354.austin.hp.com (g2t2354.austin.hp.com [15.217.128.53])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3HDLH8e001278
+	for <linux-cluster@redhat.com>; Thu, 17 Apr 2014 09:21:18 -0400
+Received: from G2W4316.americas.hpqcorp.net (g2w4316.austin.hp.com
+	[16.197.9.73]) (using TLSv1 with cipher AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by g2t2354.austin.hp.com (Postfix) with ESMTPS id C63F827D
+	for <linux-cluster@redhat.com>; Thu, 17 Apr 2014 13:21:17 +0000 (UTC)
+Received: from G2W4312.americas.hpqcorp.net (16.197.24.214) by
+	G2W4316.americas.hpqcorp.net (16.197.9.73) with Microsoft SMTP Server
+	(TLS) id 14.3.169.1; Thu, 17 Apr 2014 13:20:11 +0000
+Received: from G2W2431.americas.hpqcorp.net ([169.254.8.208]) by
+	G2W4312.americas.hpqcorp.net ([16.197.24.214]) with mapi id
+	14.03.0169.001; Thu, 17 Apr 2014 13:20:11 +0000
+From: "Henley, David (Solutions Architect Chicago)" <david.l.henley@hp.com>
+To: "linux-cluster@redhat.com" <linux-cluster@redhat.com>
+Thread-Topic: KVM availability groups
+Thread-Index: Ac9aPyeN/lrLg/7CQta+nLcyjEfKdQ==
+Date: Thu, 17 Apr 2014 13:20:11 +0000
+Message-ID: <9195F18F518EC7428E0397625DF6E1AE1890FF01@G2W2431.americas.hpqcorp.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [15.217.50.20]
+Content-Type: multipart/alternative;
+	boundary="_000_9195F18F518EC7428E0397625DF6E1AE1890FF01G2W2431americas_"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -102.561  (BAYES_00, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
+	RP_MATCHES_RCVD, USER_IN_WHITELIST)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.24
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.18
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster] KVM availability groups
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 17 Apr 2014 13:21:19 -0000
+
+--_000_9195F18F518EC7428E0397625DF6E1AE1890FF01G2W2431americas_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I have 8 to 10 Rack mount Servers running Red Hat KVM.
+I need to create 2 availability zones and a backup zone.
+
+
+1.       What tools do you use to create these? Is it always scripted or is=
+ there an open source interface similar to say Vcenter.
+
+2.       Are there KVM tools that monitor the zones?
+
+Thanks Dave
+
+David Henley
+Solutions Architect
+Hewlett-Packard Company
++1 815 341 2463
+dhenley@hp.com
+
+
+--_000_9195F18F518EC7428E0397625DF6E1AE1890FF01G2W2431americas_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri","sans-serif";}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:1680043813;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1199369280 67698703 67698713 67698715 67698703 67698=
+713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I have 8 to 10 Rack mount Servers running Red Hat KV=
+M.<o:p></o:p></p>
+<p class=3D"MsoNormal">I need to create 2 availability zones and a backup z=
+one.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo1"><![if !supportLists]><span style=3D"mso-list:Ignore">1.<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
+</span></span><![endif]>What tools do you use to create these? Is it always=
+ scripted or is there an open source interface similar to say Vcenter.<o:p>=
+</o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo1"><![if !supportLists]><span style=3D"mso-list:Ignore">2.<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
+</span></span><![endif]>Are there KVM tools that monitor the zones?<o:p></o=
+:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks Dave<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">David Henley<o:p></o:p></p>
+<p class=3D"MsoNormal">Solutions Architect<o:p></o:p></p>
+<p class=3D"MsoNormal">Hewlett-Packard Company<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;1 815 341 2463<o:p></o:p></p>
+<p class=3D"MsoNormal">dhenley@hp.com<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_9195F18F518EC7428E0397625DF6E1AE1890FF01G2W2431americas_--
+
+From morpheus.ibis@gmail.com Thu Apr 17 15:16:26 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3HJGQHc001569 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 17 Apr 2014 15:16:26 -0400
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.17])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3HJGQXM027109
+	for <linux-cluster@redhat.com>; Thu, 17 Apr 2014 15:16:26 -0400
+Received: from mail-ee0-f49.google.com (mail-ee0-f49.google.com [74.125.83.49])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3HJGO4K028143
+	for <linux-cluster@redhat.com>; Thu, 17 Apr 2014 15:16:25 -0400
+Received: by mail-ee0-f49.google.com with SMTP id c41so970522eek.8
+	for <linux-cluster@redhat.com>; Thu, 17 Apr 2014 12:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:cc:subject:date:message-id:user-agent:in-reply-to
+	:references:mime-version:content-transfer-encoding:content-type;
+	bh=mWVFqaNE+8i8N13FovBOfjNp7aMB2T/4AAmwaaH1e2Y=;
+	b=0bGMdm3U3vnpZI36nAtIxlguhjVs1mY6dzjFEsbcWk8iV03f/iBmnhluDBIe4/tLBb
+	hez5wfigadzLv+YsqF4MlNn6PwDtNPhoUj/titvINEFhlK72c7MQer3WFdkbr27o2ahc
+	zfCRgo/rjMNjMLSvwQlTNp/4Q6nsSdabl2J2IQzCz0fJZ3yO+Cv0kLv7/4KJWr/7lyzO
+	ubea+l8Fvhlbui9viSZyW7gj4q9ZxDZ+BZPk3NjRpz5mL4bamAf6R8KhoavI35Q1BJ0k
+	LuyiIaNWfHQPUcITdEe2uOh/Gd1+5gUb3EaNN1cg5IkF/3GvEZXHcK5cq+EGvhzEPKsQ
+	SKIg==
+X-Received: by 10.14.246.1 with SMTP id p1mr16167497eer.20.1397762184580;
+	Thu, 17 Apr 2014 12:16:24 -0700 (PDT)
+Received: from bloomfield.localnet ([2001:718:1e03:a01::514])
+	by mx.google.com with ESMTPSA id
+	z48sm69856564eel.27.2014.04.17.12.16.23 for <multiple recipients>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Thu, 17 Apr 2014 12:16:23 -0700 (PDT)
+From: Pavel Herrmann <morpheus.ibis@gmail.com>
+To: linux-cluster@redhat.com
+Date: Thu, 17 Apr 2014 21:16:22 +0200
+Message-ID: <2179081.39Bc0pasea@bloomfield>
+User-Agent: KMail/4.12.2 (Linux/3.10.9-gentoo; KDE/4.12.2; x86_64; ; )
+In-Reply-To: <9195F18F518EC7428E0397625DF6E1AE1890FF01@G2W2431.americas.hpqcorp.net>
+References: <9195F18F518EC7428E0397625DF6E1AE1890FF01@G2W2431.americas.hpqcorp.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-RedHat-Spam-Score: -3.1  (BAYES_00, DCC_REPUT_00_12, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_LOW, SPF_PASS)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.17
+X-loop: linux-cluster@redhat.com
+Cc: "Henley, David \(Solutions Architect Chicago\)" <david.l.henley@hp.com>
+Subject: Re: [Linux-cluster] KVM availability groups
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 17 Apr 2014 19:16:26 -0000
+
+Hi,
+
+I am not an expert in this, but as far as i understand it works like this
+
+On Thursday 17 of April 2014 13:20:11 Henley, David wrote:
+> I have 8 to 10 Rack mount Servers running Red Hat KVM.
+> I need to create 2 availability zones and a backup zone.
+> 
+> 
+> 1.       What tools do you use to create these? Is it always scripted or is
+> there an open source interface similar to say Vcenter.
+
+There are vcenter-like interfaces, but I'm not sure how they handle HA, have a 
+look at ganeti and/or openstack
+
+this list is rather more concerned about the low level workings of clustered 
+systems, with tools such as cman or pacemaker (depending on your OS version, I 
+think all current RHEL versions use cman) to monitor and manage availability 
+of your services (a VM is a service in this context), and corosync to keep 
+your cluster in a consistent state.
+
+if you are looking for a vsphere replacement, you might have better luck with 
+openstack than tinkering with linux clustering directly, in my opinion.
+
+
+> 2.       Are there KVM tools that monitor the zones?
+
+You would probably use libvirt interface to manipulate with your KVM instances
+
+regards,
+Pavel Herrmann
+
+From mgalan@ujaen.es Fri Apr 18 13:45:10 2014
+Received: from int-mx12.intmail.prod.int.phx2.redhat.com
+	(int-mx12.intmail.prod.int.phx2.redhat.com [10.5.11.25])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3IHjAEm013499 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 18 Apr 2014 13:45:10 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx12.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3IHj7Me019491
+	for <linux-cluster@redhat.com>; Fri, 18 Apr 2014 13:45:10 -0400
+Received: from siles.ujaen.es (siles.ujaen.es [150.214.170.33])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3IHj3nv012553
+	for <linux-cluster@redhat.com>; Fri, 18 Apr 2014 13:45:04 -0400
+X-IronPort-AV: E=Sophos;i="4.97,885,1389740400"; d="scan'208,217";a="36804657"
+Received: from 53.red-193-152-93.dynamicip.rima-tde.net (HELO [10.78.58.67])
+	([193.152.93.53])
+	by smtp.ujaen.es with ESMTP/TLS/RC4-MD5; 18 Apr 2014 19:45:02 +0200
+Date: Fri, 18 Apr 2014 19:44:57 +0200
+Message-ID: <tqrum52bx91j8uu65ks5waxm.1397842963095@email.android.com>
+Importance: normal
+From: =?ISO-8859-1?Q?Manuel_Gal=E1n_=28UJA=29?= <mgalan@ujaen.es>
+To: linux-cluster@redhat.com
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="--_com.android.email_53893873304330"
+X-RedHat-Spam-Score: -3.249  (BAYES_00, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
+	RP_MATCHES_RCVD, SPF_PASS, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.25
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Linux-cluster Digest, Vol 120, Issue 5
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: =?ISO-8859-1?Q?Manuel_Gal=E1n_=28UJA=29?= <mgalan@ujaen.es>,
+	linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 18 Apr 2014 17:45:10 -0000
+
+----_com.android.email_53893873304330
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+SGVsbG8gYWxsLMKgCsKgIMKgIFdoYXQgYWJvdXQgb3ZpcnQ/IHZpc2l0IG92aXJ0Lm9yZwoKR29v
+ZCB3ZWVrZW5kLi4uCgoKRW52aWFkbyBkZSBTYW1zdW5nIE1vYmlsZQoKLS0tLS0tLS0gTWVuc2Fq
+ZSBvcmlnaW5hbCAtLS0tLS0tLQpEZTogbGludXgtY2x1c3Rlci1yZXF1ZXN0QHJlZGhhdC5jb20g
+CkZlY2hhOiAxOC8wNC8yMDE0ICAxODowMCAgKEdNVCswMTowMCkgClBhcmE6IGxpbnV4LWNsdXN0
+ZXJAcmVkaGF0LmNvbSAKQXN1bnRvOiBMaW51eC1jbHVzdGVyIERpZ2VzdCwgVm9sIDEyMCwgSXNz
+dWUgNSAKIApTZW5kIExpbnV4LWNsdXN0ZXIgbWFpbGluZyBsaXN0IHN1Ym1pc3Npb25zIHRvCmxp
+bnV4LWNsdXN0ZXJAcmVkaGF0LmNvbQoKVG8gc3Vic2NyaWJlIG9yIHVuc3Vic2NyaWJlIHZpYSB0
+aGUgV29ybGQgV2lkZSBXZWIsIHZpc2l0Cmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1jbHVzdGVyCm9yLCB2aWEgZW1haWwsIHNlbmQgYSBtZXNzYWdlIHdpdGgg
+c3ViamVjdCBvciBib2R5ICdoZWxwJyB0bwpsaW51eC1jbHVzdGVyLXJlcXVlc3RAcmVkaGF0LmNv
+bQoKWW91IGNhbiByZWFjaCB0aGUgcGVyc29uIG1hbmFnaW5nIHRoZSBsaXN0IGF0CmxpbnV4LWNs
+dXN0ZXItb3duZXJAcmVkaGF0LmNvbQoKV2hlbiByZXBseWluZywgcGxlYXNlIGVkaXQgeW91ciBT
+dWJqZWN0IGxpbmUgc28gaXQgaXMgbW9yZSBzcGVjaWZpYwp0aGFuICJSZTogQ29udGVudHMgb2Yg
+TGludXgtY2x1c3RlciBkaWdlc3QuLi4iCgoKVG9kYXkncyBUb3BpY3M6CgrCoMKgIDEuIFJlOiBL
+Vk0gYXZhaWxhYmlsaXR5IGdyb3VwcyAoUGF2ZWwgSGVycm1hbm4pCgoKLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoK
+TWVzc2FnZTogMQpEYXRlOiBUaHUsIDE3IEFwciAyMDE0IDIxOjE2OjIyICswMjAwCkZyb206IFBh
+dmVsIEhlcnJtYW5uIDxtb3JwaGV1cy5pYmlzQGdtYWlsLmNvbT4KVG86IGxpbnV4LWNsdXN0ZXJA
+cmVkaGF0LmNvbQpDYzogIkhlbmxleSwgRGF2aWQgXChTb2x1dGlvbnMgQXJjaGl0ZWN0IENoaWNh
+Z29cKSIKPGRhdmlkLmwuaGVubGV5QGhwLmNvbT4KU3ViamVjdDogUmU6IFtMaW51eC1jbHVzdGVy
+XSBLVk0gYXZhaWxhYmlsaXR5IGdyb3VwcwpNZXNzYWdlLUlEOiA8MjE3OTA4MS4zOUJjMHBhc2Vh
+QGJsb29tZmllbGQ+CkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD0idXMtYXNjaWki
+CgpIaSwKCkkgYW0gbm90IGFuIGV4cGVydCBpbiB0aGlzLCBidXQgYXMgZmFyIGFzIGkgdW5kZXJz
+dGFuZCBpdCB3b3JrcyBsaWtlIHRoaXMKCk9uIFRodXJzZGF5IDE3IG9mIEFwcmlsIDIwMTQgMTM6
+MjA6MTEgSGVubGV5LCBEYXZpZCB3cm90ZToKPiBJIGhhdmUgOCB0byAxMCBSYWNrIG1vdW50IFNl
+cnZlcnMgcnVubmluZyBSZWQgSGF0IEtWTS4KPiBJIG5lZWQgdG8gY3JlYXRlIDIgYXZhaWxhYmls
+aXR5IHpvbmVzIGFuZCBhIGJhY2t1cCB6b25lLgo+IAo+IAo+IDEuwqDCoMKgwqDCoMKgIFdoYXQg
+dG9vbHMgZG8geW91IHVzZSB0byBjcmVhdGUgdGhlc2U/IElzIGl0IGFsd2F5cyBzY3JpcHRlZCBv
+ciBpcwo+IHRoZXJlIGFuIG9wZW4gc291cmNlIGludGVyZmFjZSBzaW1pbGFyIHRvIHNheSBWY2Vu
+dGVyLgoKVGhlcmUgYXJlIHZjZW50ZXItbGlrZSBpbnRlcmZhY2VzLCBidXQgSSdtIG5vdCBzdXJl
+IGhvdyB0aGV5IGhhbmRsZSBIQSwgaGF2ZSBhIApsb29rIGF0IGdhbmV0aSBhbmQvb3Igb3BlbnN0
+YWNrCgp0aGlzIGxpc3QgaXMgcmF0aGVyIG1vcmUgY29uY2VybmVkIGFib3V0IHRoZSBsb3cgbGV2
+ZWwgd29ya2luZ3Mgb2YgY2x1c3RlcmVkIApzeXN0ZW1zLCB3aXRoIHRvb2xzIHN1Y2ggYXMgY21h
+biBvciBwYWNlbWFrZXIgKGRlcGVuZGluZyBvbiB5b3VyIE9TIHZlcnNpb24sIEkgCnRoaW5rIGFs
+bCBjdXJyZW50IFJIRUwgdmVyc2lvbnMgdXNlIGNtYW4pIHRvIG1vbml0b3IgYW5kIG1hbmFnZSBh
+dmFpbGFiaWxpdHkgCm9mIHlvdXIgc2VydmljZXMgKGEgVk0gaXMgYSBzZXJ2aWNlIGluIHRoaXMg
+Y29udGV4dCksIGFuZCBjb3Jvc3luYyB0byBrZWVwIAp5b3VyIGNsdXN0ZXIgaW4gYSBjb25zaXN0
+ZW50IHN0YXRlLgoKaWYgeW91IGFyZSBsb29raW5nIGZvciBhIHZzcGhlcmUgcmVwbGFjZW1lbnQs
+IHlvdSBtaWdodCBoYXZlIGJldHRlciBsdWNrIHdpdGggCm9wZW5zdGFjayB0aGFuIHRpbmtlcmlu
+ZyB3aXRoIGxpbnV4IGNsdXN0ZXJpbmcgZGlyZWN0bHksIGluIG15IG9waW5pb24uCgoKPiAyLsKg
+wqDCoMKgwqDCoCBBcmUgdGhlcmUgS1ZNIHRvb2xzIHRoYXQgbW9uaXRvciB0aGUgem9uZXM/CgpZ
+b3Ugd291bGQgcHJvYmFibHkgdXNlIGxpYnZpcnQgaW50ZXJmYWNlIHRvIG1hbmlwdWxhdGUgd2l0
+aCB5b3VyIEtWTSBpbnN0YW5jZXMKCnJlZ2FyZHMsClBhdmVsIEhlcnJtYW5uCgoKCi0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKLS0KTGludXgtY2x1c3RlciBtYWlsaW5nIGxpc3QKTGlu
+dXgtY2x1c3RlckByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1jbHVzdGVyCgpFbmQgb2YgTGludXgtY2x1c3RlciBEaWdlc3QsIFZvbCAxMjAs
+IElzc3VlIDUKKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCg==
+
+----_com.android.email_53893873304330
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0
+L2h0bWw7IGNoYXJzZXQ9VVRGLTgiPjwvaGVhZD48Ym9keSA+PGRpdj5IZWxsbyBhbGwsJm5ic3A7
+PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7IFdoYXQgYWJvdXQgb3ZpcnQ/IHZpc2l0IG92aXJ0Lm9y
+ZzwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+R29vZCB3ZWVrZW5kLi4uPC9kaXY+PGRpdj48YnI+
+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48ZGl2IHN0eWxlPSJmb250LXNpemU6NzUlO2NvbG9y
+OiM1NzU3NTciPkVudmlhZG8gZGUgU2Ftc3VuZyBNb2JpbGU8L2Rpdj48L2Rpdj48YnI+PGJyPjxi
+cj4tLS0tLS0tLSBNZW5zYWplIG9yaWdpbmFsIC0tLS0tLS0tPGJyPkRlOiBsaW51eC1jbHVzdGVy
+LXJlcXVlc3RAcmVkaGF0LmNvbSA8YnI+RmVjaGE6IDE4LzA0LzIwMTQgIDE4OjAwICAoR01UKzAx
+OjAwKSA8YnI+UGFyYTogbGludXgtY2x1c3RlckByZWRoYXQuY29tIDxicj5Bc3VudG86IExpbnV4
+LWNsdXN0ZXIgRGlnZXN0LCBWb2wgMTIwLCBJc3N1ZSA1IDxicj4gPGJyPjxicj5TZW5kIExpbnV4
+LWNsdXN0ZXIgbWFpbGluZyBsaXN0IHN1Ym1pc3Npb25zIHRvPGJyPglsaW51eC1jbHVzdGVyQHJl
+ZGhhdC5jb208YnI+PGJyPlRvIHN1YnNjcmliZSBvciB1bnN1YnNjcmliZSB2aWEgdGhlIFdvcmxk
+IFdpZGUgV2ViLCB2aXNpdDxicj4JaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LWNsdXN0ZXI8YnI+b3IsIHZpYSBlbWFpbCwgc2VuZCBhIG1lc3NhZ2Ugd2l0aCBz
+dWJqZWN0IG9yIGJvZHkgJ2hlbHAnIHRvPGJyPglsaW51eC1jbHVzdGVyLXJlcXVlc3RAcmVkaGF0
+LmNvbTxicj48YnI+WW91IGNhbiByZWFjaCB0aGUgcGVyc29uIG1hbmFnaW5nIHRoZSBsaXN0IGF0
+PGJyPglsaW51eC1jbHVzdGVyLW93bmVyQHJlZGhhdC5jb208YnI+PGJyPldoZW4gcmVwbHlpbmcs
+IHBsZWFzZSBlZGl0IHlvdXIgU3ViamVjdCBsaW5lIHNvIGl0IGlzIG1vcmUgc3BlY2lmaWM8YnI+
+dGhhbiAiUmU6IENvbnRlbnRzIG9mIExpbnV4LWNsdXN0ZXIgZGlnZXN0Li4uIjxicj48YnI+PGJy
+PlRvZGF5J3MgVG9waWNzOjxicj48YnI+Jm5ic3A7Jm5ic3A7IDEuIFJlOiBLVk0gYXZhaWxhYmls
+aXR5IGdyb3VwcyAoUGF2ZWwgSGVycm1hbm4pPGJyPjxicj48YnI+LS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTxicj48
+YnI+TWVzc2FnZTogMTxicj5EYXRlOiBUaHUsIDE3IEFwciAyMDE0IDIxOjE2OjIyICswMjAwPGJy
+PkZyb206IFBhdmVsIEhlcnJtYW5uICZsdDttb3JwaGV1cy5pYmlzQGdtYWlsLmNvbSZndDs8YnI+
+VG86IGxpbnV4LWNsdXN0ZXJAcmVkaGF0LmNvbTxicj5DYzogIkhlbmxleSwgRGF2aWQgXChTb2x1
+dGlvbnMgQXJjaGl0ZWN0IENoaWNhZ29cKSI8YnI+CSZsdDtkYXZpZC5sLmhlbmxleUBocC5jb20m
+Z3Q7PGJyPlN1YmplY3Q6IFJlOiBbTGludXgtY2x1c3Rlcl0gS1ZNIGF2YWlsYWJpbGl0eSBncm91
+cHM8YnI+TWVzc2FnZS1JRDogJmx0OzIxNzkwODEuMzlCYzBwYXNlYUBibG9vbWZpZWxkJmd0Ozxi
+cj5Db250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9InVzLWFzY2lpIjxicj48YnI+SGks
+PGJyPjxicj5JIGFtIG5vdCBhbiBleHBlcnQgaW4gdGhpcywgYnV0IGFzIGZhciBhcyBpIHVuZGVy
+c3RhbmQgaXQgd29ya3MgbGlrZSB0aGlzPGJyPjxicj5PbiBUaHVyc2RheSAxNyBvZiBBcHJpbCAy
+MDE0IDEzOjIwOjExIEhlbmxleSwgRGF2aWQgd3JvdGU6PGJyPiZndDsgSSBoYXZlIDggdG8gMTAg
+UmFjayBtb3VudCBTZXJ2ZXJzIHJ1bm5pbmcgUmVkIEhhdCBLVk0uPGJyPiZndDsgSSBuZWVkIHRv
+IGNyZWF0ZSAyIGF2YWlsYWJpbGl0eSB6b25lcyBhbmQgYSBiYWNrdXAgem9uZS48YnI+Jmd0OyA8
+YnI+Jmd0OyA8YnI+Jmd0OyAxLiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBX
+aGF0IHRvb2xzIGRvIHlvdSB1c2UgdG8gY3JlYXRlIHRoZXNlPyBJcyBpdCBhbHdheXMgc2NyaXB0
+ZWQgb3IgaXM8YnI+Jmd0OyB0aGVyZSBhbiBvcGVuIHNvdXJjZSBpbnRlcmZhY2Ugc2ltaWxhciB0
+byBzYXkgVmNlbnRlci48YnI+PGJyPlRoZXJlIGFyZSB2Y2VudGVyLWxpa2UgaW50ZXJmYWNlcywg
+YnV0IEknbSBub3Qgc3VyZSBob3cgdGhleSBoYW5kbGUgSEEsIGhhdmUgYSA8YnI+bG9vayBhdCBn
+YW5ldGkgYW5kL29yIG9wZW5zdGFjazxicj48YnI+dGhpcyBsaXN0IGlzIHJhdGhlciBtb3JlIGNv
+bmNlcm5lZCBhYm91dCB0aGUgbG93IGxldmVsIHdvcmtpbmdzIG9mIGNsdXN0ZXJlZCA8YnI+c3lz
+dGVtcywgd2l0aCB0b29scyBzdWNoIGFzIGNtYW4gb3IgcGFjZW1ha2VyIChkZXBlbmRpbmcgb24g
+eW91ciBPUyB2ZXJzaW9uLCBJIDxicj50aGluayBhbGwgY3VycmVudCBSSEVMIHZlcnNpb25zIHVz
+ZSBjbWFuKSB0byBtb25pdG9yIGFuZCBtYW5hZ2UgYXZhaWxhYmlsaXR5IDxicj5vZiB5b3VyIHNl
+cnZpY2VzIChhIFZNIGlzIGEgc2VydmljZSBpbiB0aGlzIGNvbnRleHQpLCBhbmQgY29yb3N5bmMg
+dG8ga2VlcCA8YnI+eW91ciBjbHVzdGVyIGluIGEgY29uc2lzdGVudCBzdGF0ZS48YnI+PGJyPmlm
+IHlvdSBhcmUgbG9va2luZyBmb3IgYSB2c3BoZXJlIHJlcGxhY2VtZW50LCB5b3UgbWlnaHQgaGF2
+ZSBiZXR0ZXIgbHVjayB3aXRoIDxicj5vcGVuc3RhY2sgdGhhbiB0aW5rZXJpbmcgd2l0aCBsaW51
+eCBjbHVzdGVyaW5nIGRpcmVjdGx5LCBpbiBteSBvcGluaW9uLjxicj48YnI+PGJyPiZndDsgMi4m
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgQXJlIHRoZXJlIEtWTSB0b29scyB0
+aGF0IG1vbml0b3IgdGhlIHpvbmVzPzxicj48YnI+WW91IHdvdWxkIHByb2JhYmx5IHVzZSBsaWJ2
+aXJ0IGludGVyZmFjZSB0byBtYW5pcHVsYXRlIHdpdGggeW91ciBLVk0gaW5zdGFuY2VzPGJyPjxi
+cj5yZWdhcmRzLDxicj5QYXZlbCBIZXJybWFubjxicj48YnI+PGJyPjxicj4tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS08YnI+PGJyPi0tPGJyPkxpbnV4LWNsdXN0ZXIgbWFpbGluZyBsaXN0
+PGJyPkxpbnV4LWNsdXN0ZXJAcmVkaGF0LmNvbTxicj5odHRwczovL3d3dy5yZWRoYXQuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtY2x1c3Rlcjxicj48YnI+RW5kIG9mIExpbnV4LWNsdXN0ZXIg
+RGlnZXN0LCBWb2wgMTIwLCBJc3N1ZSA1PGJyPioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKjxicj48L2JvZHk+
+
+----_com.android.email_53893873304330--
+
+
+From swhiteho@redhat.com Fri Apr 25 07:43:02 2014
+Received: from int-mx12.intmail.prod.int.phx2.redhat.com
+	(int-mx12.intmail.prod.int.phx2.redhat.com [10.5.11.25])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3PBh24q021008 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 25 Apr 2014 07:43:02 -0400
+Received: from [10.36.5.127] (vpn1-5-127.ams2.redhat.com [10.36.5.127])
+	by int-mx12.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3PBh0vC007668; Fri, 25 Apr 2014 07:43:00 -0400
+Message-ID: <535A4A43.8000005@redhat.com>
+Date: Fri, 25 Apr 2014 12:42:59 +0100
+From: Steven Whitehouse <swhiteho@redhat.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: Alan Brown <a.brown@ucl.ac.uk>, Alan Brown <ajb2@mssl.ucl.ac.uk>
+References: <12440.1396024637@localhost> <5335CE1A.3060509@redhat.com>	
+	<5335F2B4.6080605@mssl.ucl.ac.uk>
+	<1396179266.2659.30.camel@menhir> <53593BD9.4050602@ucl.ac.uk>
+In-Reply-To: <53593BD9.4050602@ucl.ac.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.25
+X-loop: linux-cluster@redhat.com
+Cc: linux clustering <linux-cluster@redhat.com>
+Subject: Re: [Linux-cluster] mixing OS versions?
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 25 Apr 2014 11:43:02 -0000
+
+Hi,
+
+On 24/04/14 17:29, Alan Brown wrote:
+> On 30/03/14 12:34, Steven Whitehouse wrote:
+>
+>> Well that is not entirely true. We have done a great deal of
+>> investigation into this issue. We do test quotas (among many other
+>> things) on each release to ensure that they are working. Our tests have
+>> all passed correctly, and to date you have provided the only report of
+>> this particular issue via our support team. So it is certainly not
+>> something that lots of people are hitting.
+>
+> Someone else reported it on this list (on centos), so we're not an 
+> isolated case.
+>
+>> We do now have a good idea of where the issue is. However it is clear
+>> that simply exceeding quotas is not enough to trigger it. Instead quotas
+>> need to be exceeded in a particular way.
+>
+> My suspicion is that it's some kind of interaction between quotas and 
+> NFS, but it'd be good if you could provide a fuller explanation.
+>
+Yes, thats what we thought to start with... however that turned out to 
+be a bit of a red herring. Or at least the issue has nothing 
+specifically to do with NFS. The problem was related to when quota was 
+exceeded, and specifically what operation was in progress. You could 
+write to files as often as you wanted to, and exceeding quota would be 
+handled correctly. The problem was a specific code path within the inode 
+creation code, if it didn't result in quota being exceeded on that one 
+specific code path, then everything would work as expected.
+
+Also, quite often when the problem did appear, it did not actually 
+trigger a problem until later, making it difficult to track down.
+
+You are correct that someone else reported the issue on the list, 
+however I'm not aware of any other reports beyond yours and theirs. 
+Also, this was specific to certain versions of GFS2, and not something 
+that relates to all versions.
+
+The upstream patch is here:
+http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/fs/gfs2?id=059788039f1e6343f34f46d202f8d9f2158c2783
+
+It should be available in RHEL shortly - please ping support via the 
+ticket for updates,
+
+Steve.
+
+>> Returning to the original point however, it is certainly not recommended
+>> to have mixed RHEL or CentOS versions running in the same cluster. It is
+>> much better to keep everything the same, even though the GFS2 on-disk
+>> format has not changed between the versions.
+>
+> More specfically (for those who are curious): Whilst the on-disk 
+> format has not changed between EL5 and EL6, the way that RH cluster 
+> members communicate with each other has.
+>
+> I ran a quick test some time back and the 2 different OS cluster 
+> versions didn't see each other for LAN heartbeating.
+>
+>
+>
+
+From Micah.Schaefer@jhuapl.edu Fri Apr 25 10:05:48 2014
+Received: from int-mx10.intmail.prod.int.phx2.redhat.com
+	(int-mx10.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3PE5mHW006331 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 25 Apr 2014 10:05:48 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx10.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3PE5mjM029458
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 10:05:48 -0400
+Received: from pilot.jhuapl.edu (pilot.jhuapl.edu [128.244.251.36])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3PE5iv5001642
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 10:05:45 -0400
+Received: from aplexcas2.dom1.jhuapl.edu (aplexcas2.dom1.jhuapl.edu
+	[128.244.198.91]) by pilot.jhuapl.edu with smtp
+	(TLS: TLSv1/SSLv3,128bits,RC4-MD5)
+	id 4f91_276b_c0709d30_e094_4194_b62c_619e27fc632e;
+	Fri, 25 Apr 2014 10:05:43 -0400
+Received: from aplesstripe.dom1.jhuapl.edu ([128.244.198.211]) by
+	aplexcas2.dom1.jhuapl.edu ([128.244.198.91]) with mapi; Fri, 25 Apr 2014
+	10:05:27 -0400
+From: "Schaefer, Micah" <Micah.Schaefer@jhuapl.edu>
+To: "linux-cluster@redhat.com" <linux-cluster@redhat.com>
+Date: Fri, 25 Apr 2014 10:05:37 -0400
+Thread-Topic: [Linux-cluster] iSCSI GFS2 CMIRRORD
+Thread-Index: Ac9gj2kMZpl6d0gPTVOYy89uUOy4Jw==
+Message-ID: <CF7FE3F1.7382%micah.schaefer@jhuapl.edu>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/14.3.9.131030
+acceptlanguage: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CF7FE3F17382micahschaeferjhuapledu_"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -4.852  (BAYES_00, HTML_MESSAGE, RCVD_IN_DNSWL_MED,
+	RP_MATCHES_RCVD, SPF_HELO_PASS, SPF_PASS)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster]  iSCSI GFS2 CMIRRORD
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 25 Apr 2014 14:05:48 -0000
+
+--_000_CF7FE3F17382micahschaeferjhuapledu_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hello All,
+I have been successfully running a cluster for about a year. I have a quest=
+ion about best practice for my storage setup.
+
+Currently, I have 2 front end nodes and two back end nodes. The front end n=
+odes are part of the cluster, run all the services, etc. The back end nodes=
+ are only exporting raw block devices via iSCSI and are not cluster aware. =
+The front end import the raw block and use GFS2 with LVM for storage. At th=
+is time, I am only using the block devices from one of the back end nodes.
+
+I would like the LVMs to be mirrored across the two iSCSI devices, creating=
+ redundancy at the block level. The last time I tried this, when creating t=
+he LVM, it basically sat for 2 days making no progress. I now have 10GB net=
+work connections at my front end and back end nodes (was 1GB only before).
+
+Also, on topology, these 4 nodes are across 2 buildings, 1 front end and 1 =
+back end in each building. There are switches in each building that have la=
+yer 2 connectivity (10GB) to each other. I also have 2 each 10GB connection=
+s per node, and multiple 1GB connections per node.
+
+I have come up with the following scenarios, and am looking for advise on w=
+hich of these methods to use (or none).
+
+1:
+
+ *   Connect all nodes to the 10GB switches.
+ *   Use 1 10GB for iSCSI only and 1 for other ip traffic
+
+2:
+
+ *   Connect each back end node to each from end node via 10GB
+ *   Use 1GB for other ip traffic
+
+3:
+
+ *   Connect the front end nodes to each other via 10GB
+ *   Connect front end and back end nodes to 10GB switch for Ip traffic
+
+I am also willing to use device mapper multi path if needed.
+
+Thanks in advance for any assistance.
+
+Regards,
+-------
+Micah Schaefer
+JHU/ APL
+
+--_000_CF7FE3F17382micahschaeferjhuapledu_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body style=3D"word-wrap: break-word; -webkit-nbsp-mode:=
+ space; -webkit-line-break: after-white-space; color: rgb(0, 0, 0); font-si=
+ze: 13px; font-family: Verdana, sans-serif;"><div>Hello All,</div><div><spa=
+n class=3D"Apple-tab-span" style=3D"white-space:pre">	</span>I have been su=
+ccessfully running a cluster for about a year. I have a question about best=
+ practice for my storage setup.</div><div><br></div><div>Currently, I have =
+2 front end nodes and two back end nodes. The front end nodes are part of t=
+he cluster, run all the services, etc. The back end nodes are only exportin=
+g raw block devices via iSCSI and are not cluster aware. The front end impo=
+rt the raw block and use GFS2 with LVM for storage. At this time, I am only=
+ using the block devices from one of the back end nodes.</div><div><br></di=
+v><div>I would like the LVMs to be mirrored across the two iSCSI devices, c=
+reating redundancy at the block level. The last time I tried this, when cre=
+ating the LVM, it basically sat for 2 days making no progress. I now have 1=
+0GB network connections at my front end and back end nodes (was 1GB only be=
+fore).</div><div><br></div><div>Also, on topology, these 4 nodes are across=
+ 2 buildings, 1 front end and 1 back end in each building. There are switch=
+es in each building that have layer 2 connectivity (10GB) to each other. I =
+also have 2 each 10GB connections per node, and multiple 1GB connections pe=
+r node.&nbsp;</div><div><br></div><div>I have come up with the following sc=
+enarios, and am looking for advise on which of these methods to use (or non=
+e).&nbsp;</div><div><br></div><div>1:</div><ul><li>Connect all nodes to the=
+ 10GB switches.</li><li>Use 1 10GB for iSCSI only and 1 for other ip traffi=
+c</li></ul><div>2:</div><ul><li>Connect each back end node to each from end=
+ node via 10GB</li><li>Use 1GB for other ip traffic</li></ul><div>3:</div><=
+ul><li>Connect the front end nodes to each other via 10GB&nbsp;</li><li>Con=
+nect front end and back end nodes to 10GB switch for Ip traffic</li></ul><d=
+iv>I am also willing to use device mapper multi path if needed.&nbsp;</div>=
+<div><br></div><div>Thanks in advance for any assistance.&nbsp;</div><div><=
+br></div><div><div>Regards,</div><div><div>-------</div><div>Micah Schaefer=
+</div><div>JHU/ APL</div></div></div></body></html>
+
+--_000_CF7FE3F17382micahschaeferjhuapledu_--
+
+From emi2fast@gmail.com Fri Apr 25 12:12:38 2014
+Received: from int-mx10.intmail.prod.int.phx2.redhat.com
+	(int-mx10.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3PGCcpI014752 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 25 Apr 2014 12:12:38 -0400
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.19])
+	by int-mx10.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3PGCb7F024227
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 12:12:38 -0400
+Received: from mail-oa0-f47.google.com (mail-oa0-f47.google.com
+	[209.85.219.47])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3PGCaGu006372
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 12:12:36 -0400
+Received: by mail-oa0-f47.google.com with SMTP id i11so4438169oag.34
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 09:12:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type; bh=qiO42O47VAiQeWTO3z1Q0YCpHCgK7qWZAZVNKv3uegY=;
+	b=HqDtVRjvIjjCGxwEE2KSUB8VzN0xSZrUGUVvDlq4UGIbK7AkVoPOjgepcZEwswI6Ul
+	9siifq2Q+gT3OLWmswy0lnGzFVNewWousB/ydbLmqAPflN07cfonzzsPyfccOgdIUGXl
+	HcGogJtTFXSheyJbWpYHwXf/n30ls/pBlt8yd2IW3t+T7OYUlxU+iQ3Xt/mXCLoXETU4
+	Yk2iaoFENpVjmG8iT1smi4GawwMBkObv1bCw8FIHjzzdcBv0dU8zVdvPKiu6spuB3ExZ
+	/gfXZGyiqGVbsrFKJyjLunv3l0449NTxhVoeQdUEsoFOgFK4OX7IJ07xnWKGgqjHd1/U
+	mshA==
+MIME-Version: 1.0
+X-Received: by 10.182.205.226 with SMTP id lj2mr1251095obc.84.1398442356157;
+	Fri, 25 Apr 2014 09:12:36 -0700 (PDT)
+Received: by 10.76.76.4 with HTTP; Fri, 25 Apr 2014 09:12:36 -0700 (PDT)
+In-Reply-To: <CF7FE3F1.7382%micah.schaefer@jhuapl.edu>
+References: <CF7FE3F1.7382%micah.schaefer@jhuapl.edu>
+Date: Fri, 25 Apr 2014 18:12:36 +0200
+Message-ID: <CAE7pJ3D4Zr-LK7SVMFjdOxdEaOOG1ek8Usg4OqyGoNgWuA2G0A@mail.gmail.com>
+From: emmanuel segura <emi2fast@gmail.com>
+To: linux clustering <linux-cluster@redhat.com>
+Content-Type: multipart/alternative; boundary=001a11c22e9ae0b34904f7e03b25
+X-RedHat-Spam-Score: -3.098  (BAYES_00, DCC_REPUT_00_12, DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW, SPF_PASS, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.19
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] iSCSI GFS2 CMIRRORD
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 25 Apr 2014 16:12:38 -0000
+
+--001a11c22e9ae0b34904f7e03b25
+Content-Type: text/plain; charset=UTF-8
+
+you can use multipath when the system see a lun from more than one path,
+but you your case are importing two differents devices from your backend
+servers in your frontend server, sou you can use lvm mirror with cmirror in
+your fronted cluster
+
+
+2014-04-25 16:05 GMT+02:00 Schaefer, Micah <Micah.Schaefer@jhuapl.edu>:
+
+> Hello All,
+> I have been successfully running a cluster for about a year. I have a
+> question about best practice for my storage setup.
+>
+> Currently, I have 2 front end nodes and two back end nodes. The front end
+> nodes are part of the cluster, run all the services, etc. The back end
+> nodes are only exporting raw block devices via iSCSI and are not cluster
+> aware. The front end import the raw block and use GFS2 with LVM for
+> storage. At this time, I am only using the block devices from one of the
+> back end nodes.
+>
+> I would like the LVMs to be mirrored across the two iSCSI devices,
+> creating redundancy at the block level. The last time I tried this, when
+> creating the LVM, it basically sat for 2 days making no progress. I now
+> have 10GB network connections at my front end and back end nodes (was 1GB
+> only before).
+>
+> Also, on topology, these 4 nodes are across 2 buildings, 1 front end and 1
+> back end in each building. There are switches in each building that have
+> layer 2 connectivity (10GB) to each other. I also have 2 each 10GB
+> connections per node, and multiple 1GB connections per node.
+>
+> I have come up with the following scenarios, and am looking for advise on
+> which of these methods to use (or none).
+>
+> 1:
+>
+>    - Connect all nodes to the 10GB switches.
+>    - Use 1 10GB for iSCSI only and 1 for other ip traffic
+>
+> 2:
+>
+>    - Connect each back end node to each from end node via 10GB
+>    - Use 1GB for other ip traffic
+>
+> 3:
+>
+>    - Connect the front end nodes to each other via 10GB
+>    - Connect front end and back end nodes to 10GB switch for Ip traffic
+>
+> I am also willing to use device mapper multi path if needed.
+>
+> Thanks in advance for any assistance.
+>
+> Regards,
+> -------
+> Micah Schaefer
+> JHU/ APL
+>
+> --
+> Linux-cluster mailing list
+> Linux-cluster@redhat.com
+> https://www.redhat.com/mailman/listinfo/linux-cluster
+>
+
+
+
+-- 
+esta es mi vida e me la vivo hasta que dios quiera
+
+--001a11c22e9ae0b34904f7e03b25
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">you can use multipath when the system see a lun from more =
+than one path, but you your case are importing two differents devices from =
+your backend servers in your frontend server, sou you can use lvm mirror wi=
+th cmirror in your fronted cluster<br>
+</div><div class=3D"gmail_extra"><br><br><div class=3D"gmail_quote">2014-04=
+-25 16:05 GMT+02:00 Schaefer, Micah <span dir=3D"ltr">&lt;<a href=3D"mailto=
+:Micah.Schaefer@jhuapl.edu" target=3D"_blank">Micah.Schaefer@jhuapl.edu</a>=
+&gt;</span>:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex"><div style=3D"font-size:13px;font-family:Ver=
+dana,sans-serif;word-wrap:break-word"><div>Hello All,</div><div><span style=
+=3D"white-space:pre-wrap">	</span>I have been successfully running a cluste=
+r for about a year. I have a question about best practice for my storage se=
+tup.</div>
+<div><br></div><div>Currently, I have 2 front end nodes and two back end no=
+des. The front end nodes are part of the cluster, run all the services, etc=
+. The back end nodes are only exporting raw block devices via iSCSI and are=
+ not cluster aware. The front end import the raw block and use GFS2 with LV=
+M for storage. At this time, I am only using the block devices from one of =
+the back end nodes.</div>
+<div><br></div><div>I would like the LVMs to be mirrored across the two iSC=
+SI devices, creating redundancy at the block level. The last time I tried t=
+his, when creating the LVM, it basically sat for 2 days making no progress.=
+ I now have 10GB network connections at my front end and back end nodes (wa=
+s 1GB only before).</div>
+<div><br></div><div>Also, on topology, these 4 nodes are across 2 buildings=
+, 1 front end and 1 back end in each building. There are switches in each b=
+uilding that have layer 2 connectivity (10GB) to each other. I also have 2 =
+each 10GB connections per node, and multiple 1GB connections per node.=C2=
+=A0</div>
+<div><br></div><div>I have come up with the following scenarios, and am loo=
+king for advise on which of these methods to use (or none).=C2=A0</div><div=
+><br></div><div>1:</div><ul><li>Connect all nodes to the 10GB switches.</li=
+>
+<li>Use 1 10GB for iSCSI only and 1 for other ip traffic</li></ul><div>2:</=
+div><ul><li>Connect each back end node to each from end node via 10GB</li><=
+li>Use 1GB for other ip traffic</li></ul><div>3:</div><ul><li>Connect the f=
+ront end nodes to each other via 10GB=C2=A0</li>
+<li>Connect front end and back end nodes to 10GB switch for Ip traffic</li>=
+</ul><div>I am also willing to use device mapper multi path if needed.=C2=
+=A0</div><div><br></div><div>Thanks in advance for any assistance.=C2=A0</d=
+iv><div>
+<br></div><div><div>Regards,</div><div><div>-------</div><div>Micah Schaefe=
+r</div><div>JHU/ APL</div></div></div></div>
+<br>--<br>
+Linux-cluster mailing list<br>
+<a href=3D"mailto:Linux-cluster@redhat.com">Linux-cluster@redhat.com</a><br=
+>
+<a href=3D"https://www.redhat.com/mailman/listinfo/linux-cluster" target=3D=
+"_blank">https://www.redhat.com/mailman/listinfo/linux-cluster</a><br></blo=
+ckquote></div><br><br clear=3D"all"><br>-- <br>esta es mi vida e me la vivo=
+ hasta que dios quiera
+</div>
+
+--001a11c22e9ae0b34904f7e03b25--
+
+From neale@sinenomine.net Fri Apr 25 15:13:45 2014
+Received: from int-mx10.intmail.prod.int.phx2.redhat.com
+	(int-mx10.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3PJDjan014431 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 25 Apr 2014 15:13:45 -0400
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.19])
+	by int-mx10.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3PJDj42004514
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 15:13:45 -0400
+Received: from smtp129.ord.emailsrvr.com (smtp129.ord.emailsrvr.com
+	[173.203.6.129])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3PJDhff015790
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 15:13:44 -0400
+Received: from smtp13.relay.ord1a.emailsrvr.com (localhost.localdomain
+	[127.0.0.1])
+	by smtp13.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	E6D451982F3
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 15:13:42 -0400 (EDT)
+X-SMTPDoctor-Processed: csmtpprox beta
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp13.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	E1CFB198290
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 15:13:42 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex05.mlsrvr.com (unknown [184.106.31.85])
+	by smtp13.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTPS id
+	CC72E1982F3
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 15:13:42 -0400 (EDT)
+Received: from ORD2MBX03C.mex05.mlsrvr.com ([fe80::92e2:baff:fe20:c334]) by
+	ORD2HUB09.mex05.mlsrvr.com ([fe80::d6ae:52ff:fe7f:6d38%15]) with mapi
+	id 14.03.0169.001; Fri, 25 Apr 2014 14:13:34 -0500
+From: Neale Ferguson <neale@sinenomine.net>
+To: linux clustering <linux-cluster@redhat.com>
+Thread-Topic: luci question
+Thread-Index: AQHPYLpzEKo95RnDiEWqe4o9yg/plQ==
+Date: Fri, 25 Apr 2014 19:13:33 +0000
+Message-ID: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [72.73.25.22]
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <6B701C4F5D78024EBDDFCC837715B0BF@mex05.mlsrvr.com>
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -3.001  (BAYES_00, DCC_REPUT_00_12, RCVD_IN_DNSWL_LOW,
+	SPF_PASS)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.19
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s3PJDjan014431
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 25 Apr 2014 19:13:45 -0000
+
+Hi,
+ One of the guys created a simple configuration and was attempting to use luci to administer the cluster. It comes up fine but the links "Admin ... Logout" at the top left of the window that usually appears is not appearing. Looking at the code in the header html I see the following:
+
+<span py:if="tg.auth_stack_enabled" py:strip="True">
+        <py:if test="request.identity">
+          <li class="loginlogout"><a href="${tg.url('/admin')}" class="${('', 'active')[defined('page') and page==page=='admin']}">Admin</a></li>
+          <li class="loginlogout"><a href="${tg.url('/prefs')}" class="${('', 'active')[defined('page') and page==page=='prefs']}">Preferences</a></li>
+          <li id="login" class="loginlogout"><a href="${tg.url('/logout_handler')}">Logout</a></li>
+        </py:if>
+       <li py:if="not request.identity" id="login" class="loginlogout"><a href="${tg.url('/login')}">Login</a></li>
+</span>
+
+What affects (or effects) the tg.auth_stack_enabled value? I assume its some browser setting but really have no clue.
+
+Neale
+
+
+From vinh.cao@hp.com Fri Apr 25 17:39:12 2014
+Received: from int-mx01.intmail.prod.int.phx2.redhat.com
+	(int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3PLdCeU008850 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 25 Apr 2014 17:39:12 -0400
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.20])
+	by int-mx01.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3PLdCBm014042
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 17:39:12 -0400
+Received: from g2t2352.austin.hp.com (g2t2352.austin.hp.com [15.217.128.51])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3PLdB2E002024
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 17:39:11 -0400
+Received: from G2W4316.americas.hpqcorp.net (g2w4316.austin.hp.com
+	[16.197.9.73]) (using TLSv1 with cipher AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by g2t2352.austin.hp.com (Postfix) with ESMTPS id 597A01A4
+	for <linux-cluster@redhat.com>; Fri, 25 Apr 2014 21:39:11 +0000 (UTC)
+Received: from G1W5783.americas.hpqcorp.net (16.193.26.1) by
+	G2W4316.americas.hpqcorp.net (16.197.9.73) with Microsoft SMTP Server
+	(TLS) id 14.3.169.1; Fri, 25 Apr 2014 21:37:31 +0000
+Received: from G1W3646.americas.hpqcorp.net ([169.254.2.4]) by
+	G1W5783.americas.hpqcorp.net ([16.193.26.1]) with mapi id
+	14.03.0169.001; Fri, 25 Apr 2014 21:37:31 +0000
+From: "Cao, Vinh" <vinh.cao@hp.com>
+To: linux clustering <linux-cluster@redhat.com>
+Thread-Topic: luci question
+Thread-Index: AQHPYLpzEKo95RnDiEWqe4o9yg/plZsi2nLA
+Date: Fri, 25 Apr 2014 21:37:30 +0000
+Message-ID: <E277764ADBC61145B70AC4639275B49902698509@G1W3646.americas.hpqcorp.net>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+In-Reply-To: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [16.193.232.29]
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature";
+	micalg=SHA1; boundary="----=_NextPart_000_02C0_01CF60AD.07177420"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -104.851  (BAYES_00, RCVD_IN_DNSWL_MED, RP_MATCHES_RCVD,
+	USER_IN_WHITELIST)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.20
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 25 Apr 2014 21:39:13 -0000
+
+------=_NextPart_000_02C0_01CF60AD.07177420
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+What type of the browser are you using?
+I have the same issue with IE. But if I use Firefox. It's there for me. 
+I'm hoping that is it what you are looking for.
+
+Vinh
+-----Original Message-----
+From: linux-cluster-bounces@redhat.com
+[mailto:linux-cluster-bounces@redhat.com] On Behalf Of Neale Ferguson
+Sent: Friday, April 25, 2014 3:14 PM
+To: linux clustering
+Subject: [Linux-cluster] luci question
+
+Hi,
+ One of the guys created a simple configuration and was attempting to use
+luci to administer the cluster. It comes up fine but the links "Admin ...
+Logout" at the top left of the window that usually appears is not appearing.
+Looking at the code in the header html I see the following:
+
+<span py:if="tg.auth_stack_enabled" py:strip="True">
+        <py:if test="request.identity">
+          <li class="loginlogout"><a href="${tg.url('/admin')}"
+class="${('', 'active')[defined('page') and
+page==page=='admin']}">Admin</a></li>
+          <li class="loginlogout"><a href="${tg.url('/prefs')}"
+class="${('', 'active')[defined('page') and
+page==page=='prefs']}">Preferences</a></li>
+          <li id="login" class="loginlogout"><a
+href="${tg.url('/logout_handler')}">Logout</a></li>
+        </py:if>
+       <li py:if="not request.identity" id="login" class="loginlogout"><a
+href="${tg.url('/login')}">Login</a></li>
+</span>
+
+What affects (or effects) the tg.auth_stack_enabled value? I assume its some
+browser setting but really have no clue.
+
+Neale
+
+
+-- 
+Linux-cluster mailing list
+Linux-cluster@redhat.com
+https://www.redhat.com/mailman/listinfo/linux-cluster
+
+------=_NextPart_000_02C0_01CF60AD.07177420
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIISTjCCBBkw
+ggMBAhBhcMtJjF+YRSnnsKbZUFt6MA0GCSqGSIb3DQEBBQUAMIHKMQswCQYDVQQGEwJVUzEXMBUG
+A1UEChMOVmVyaVNpZ24sIEluYy4xHzAdBgNVBAsTFlZlcmlTaWduIFRydXN0IE5ldHdvcmsxOjA4
+BgNVBAsTMShjKSAxOTk5IFZlcmlTaWduLCBJbmMuIC0gRm9yIGF1dGhvcml6ZWQgdXNlIG9ubHkx
+RTBDBgNVBAMTPFZlcmlTaWduIENsYXNzIDIgUHVibGljIFByaW1hcnkgQ2VydGlmaWNhdGlvbiBB
+dXRob3JpdHkgLSBHMzAeFw05OTEwMDEwMDAwMDBaFw0zNjA3MTYyMzU5NTlaMIHKMQswCQYDVQQG
+EwJVUzEXMBUGA1UEChMOVmVyaVNpZ24sIEluYy4xHzAdBgNVBAsTFlZlcmlTaWduIFRydXN0IE5l
+dHdvcmsxOjA4BgNVBAsTMShjKSAxOTk5IFZlcmlTaWduLCBJbmMuIC0gRm9yIGF1dGhvcml6ZWQg
+dXNlIG9ubHkxRTBDBgNVBAMTPFZlcmlTaWduIENsYXNzIDIgUHVibGljIFByaW1hcnkgQ2VydGlm
+aWNhdGlvbiBBdXRob3JpdHkgLSBHMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK8K
+DcLVLNtnuS3llCfdpb7gsE2Ps2FWPNZ8w/TNPobLooji4dikacW14r/BpkdQXkY5i9WWurVvFL8Q
+zicTngVHmzF6E9gf2dMCN4utLEfwjoEGpw0wDOv3PA8gHdxyRu6lAshbw8lWaUzFGMGRewvVEwCb
+vO/DSD5GYCCFKtWQts2LoMwy3bf9QFWyUBxWrsyNd03HIE2nMXbvaJKKkB4IgVayrWmjUtDLHMQj
+PR+Z/kzoFmOOxgiO9jH20vrldt21HJKjSc3NAc1ozalpuqPrHQ2cpCCmwaDF0UZMF23SrGY/lozg
+hNQ2/yJZxfkRYKhfBH3yGvYlQmEPxEq4PokCAwEAATANBgkqhkiG9w0BAQUFAAOCAQEANCYVPMCN
+TUNJHb3pIZLXZpy33sW40ORdX3YiwCb5hDo6+Yy1++xg8ejOBLDI3acDjzDzmN+k5qQx39McC0bc
+ciA/ru4FPKQzPws5rHB4c0uZK98wwlSwqDtVof4WKM1CvXRugNsnRKfORF3UG5CYDR5ClLEALATQ
+dKMCBSJjY82DtfvBbWJraXX9XXBBufW/fN++wTJzIiGLWIF7FZF6uuNkSLB/+zYl2pXQ8SQUF90Y
+gGtGIzlU9Y5iCQQdlJCmm+Yl4kJFqriQrb4Ij6kLQhiUz3I54bFD4CjPt+dabBNrSbP/4xh8iYsz
+Xawz16f52jpVyVgQ+arvWrbPS0vfKjCCBmEwggVJoAMCAQICEDtXE7awITX7XkZ1ymyyxOEwDQYJ
+KoZIhvcNAQEFBQAwgcoxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5WZXJpU2lnbiwgSW5jLjEfMB0G
+A1UECxMWVmVyaVNpZ24gVHJ1c3QgTmV0d29yazE6MDgGA1UECxMxKGMpIDE5OTkgVmVyaVNpZ24s
+IEluYy4gLSBGb3IgYXV0aG9yaXplZCB1c2Ugb25seTFFMEMGA1UEAxM8VmVyaVNpZ24gQ2xhc3Mg
+MiBQdWJsaWMgUHJpbWFyeSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEczMB4XDTA5MDkwMjAw
+MDAwMFoXDTE5MDkwMTIzNTk1OVowgfcxCzAJBgNVBAYTAlVTMSAwHgYDVQQKExdIZXdsZXR0LVBh
+Y2thcmQgQ29tcGFueTEfMB0GA1UECxMWVmVyaVNpZ24gVHJ1c3QgTmV0d29yazE7MDkGA1UECxMy
+VGVybXMgb2YgdXNlIGF0IGh0dHBzOi8vd3d3LnZlcmlzaWduLmNvbS9ycGEgKGMpMDkxNTAzBgNV
+BAsTLENsYXNzIDIgTWFuYWdlZCBQS0kgSW5kaXZpZHVhbCBTdWJzY3JpYmVyIENBMTEwLwYDVQQD
+EyhDb2xsYWJvcmF0aW9uIENlcnRpZmljYXRpb24gQXV0aG9yaXR5IEcyMIIBIjANBgkqhkiG9w0B
+AQEFAAOCAQ8AMIIBCgKCAQEAp2FraNquqoVkDEvLUMsw6HMhjon+yi1v/kajA27jIrdyhRMj4g+P
+BveBTHrtA7w97Rx1UKPP6CvOaAE5xUtoW9ajYZtO5kdiUFyzWHsbUgSjKy+yNO4QoHeEzaQi/JWU
+OYev/AV5YYJoEDIysosEELS1/M64iE2Utzr+LxiWhdaqSRE4jigbm4Dy4ayLzqAv5f7oILrJNZ6S
+hqLiGGCpP+7relTyRgFXmEX/SKN/a39JwZoKSNUdIkYyr7wmNI9+zylheDJghuk+kZDAD3NXv4EG
+VMUfOg5UEdhAJ0Lw40D4pqKa2ej1H0UipK1EEdRTm94RzfE8z8vDP8+dcgOqCwIDAQABo4ICEjCC
+Ag4wEgYDVR0TAQH/BAgwBgEB/wIBADBwBgNVHSAEaTBnMGUGC2CGSAGG+EUBBxcCMFYwKAYIKwYB
+BQUHAgEWHGh0dHBzOi8vd3d3LnZlcmlzaWduLmNvbS9jcHMwKgYIKwYBBQUHAgIwHhocaHR0cHM6
+Ly93d3cudmVyaXNpZ24uY29tL3JwYTA0BgNVHR8ELTArMCmgJ6AlhiNodHRwOi8vY3JsLnZlcmlz
+aWduLmNvbS9wY2EyLWczLmNybDAOBgNVHQ8BAf8EBAMCAQYwLgYDVR0RBCcwJaQjMCExHzAdBgNV
+BAMTFlByaXZhdGVMYWJlbDQtMjA0OC0xNDIwHQYDVR0OBBYEFCJ906SrV6xWf6l/QUQalbxb+Kvu
+MIHwBgNVHSMEgegwgeWhgdCkgc0wgcoxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5WZXJpU2lnbiwg
+SW5jLjEfMB0GA1UECxMWVmVyaVNpZ24gVHJ1c3QgTmV0d29yazE6MDgGA1UECxMxKGMpIDE5OTkg
+VmVyaVNpZ24sIEluYy4gLSBGb3IgYXV0aG9yaXplZCB1c2Ugb25seTFFMEMGA1UEAxM8VmVyaVNp
+Z24gQ2xhc3MgMiBQdWJsaWMgUHJpbWFyeSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEczghBh
+cMtJjF+YRSnnsKbZUFt6MA0GCSqGSIb3DQEBBQUAA4IBAQB2ipl40XCFoyzXr0j1PpZXw6C7TJfE
+hhEFSSLFCs/Bb061fKaANRvy4o8cOGJx8zy+ACVKHqEQyZY7TXusJmijnulZo3jGR5s/jjCWyqjW
+KDlVx83tyeuykOSVMD60/e/xp8nG4TZsKGBUJ563oHE6vau80HUi11PzspxbFXUI6kmrNC5Tw3wG
+FHug8RSIJG1ekWt+ZOth7CXXGbVtmTdwCn0IqMNgKVUkTBkiAPrsN7OZZAr5UGT6h8RUC/0I0H9M
+XCtSlXuKcqtJt/sWqQghvDO8hHUh/XU1bEOa2KjJCygWc7n/nAtBNKw7XtgFguhugtUsbdGBjttf
+nbzwdTZYMIIHyDCCBrCgAwIBAgIQQJ2vH6HOR0O8cl0PWZ7zrzANBgkqhkiG9w0BAQUFADCB9zEL
+MAkGA1UEBhMCVVMxIDAeBgNVBAoTF0hld2xldHQtUGFja2FyZCBDb21wYW55MR8wHQYDVQQLExZW
+ZXJpU2lnbiBUcnVzdCBOZXR3b3JrMTswOQYDVQQLEzJUZXJtcyBvZiB1c2UgYXQgaHR0cHM6Ly93
+d3cudmVyaXNpZ24uY29tL3JwYSAoYykwOTE1MDMGA1UECxMsQ2xhc3MgMiBNYW5hZ2VkIFBLSSBJ
+bmRpdmlkdWFsIFN1YnNjcmliZXIgQ0ExMTAvBgNVBAMTKENvbGxhYm9yYXRpb24gQ2VydGlmaWNh
+dGlvbiBBdXRob3JpdHkgRzIwHhcNMTMwODAyMDAwMDAwWhcNMTUwODAyMjM1OTU5WjCBjjEgMB4G
+A1UEChQXSGV3bGV0dC1QYWNrYXJkIENvbXBhbnkxJjAkBgNVBAsUHUVtcGxveW1lbnQgU3RhdHVz
+IC0gRW1wbG95ZWVzMQ8wDQYDVQQLEwZTL01JTUUxETAPBgNVBAMTCFZpbmggQ2FvMR4wHAYJKoZI
+hvcNAQkBFg92aW5oLmNhb0BocC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC5
+vmQXxcXmRROwbbpMK42zH6UDZkb+YGK15M8cK37ePMlx1344VU4/cYqOTkialBrdjPLmiO4Gx3JQ
+UODrhvvE1IKFMwTlTUwcJD0Aw3Qe3qPPsVtIU5NXm5JusWc7wCEmdVo03IYSngDAd6iUujC1pOQi
+1/g5XlsGZiw91io93Vx8uN/lSLZaCiMJfVoO2Pd0wIjHq3HplRnDuSKBKtgfoJ8Ystj4JSRXSuY2
+ZR4bLAZpxkJGtwQ+D/zhtwx/FQTEhpui3HOnH4OIbQd1uDJbMm+DQ/em2qb83ANfUppEVX8EaeHS
+Zl4IxTFUelALqTLytt+9ETTWUVVbHJahElSHAgMBAAGjggO1MIIDsTAaBgNVHREEEzARgQ92aW5o
+LmNhb0BocC5jb20wDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8EBAMCBaAwWQYDVR0fBFIwUDBOoEyg
+SoZIaHR0cDovL29uc2l0ZWNybC52ZXJpc2lnbi5jb20vSGV3bGV0dFBhY2thcmRDb21wYW55U01J
+TUVHMi9MYXRlc3RDUkwuY3JsMB8GA1UdIwQYMBaAFCJ906SrV6xWf6l/QUQalbxb+KvuMB0GA1Ud
+DgQWBBTOztVO4jNz0mkIl43Jon5wjCTgojCCATIGCCsGAQUFBwEBBIIBJDCCASAwJwYIKwYBBQUH
+MAGGG2h0dHA6Ly9ocC1vY3NwLnZlcmlzaWduLmNvbTCB9AYIKwYBBQUHMAKkgecwgeQxMTAvBgNV
+BAMTKENvbGxhYm9yYXRpb24gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgRzIxMDAuBgNVBAsTJ0Ns
+YXNzIDIgT25TaXRlIEluZGl2aWR1YWwgU3Vic2NyaWJlciBDQTE6MDgGA1UECxMxVGVybXMgb2Yg
+dXNlIGF0IGh0dHBzOi8vd3d3LnZlcmlzaWduLmNvbS9ycGEoYykwOTEfMB0GA1UECxMWVmVyaVNp
+Z24gVHJ1c3QgTmV0d29yazEgMB4GA1UEChMXSGV3bGV0dC1QYWNrYXJkIENvbXBhbnkwggE9BgNV
+HSAEggE0MIIBMDCCASwGC2CGSAGG+EUBBxcCMIIBGzAoBggrBgEFBQcCARYcaHR0cHM6Ly93d3cu
+dmVyaXNpZ24uY29tL3JwYTCB7gYIKwYBBQUHAgIwgeEwHhYXSGV3bGV0dC1QYWNrYXJkIENvbXBh
+bnkwAwIBAhqBvkF1dGhvcml0eSB0byBiaW5kIEhQIGRvZXMgbm90IGNvcnJlc3BvbmQgd2l0aCB1
+c2Ugb3IgcG9zc2Vzc2lvbiBvZiB0aGlzIGNlcnRpZmljYXRlLiBJc3N1ZWQgdG8gZmFjaWxpdGF0
+ZSBjb21tdW5pY2F0aW9uIHdpdGggSFAuIFZlcmlTaWduJ3MgQ1BTIGluY29ycC4gQnkgcmVmZXJl
+bmNlIGxpYWIuIGx0ZC4gKGMpOTcgVmVyaVNpZ24wFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwQwSwYJ
+KoZIhvcNAQkPBD4wPDAOBggqhkiG9w0DAgICAIAwDgYIKoZIhvcNAwICAgBAMA4GCCqGSIb3DQME
+AgIAgDAKBggqhkiG9w0DBzANBgkqhkiG9w0BAQUFAAOCAQEAfl7JvARmY0jS7mwnxH/U3RbWe33H
+55OvGqfd6ylx3GEC2npnijV/C6SrWXWH7CYOD2jJipEA7lXUcD2eAUNOJClwg0iPVjYP30s18e4R
+LNhYqrby8pQd/Wwf8xdadd4Q38P6TERBc96VD8yvUX4voZDT93+ajMhx1jjco+FX+idxDkEEGNqu
+93O9sZRfl7Qi9O7kq+lL4VcsMxg1LtiprqHdTm0F4cEIoCdNHn68WeRAh/hAJgGZ4G+w9ytoj0mW
+oXzA7MnyYXPCb01hrMcKoWkC0gsIvbIqYkB++mvw9meVEJ5JxJVWjrenOo8ZQo+0w5YXH123PYre
+J/Ls+7xmFTGCBYwwggWIAgEBMIIBDDCB9zELMAkGA1UEBhMCVVMxIDAeBgNVBAoTF0hld2xldHQt
+UGFja2FyZCBDb21wYW55MR8wHQYDVQQLExZWZXJpU2lnbiBUcnVzdCBOZXR3b3JrMTswOQYDVQQL
+EzJUZXJtcyBvZiB1c2UgYXQgaHR0cHM6Ly93d3cudmVyaXNpZ24uY29tL3JwYSAoYykwOTE1MDMG
+A1UECxMsQ2xhc3MgMiBNYW5hZ2VkIFBLSSBJbmRpdmlkdWFsIFN1YnNjcmliZXIgQ0ExMTAvBgNV
+BAMTKENvbGxhYm9yYXRpb24gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgRzICEECdrx+hzkdDvHJd
+D1me868wCQYFKw4DAhoFAKCCA1MwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
+CQUxDxcNMTQwNDI1MjEzNzI4WjAjBgkqhkiG9w0BCQQxFgQUNY4MnOhETu/XanSCri2QaityeTww
+gasGCSqGSIb3DQEJDzGBnTCBmjALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAoGCCqGSIb3DQMH
+MAsGCWCGSAFlAwQBAjAOBggqhkiG9w0DAgICAIAwBwYFKw4DAgcwDQYIKoZIhvcNAwICAUAwDQYI
+KoZIhvcNAwICASgwBwYFKw4DAhowCwYJYIZIAWUDBAIDMAsGCWCGSAFlAwQCAjALBglghkgBZQME
+AgEwggEfBgkrBgEEAYI3EAQxggEQMIIBDDCB9zELMAkGA1UEBhMCVVMxIDAeBgNVBAoTF0hld2xl
+dHQtUGFja2FyZCBDb21wYW55MR8wHQYDVQQLExZWZXJpU2lnbiBUcnVzdCBOZXR3b3JrMTswOQYD
+VQQLEzJUZXJtcyBvZiB1c2UgYXQgaHR0cHM6Ly93d3cudmVyaXNpZ24uY29tL3JwYSAoYykwOTE1
+MDMGA1UECxMsQ2xhc3MgMiBNYW5hZ2VkIFBLSSBJbmRpdmlkdWFsIFN1YnNjcmliZXIgQ0ExMTAv
+BgNVBAMTKENvbGxhYm9yYXRpb24gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgRzICEECdrx+hzkdD
+vHJdD1me868wggEhBgsqhkiG9w0BCRACCzGCARCgggEMMIH3MQswCQYDVQQGEwJVUzEgMB4GA1UE
+ChMXSGV3bGV0dC1QYWNrYXJkIENvbXBhbnkxHzAdBgNVBAsTFlZlcmlTaWduIFRydXN0IE5ldHdv
+cmsxOzA5BgNVBAsTMlRlcm1zIG9mIHVzZSBhdCBodHRwczovL3d3dy52ZXJpc2lnbi5jb20vcnBh
+IChjKTA5MTUwMwYDVQQLEyxDbGFzcyAyIE1hbmFnZWQgUEtJIEluZGl2aWR1YWwgU3Vic2NyaWJl
+ciBDQTExMC8GA1UEAxMoQ29sbGFib3JhdGlvbiBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSBHMgIQ
+QJ2vH6HOR0O8cl0PWZ7zrzANBgkqhkiG9w0BAQEFAASCAQBME5nl3G6YZgCRORx1FsytGR9QSLtl
+Kh408+P3qeaiFo4ftyxYa4o86ua2QAeNnCRwJSMqI/JFzN+c/r0UfzEaKGnHidXrNS05L1+4wVch
+8isKhj31D9ZIHlFgQXaa9N6ZXdOrW6ceI1jxavVEc/ibKRnC3ECzpkxDS/TXIFMJ4zXuzTlLuPeX
+HPZpHL8qNnOvlUP1K92iwi6GoSFpGmU0XDzzUIVv34tYJ5nvXjvkzXgIqftgb6dpEWU3lwPqRIa4
+jWhJ12vJfoWuQkQOienAm07TqFtQrhg0xuGJsfkN9G9cOe4QfXZyrRSn4E4MfXYWUO6hPUNXUg1x
+0h6mscpjAAAAAAAA
+
+------=_NextPart_000_02C0_01CF60AD.07177420--
+
+From morpheus.ibis@gmail.com Fri Apr 25 20:06:57 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3Q06vTI001554 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 25 Apr 2014 20:06:57 -0400
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.16])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3Q06vc4006690; Fri, 25 Apr 2014 20:06:57 -0400
+Received: from mail-pd0-f174.google.com (mail-pd0-f174.google.com
+	[209.85.192.174])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3Q06tka025720;
+	Fri, 25 Apr 2014 20:06:55 -0400
+Received: by mail-pd0-f174.google.com with SMTP id z10so2867883pdj.19
+	for <multiple recipients>; Fri, 25 Apr 2014 17:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:cc:subject:date:message-id:user-agent:in-reply-to
+	:references:mime-version:content-transfer-encoding:content-type;
+	bh=LEDjJTYKvNy6w7HAZxOfVPbfsrEwR0BOmH0T5jw52/8=;
+	b=jPl4dDxMZQ48CwtHKDDTWsZEquIQE928oPncqsu9DqCxA40qLqHoq9Sk/XBfDvACTR
+	Khs2kJ7EeFmYPYnf2v6itZ1l3lQfKseQU1PCr53pdXzEn7jqpQAzATNSMqNVV/4SCFSa
+	YzixXS8ED6Fvf8PV0ePhZ4VvnsRebNtDYq+Jt2XqEgv+KXs+tNQS3k8rET3NroRte9l4
+	k+C6FVEhK+Co6FtaKVfYWUtgBHIXeTugOxf4eQeUtnEKrBNo54zXQxo+Wp53T8kSB/Vu
+	3z7ab7zOsGEY8jIqR84d/0qYX2DH2zftvY2pXPt6s9tPzZynP9UmidQ+ydM1RpyPud4l
+	7P8Q==
+X-Received: by 10.68.230.41 with SMTP id sv9mr14780552pbc.23.1398470815260;
+	Fri, 25 Apr 2014 17:06:55 -0700 (PDT)
+Received: from bloomfield.localnet ([2001:718:1e03:a01::514])
+	by mx.google.com with ESMTPSA id
+	sh5sm18607090pbc.21.2014.04.25.17.06.53 for <multiple recipients>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Fri, 25 Apr 2014 17:06:53 -0700 (PDT)
+From: Pavel Herrmann <morpheus.ibis@gmail.com>
+To: linux-cluster@redhat.com
+Date: Sat, 26 Apr 2014 02:06:51 +0200
+Message-ID: <1787478.6mil9TdHqg@bloomfield>
+User-Agent: KMail/4.12.2 (Linux/3.10.9-gentoo; KDE/4.12.2; x86_64; ; )
+In-Reply-To: <535A4A43.8000005@redhat.com>
+References: <12440.1396024637@localhost> <53593BD9.4050602@ucl.ac.uk>
+	<535A4A43.8000005@redhat.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-RedHat-Spam-Score: -2.41  (BAYES_00, DCC_REPUT_00_12, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_PASS)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.16
+X-loop: linux-cluster@redhat.com
+Cc: Alan Brown <a.brown@ucl.ac.uk>
+Subject: Re: [Linux-cluster] mixing OS versions?
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Sat, 26 Apr 2014 00:06:57 -0000
+
+Hi,
+
+On Friday 25 of April 2014 12:42:59 Steven Whitehouse wrote:
+> Hi,
+> 
+> On 24/04/14 17:29, Alan Brown wrote:
+> > On 30/03/14 12:34, Steven Whitehouse wrote:
+> >> Well that is not entirely true. We have done a great deal of
+> >> investigation into this issue. We do test quotas (among many other
+> >> things) on each release to ensure that they are working. Our tests have
+> >> all passed correctly, and to date you have provided the only report of
+> >> this particular issue via our support team. So it is certainly not
+> >> something that lots of people are hitting.
+> > 
+> > Someone else reported it on this list (on centos), so we're not an
+> > isolated case.
+> > 
+> >> We do now have a good idea of where the issue is. However it is clear
+> >> that simply exceeding quotas is not enough to trigger it. Instead quotas
+> >> need to be exceeded in a particular way.
+> > 
+> > My suspicion is that it's some kind of interaction between quotas and
+> > NFS, but it'd be good if you could provide a fuller explanation.
+> 
+> Yes, thats what we thought to start with... however that turned out to
+> be a bit of a red herring. Or at least the issue has nothing
+> specifically to do with NFS. The problem was related to when quota was
+> exceeded, and specifically what operation was in progress. You could
+> write to files as often as you wanted to, and exceeding quota would be
+> handled correctly. The problem was a specific code path within the inode
+> creation code, if it didn't result in quota being exceeded on that one
+> specific code path, then everything would work as expected.
+
+could you please provide a (somewhat reliable) test case to reproduce this 
+bug? I have looked at the patch, and found nothing obviously related to quotas 
+(it seems the patch only changes the fail-path of posix_acl_create() call, 
+which doesn't appear to have nothing to do with quotas)
+
+I have been facing a possibly quota-related oops in GFS2 for some time, which 
+I am unable to reproduce without switching my cluster to production use (which 
+means potentialy facing the anger of my users, which I'd rather not do without 
+at least a chance of the issue being fixed).
+
+sadly, I don't have RedHat support subscription (nor do I use RHEL or 
+derivates), my kernel is mostly upstream.
+
+thanks
+Pavel Herrmann
+
+> 
+> Also, quite often when the problem did appear, it did not actually
+> trigger a problem until later, making it difficult to track down.
+> 
+> You are correct that someone else reported the issue on the list,
+> however I'm not aware of any other reports beyond yours and theirs.
+> Also, this was specific to certain versions of GFS2, and not something
+> that relates to all versions.
+> 
+> The upstream patch is here:
+> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/fs/gfs
+> 2?id=059788039f1e6343f34f46d202f8d9f2158c2783
+> 
+> It should be available in RHEL shortly - please ping support via the
+> ticket for updates,
+> 
+> Steve.
+> 
+> >> Returning to the original point however, it is certainly not recommended
+> >> to have mixed RHEL or CentOS versions running in the same cluster. It is
+> >> much better to keep everything the same, even though the GFS2 on-disk
+> >> format has not changed between the versions.
+> > 
+> > More specfically (for those who are curious): Whilst the on-disk
+> > format has not changed between EL5 and EL6, the way that RH cluster
+> > members communicate with each other has.
+> > 
+> > I ran a quick test some time back and the 2 different OS cluster
+> > versions didn't see each other for LAN heartbeating.
+
+From neale@sinenomine.net Tue Apr 29 10:01:32 2014
+Received: from int-mx11.intmail.prod.int.phx2.redhat.com
+	(int-mx11.intmail.prod.int.phx2.redhat.com [10.5.11.24])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3TE1VSS011754 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 10:01:32 -0400
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.16])
+	by int-mx11.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3TE1LXi027789
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 10:01:22 -0400
+Received: from smtp145.ord.emailsrvr.com (smtp145.ord.emailsrvr.com
+	[173.203.6.145])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3TE1JVD020159
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 10:01:20 -0400
+Received: from smtp15.relay.ord1a.emailsrvr.com (localhost.localdomain
+	[127.0.0.1])
+	by smtp15.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	116D4270148
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 10:01:19 -0400 (EDT)
+X-SMTPDoctor-Processed: csmtpprox beta
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp15.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	0BCB027069B
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 10:01:19 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex05.mlsrvr.com (unknown [184.106.31.85])
+	by smtp15.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTPS id
+	E1584270555
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 10:01:18 -0400 (EDT)
+Received: from ORD2MBX03C.mex05.mlsrvr.com ([fe80::92e2:baff:fe20:c334]) by
+	ORD2HUB15.mex05.mlsrvr.com ([fe80::be30:5bff:feee:c684%15]) with mapi
+	id 14.03.0169.001; Tue, 29 Apr 2014 09:01:18 -0500
+From: Neale Ferguson <neale@sinenomine.net>
+To: linux clustering <linux-cluster@redhat.com>
+Thread-Topic: [Linux-cluster] luci question
+Thread-Index: AQHPYLpzEKo95RnDiEWqe4o9yg/plZsi2nLAgAYe5YA=
+Date: Tue, 29 Apr 2014 14:01:18 +0000
+Message-ID: <62696CB1-2791-4F09-95D5-03AF87F096AD@sinenomine.net>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+	<E277764ADBC61145B70AC4639275B49902698509@G1W3646.americas.hpqcorp.net>
+In-Reply-To: <E277764ADBC61145B70AC4639275B49902698509@G1W3646.americas.hpqcorp.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [96.247.198.211]
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <26A7E9F19D02C5449DE9BC885645DE6D@mex05.mlsrvr.com>
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -1.601  (BAYES_05, DCC_REPUT_00_12, RCVD_IN_DNSWL_LOW,
+	SPF_PASS)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.24
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.16
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s3TE1VSS011754
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 14:01:32 -0000
+
+Thanks Vinh. He is using IE8 (company policy!!). I've tried it with IE8, IE10, Chrome, and Safari and all worked fine. He has cookies enabled so I'm at a loss as to how that auth_stack_enabled setting is set/updated/cleared.
+
+Neale
+
+On Apr 25, 2014, at 5:37 PM, Cao, Vinh <vinh.cao@hp.com> wrote:
+
+> What type of the browser are you using?
+> I have the same issue with IE. But if I use Firefox. It's there for me. 
+> I'm hoping that is it what you are looking for.
+> 
+> Vinh
+> -----Original Message-----
+> Hi,
+> One of the guys created a simple configuration and was attempting to use
+> luci to administer the cluster. It comes up fine but the links "Admin ...
+> Logout" at the top left of the window that usually appears is not appearing.
+> Looking at the code in the header html I see the following:
+> 
+> <span py:if="tg.auth_stack_enabled" py:strip="True">
+>        <py:if test="request.identity">
+>          <li class="loginlogout"><a href="${tg.url('/admin')}"
+> class="${('', 'active')[defined('page') and
+> page==page=='admin']}">Admin</a></li>
+>          <li class="loginlogout"><a href="${tg.url('/prefs')}"
+> class="${('', 'active')[defined('page') and
+> page==page=='prefs']}">Preferences</a></li>
+>          <li id="login" class="loginlogout"><a
+> href="${tg.url('/logout_handler')}">Logout</a></li>
+>        </py:if>
+>       <li py:if="not request.identity" id="login" class="loginlogout"><a
+> href="${tg.url('/login')}">Login</a></li>
+> </span>
+> 
+> What affects (or effects) the tg.auth_stack_enabled value? I assume its some
+> browser setting but really have no clue.
+> 
+> Neale
+
+From jpokorny@redhat.com Tue Apr 29 11:18:24 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3TFIONe000558 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 11:18:24 -0400
+Received: from redhat.com (dhcp129-43.brq.redhat.com [10.34.129.43])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3TFILSI007528
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NO)
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 11:18:23 -0400
+Date: Tue, 29 Apr 2014 17:18:21 +0200
+From: Jan =?utf-8?Q?Pokorn=C3=BD?= <jpokorny@redhat.com>
+To: linux clustering <linux-cluster@redhat.com>
+Message-ID: <20140429151821.GA4367@redhat.com>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="WIyZ46R2i8wDzkSu"
+Content-Disposition: inline
+In-Reply-To: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+User-Agent: Mutt/1.5.21 (2012-12-30)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 15:18:25 -0000
+
+
+--WIyZ46R2i8wDzkSu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Neal,
+
+On 25/04/14 19:13 +0000, Neale Ferguson wrote:
+>  One of the guys created a simple configuration and was attempting
+>  to use luci to administer the cluster. It comes up fine but the
+>  links "Admin ... Logout" at the top left of the window that usually
+>  appears is not appearing. Looking at the code in the header html I
+>  see the following:
+>=20
+> <span py:if=3D"tg.auth_stack_enabled" py:strip=3D"True">
+>         <py:if test=3D"request.identity">
+>           <li class=3D"loginlogout"><a href=3D"${tg.url('/admin')}" class=
+=3D"${('', 'active')[defined('page') and page=3D=3Dpage=3D=3D'admin']}">Adm=
+in</a></li>
+>           <li class=3D"loginlogout"><a href=3D"${tg.url('/prefs')}" class=
+=3D"${('', 'active')[defined('page') and page=3D=3Dpage=3D=3D'prefs']}">Pre=
+ferences</a></li>
+>           <li id=3D"login" class=3D"loginlogout"><a href=3D"${tg.url('/lo=
+gout_handler')}">Logout</a></li>
+>         </py:if>
+>        <li py:if=3D"not request.identity" id=3D"login" class=3D"loginlogo=
+ut"><a href=3D"${tg.url('/login')}">Login</a></li>
+> </span>
+>=20
+> What affects (or effects) the tg.auth_stack_enabled value? I assume
+> its some browser setting but really have no clue.
+
+could you be more specific as to which versions of luci, TurboGears
+and repoze.who?  In RHEL-like distros, the latter map to TurboGears2
+and python-repoze-who packages.
+
+I don't recall any issue like what you described.
+
+--=20
+Jan
+
+--WIyZ46R2i8wDzkSu
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJTX8K9AAoJEGG7sjqej43ijLwQAKkKUPy38sohQ2jtdxSFZK6Q
+yBJb1v4+WnpqbHXgtgqsbeuWe6lg0m5MP1O5iwwjIwE505L0fnO3lnOD7DrJX9E5
+q8ww2Nt0Fgrh4dPvkAx+lq6bojKpVDn7shHnDwm1KLcHQVRj0FvwnrU5/1nuC+V4
+9qh+c5Pgm4psyJxskWxMCFfW0SXnbRD1HhzGz3cYrcM04Wun+jn6m5wHD/88Rxct
+xKZjUnVMf+ASUdax+5LsXvlkMRKHnW2F9rFToLYFAfToHLAIj3GTFmOcvcuYFPoM
+Bz5cAnCQaPJmCW09IfObCuoPYPd26cJzGkcHqrPoKN4EiLpACPKohNwyeEsDCVo0
+ZylzpokmMIzo673sWMyTtI92u3PRonF/HQE51q1odEUGxrd4xwKGAiBRI2AALuvx
+0r65oDc/Kwdit+hJVHMNTyMVtzBSWa8SwJtlPZPWyFRbK1MLhOOEN8NT+qfhsYoh
+VpCNHaaAZJpI4Ar9rZBTzVYAyRiMysTX+nKUnQvQMtDJjqhRz8Z12u+wxwTgj+k9
+6cVKpFq4JQ1J7xcEpJf2xhIiPTgSVZjWZhjgXVDgzT/EtNlaFGcjS7L8BxxJzH8r
+TYzIfXDplTHbYsT/4sY2q+lvKM9WXynSqmuQUzgqWPs+Vmh5eP8MMDEE93NFrVUH
+RIQQOTVF1GpqooA/eVzJ
+=vBD8
+-----END PGP SIGNATURE-----
+
+--WIyZ46R2i8wDzkSu--
+
+From neale@sinenomine.net Tue Apr 29 12:02:27 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3TG2RgT009595 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 12:02:27 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3TG2RIi006362
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 12:02:27 -0400
+Received: from smtp129.ord.emailsrvr.com (smtp129.ord.emailsrvr.com
+	[173.203.6.129])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3TG2Mg3018303
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 12:02:23 -0400
+Received: from smtp13.relay.ord1a.emailsrvr.com (localhost.localdomain
+	[127.0.0.1])
+	by smtp13.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	5180A198233
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 12:02:18 -0400 (EDT)
+X-SMTPDoctor-Processed: csmtpprox beta
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp13.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	4C647198479
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 12:02:18 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex05.mlsrvr.com (unknown [184.106.31.85])
+	by smtp13.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTPS id
+	37273198233
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 12:02:17 -0400 (EDT)
+Received: from ORD2MBX03C.mex05.mlsrvr.com ([fe80::92e2:baff:fe20:c334]) by
+	ORD2HUB34.mex05.mlsrvr.com ([::1]) with mapi id 14.03.0169.001;
+	Tue, 29 Apr 2014 11:02:17 -0500
+From: Neale Ferguson <neale@sinenomine.net>
+To: linux clustering <linux-cluster@redhat.com>
+Thread-Topic: [Linux-cluster] luci question
+Thread-Index: AQHPYLpzEKo95RnDiEWqe4o9yg/plZspDt+AgAAMRIA=
+Date: Tue, 29 Apr 2014 16:02:17 +0000
+Message-ID: <C7F166CB-FB92-43D8-BDF6-A5C9ACCBBB5E@sinenomine.net>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+	<20140429151821.GA4367@redhat.com>
+In-Reply-To: <20140429151821.GA4367@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [96.247.198.211]
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_2E5EF40F-8C5D-4B02-8C2B-5373706495AB";
+	protocol="application/pgp-signature"; micalg=pgp-sha512
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -3.001  (BAYES_00, DCC_REPUT_00_12, RCVD_IN_DNSWL_LOW,
+	SPF_PASS)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 16:02:27 -0000
+
+--Apple-Mail=_2E5EF40F-8C5D-4B02-8C2B-5373706495AB
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=iso-8859-1
+
+luci-0.26.0-48 (tried -13 as well)
+TurboGears2-2.0.3-4.
+kernel-2.6.32-358.2.1
+python-repoze-who-1.0.18-1 (I believe - am verifying)
+
+On Apr 29, 2014, at 11:18 AM, Jan Pokorn=FD <jpokorny@redhat.com> wrote:
+
+> could you be more specific as to which versions of luci, TurboGears
+> and repoze.who?  In RHEL-like distros, the latter map to TurboGears2
+> and python-repoze-who packages.
+>=20
+> I don't recall any issue like what you described.
+>=20
+> --=20
+> Jan
+> --=20
+> Linux-cluster mailing list
+> Linux-cluster@redhat.com
+> https://www.redhat.com/mailman/listinfo/linux-cluster
+
+
+--Apple-Mail=_2E5EF40F-8C5D-4B02-8C2B-5373706495AB
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="signature.asc"
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Message signed with OpenPGP using GPGMail
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iQEcBAEBCgAGBQJTX80IAAoJEPpbl1zym0JPQzwH/1WfmY2xuX56amxlO0HMAVSW
+R8XPyrToL0/o7WI5vVauEtYibHEiErQsoYTa/SNEjcaxkRueqwqn9FydqMg2hwsc
+ug3Ta6AjtYxggCP1+U8A++oKM0rXvnaeXAsf5RgJ9wsZDBLm2O/MFn8VtGWTNGSi
+VKKOw0XhgXvL72UlDexXzehCi2/4OzAkXdraoTp5Ji+TMSc2lEvZfKWNiLHBOohu
+An/+tOujy6dMUeliE/WK47Tg0RtUl1LPMDQ+Bk1o0FlKsEthaFAH3UiaLZUp45FY
+VY8apc6K7jTEJlkgf2TVRRPZ7eSrehaEb7IJmlYqRMZ5qszvvotbU79X0nUK6C0=
+=VWPO
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_2E5EF40F-8C5D-4B02-8C2B-5373706495AB--
+
+From jpokorny@redhat.com Tue Apr 29 13:17:43 2014
+Received: from int-mx01.intmail.prod.int.phx2.redhat.com
+	(int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3THHhJZ032725 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 13:17:43 -0400
+Received: from redhat.com (juicyfruit.brq.redhat.com [10.34.129.43])
+	by int-mx01.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3THHetW020744
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:17:42 -0400
+Date: Tue, 29 Apr 2014 19:17:40 +0200
+From: Jan =?utf-8?Q?Pokorn=C3=BD?= <jpokorny@redhat.com>
+To: linux clustering <linux-cluster@redhat.com>
+Message-ID: <20140429171740.GB4367@redhat.com>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+	<20140429151821.GA4367@redhat.com>
+	<C7F166CB-FB92-43D8-BDF6-A5C9ACCBBB5E@sinenomine.net>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="rJwd6BRFiFCcLxzm"
+Content-Disposition: inline
+In-Reply-To: <C7F166CB-FB92-43D8-BDF6-A5C9ACCBBB5E@sinenomine.net>
+User-Agent: Mutt/1.5.21 (2012-12-30)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.11
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 17:17:43 -0000
+
+
+--rJwd6BRFiFCcLxzm
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 29/04/14 16:02 +0000, Neale Ferguson wrote:
+> luci-0.26.0-48 (tried -13 as well)
+> TurboGears2-2.0.3-4.
+> kernel-2.6.32-358.2.1
+> python-repoze-who-1.0.18-1 (I believe - am verifying)
+
+Thanks, this looks sane.
+
+Actually there used to be an issue with Genshi generating strict
+XML by default, notably baffling IE, but it should be sufficiently
+solved for a long time (https://bugzilla.redhat.com/663103),
+definitely in the version you used.
+
+Just to be sure could you provide also your python-genshi version?
+
+
+Now I am thinking about another thing:
+
+> One of the guys created a simple configuration
+
+seems to be pretty generic expression, and makes me confused.  Does it
+mean mere luci installation/deployment (along the lines of what
+specfile does, or better yet, directly from package), or (also) some
+configuration files tweaking (having especially
+/var/lib/luci/etc/luci.ini in mind, modifying file analogous to
+/etc/sysconfig/luci should be fine)?
+
+Because if the latter, chances are that admittedly a bit fragile
+start up process involving hierarchical configuration (via two stated
+files) and intentional run-time substitutions of middleware
+initialization routines (cf. luci.initwrappers) could suffer from
+that.  On the other hand, if logging in works as expected, even when
+reproduced with cookies previously cleared, the issue remains
+a mystery. [If it meant a _cluster_ configuration in luci, I don't
+think this has any relevance to the issue.]
+
+
+Also to this point:
+
+> the links "Admin ... Logout" at the top left of the window that
+> usually appears is not appearing.
+
+not even "Login" is shown at that very position, right?
+
+
+Further debugging pointers:
+
+- inspect source code of the generated page, best when static original
+  is preserved (some code inspectors tend to rather work with live,
+  dynamically modified DOM serialization), wget/curl output when
+  pretending being logged in via cookies might also help
+
+- last and promise-less attempt: try enabling verbose logging in
+  /var/lib/luci/etc/luci.ini or equivalent (substitute to fit):
+
+# sed -i.old ':0;/\[logger_root\]/b1;p;d;:1;n;s|\(level[ \t]*=3D[ \t]*\).*|=
+\1DEBUG|;t0;b1' \
+  /var/lib/luci/etc/luci.ini
+
+  followed by luci restart and accessing the page in question;
+  there may be something suspicious in the log (usually
+  /var/log/luci/luci.log) but expectedly amongst plenty
+  of other/worthless messages :-/
+
+> On Apr 29, 2014, at 11:18 AM, Jan Pokorn=C3=BD <jpokorny@redhat.com> wrot=
+e:
+>=20
+>> could you be more specific as to which versions of luci, TurboGears
+>> and repoze.who?  In RHEL-like distros, the latter map to TurboGears2
+>> and python-repoze-who packages.
+>>=20
+>> I don't recall any issue like what you described.
+
+--=20
+Jan
+
+--rJwd6BRFiFCcLxzm
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJTX96zAAoJEGG7sjqej43i1xcQAMFlOpRECorrti3P14PZlMRQ
+1MA9UFUhzVz4iANMKvBEdtoLSLMrw2Z8LklI1urmsp3wAuWEe4aCJrTAyV2Gl7Gz
+qgCriUke18cDHILS9HztyXYTFhCmswvg3Fs++6z7telchMZgaRuItHXmOF4Vzy2+
+acrDjI/dbJS7qOT7c15Dlv05+BarUOffrvATZS5bI4buGzHIiC9vbZHNxFtSJhZu
+I06idyYrVVMTxkLPLHraVtLJtBXPiZC6DKxKPmJIlYXO76CyhNTnuq46lvNORFx2
+8xVYGzN90JlWgG5iNxwMOTkoslZKA3LW+bHiy8nw17vbuR/ef/6V30V55I8qjccR
+fz7ZSZd13+/oKY+TP8IdzCiY0cGiJnq5DH0AW/y4S2NvPI5QuBz84DMmBZWeUtI4
+ygpcFXIUUneAreLf4K5thpNma0Rm1r8oMQQm4ZVyPrixVmbnttOhC9QB4QIiwuh6
+1QZVq+ZxqfjJP2LlWO1cdP25O9CPzHOFKj1tb+ILugRkjOmBLd68kb6ZeWR72OJc
+QJIyFTp29+EfFeMiiAuoWvyCP3KfJD6oI9VtsDNz6WcM73AW3KSmPLT8uz7vIlYP
+JOf2/lgk1qeWAcDwR0VK35HGCNaFwCyiotSEEcj1ew/idWUEidGoTWjQooFGhmnk
+3gNji/pt7ZmjQHomCXK1
+=QZe0
+-----END PGP SIGNATURE-----
+
+--rJwd6BRFiFCcLxzm--
+
+From neale@sinenomine.net Tue Apr 29 13:33:02 2014
+Received: from int-mx11.intmail.prod.int.phx2.redhat.com
+	(int-mx11.intmail.prod.int.phx2.redhat.com [10.5.11.24])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3THX24A021988 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 13:33:02 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx11.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3THX2fH001055
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:33:02 -0400
+Received: from smtp137.ord.emailsrvr.com (smtp137.ord.emailsrvr.com
+	[173.203.6.137])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3THX0PZ025778
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:33:00 -0400
+Received: from smtp26.relay.ord1a.emailsrvr.com (localhost.localdomain
+	[127.0.0.1])
+	by smtp26.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	68EC31C07C8
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:32:59 -0400 (EDT)
+X-SMTPDoctor-Processed: csmtpprox beta
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp26.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	617761C07BA
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:32:59 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex05.mlsrvr.com (unknown [184.106.31.85])
+	by smtp26.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTPS id
+	463601C03EF
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:32:59 -0400 (EDT)
+Received: from ORD2MBX03C.mex05.mlsrvr.com ([fe80::92e2:baff:fe20:c334]) by
+	ORD2HUB26.mex05.mlsrvr.com ([fe80::be30:5bff:fef4:9240%15]) with mapi
+	id 14.03.0169.001; Tue, 29 Apr 2014 12:32:58 -0500
+From: Neale Ferguson <neale@sinenomine.net>
+To: linux clustering <linux-cluster@redhat.com>
+Thread-Topic: [Linux-cluster] luci question
+Thread-Index: AQHPYLpzEKo95RnDiEWqe4o9yg/plZspDt+AgAAMRICAABUSAIAABEaA
+Date: Tue, 29 Apr 2014 17:32:58 +0000
+Message-ID: <7A8D29DD-99C9-4A56-9193-8CE045EF5289@sinenomine.net>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+	<20140429151821.GA4367@redhat.com>
+	<C7F166CB-FB92-43D8-BDF6-A5C9ACCBBB5E@sinenomine.net>
+	<20140429171740.GB4367@redhat.com>
+In-Reply-To: <20140429171740.GB4367@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [96.247.198.211]
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_0458E187-2DE1-4E83-8193-F65BF18FC0FE";
+	protocol="application/pgp-signature"; micalg=pgp-sha512
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -3.001  (BAYES_00, DCC_REPUT_00_12, RCVD_IN_DNSWL_LOW,
+	SPF_PASS)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.24
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 17:33:02 -0000
+
+--Apple-Mail=_0458E187-2DE1-4E83-8193-F65BF18FC0FE
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=iso-8859-1
+
+He installed luci and then pointed his browser at the host:8084. He gets =
+the login panel, logs in as root, gets the homebase screen but it =
+doesn't have those links at the top right. No changes to any of the =
+files that luci installs.
+
+It was a clean RHEL install so I'm guessing that genshi is up to date =
+but I'll ask.
+
+Neale
+
+On Apr 29, 2014, at 1:17 PM, Jan Pokorn=FD <jpokorny@redhat.com> wrote:
+
+> On 29/04/14 16:02 +0000, Neale Ferguson wrote:
+>> luci-0.26.0-48 (tried -13 as well)
+>> TurboGears2-2.0.3-4.
+>> kernel-2.6.32-358.2.1
+>> python-repoze-who-1.0.18-1 (I believe - am verifying)
+>=20
+> Thanks, this looks sane.
+>=20
+> Actually there used to be an issue with Genshi generating strict
+> XML by default, notably baffling IE, but it should be sufficiently
+> solved for a long time (https://bugzilla.redhat.com/663103),
+> definitely in the version you used.
+>=20
+> Just to be sure could you provide also your python-genshi version?
+>=20
+>=20
+> Now I am thinking about another thing:
+>=20
+>> One of the guys created a simple configuration
+>=20
+> seems to be pretty generic expression, and makes me confused.  Does it
+> mean mere luci installation/deployment (along the lines of what
+> specfile does, or better yet, directly from package), or (also) some
+> configuration files tweaking (having especially
+> /var/lib/luci/etc/luci.ini in mind, modifying file analogous to
+> /etc/sysconfig/luci should be fine)?
+>=20
+> Because if the latter, chances are that admittedly a bit fragile
+> start up process involving hierarchical configuration (via two stated
+> files) and intentional run-time substitutions of middleware
+> initialization routines (cf. luci.initwrappers) could suffer from
+> that.  On the other hand, if logging in works as expected, even when
+> reproduced with cookies previously cleared, the issue remains
+> a mystery. [If it meant a _cluster_ configuration in luci, I don't
+> think this has any relevance to the issue.]
+
+--Apple-Mail=_0458E187-2DE1-4E83-8193-F65BF18FC0FE
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="signature.asc"
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Message signed with OpenPGP using GPGMail
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iQEcBAEBCgAGBQJTX+JJAAoJEPpbl1zym0JPBHcH/3mL6yUw3SuPcKMJcP6wBgRw
+aFygLkSl5r9N5QEeb5+2MPIBZn/V44MI8f7pfm4E1MJrAs48ZeI/yfasd7Bxg7xK
+eaCr0Ix5TiqSDHFYOCGrVMp367MhnIZ8itmHQ2FkksM0mEvRuV86vODfj3RqEm63
+oGIKqlpM/AxuTMAfy4ZnOB0yDJKbKz2pJ+8oqHNw2cosgLLSV38tSE8JG5frY41c
+t8Pz+F/6EeGfDRidSjkhI8jDvt66FO6f9bFmS8GK6t6KGj4G0xBwsGbS8mYaSTtp
+uJznVFwacFskI7JolOR3fTHewwUphL+lYTNYdKgCk3fJz7fbXBJRCC5OejYJEhs=
+=q4bq
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_0458E187-2DE1-4E83-8193-F65BF18FC0FE--
+
+From neale@sinenomine.net Tue Apr 29 13:56:55 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3THutc3012848 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 13:56:55 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3THutWn021621
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:56:55 -0400
+Received: from smtp137.ord.emailsrvr.com (smtp137.ord.emailsrvr.com
+	[173.203.6.137])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3THupAP003669
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:56:52 -0400
+Received: from smtp10.relay.ord1a.emailsrvr.com (localhost.localdomain
+	[127.0.0.1])
+	by smtp10.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	81A9D3708D9
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:56:51 -0400 (EDT)
+X-SMTPDoctor-Processed: csmtpprox beta
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp10.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	7BEE4370767
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:56:51 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex05.mlsrvr.com (unknown [184.106.31.85])
+	by smtp10.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTPS id
+	0570D370873
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 13:56:50 -0400 (EDT)
+Received: from ORD2MBX03C.mex05.mlsrvr.com ([fe80::92e2:baff:fe20:c334]) by
+	ORD2HUB31.mex05.mlsrvr.com ([::1]) with mapi id 14.03.0169.001;
+	Tue, 29 Apr 2014 12:56:50 -0500
+From: Neale Ferguson <neale@sinenomine.net>
+To: linux clustering <linux-cluster@redhat.com>
+Thread-Topic: [Linux-cluster] luci question
+Thread-Index: AQHPYLpzEKo95RnDiEWqe4o9yg/plZspDt+AgAAMRICAABUSAIAACu8A
+Date: Tue, 29 Apr 2014 17:56:49 +0000
+Message-ID: <EEE3033E-9AEC-40A3-BECE-6ED2D104B993@sinenomine.net>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+	<20140429151821.GA4367@redhat.com>
+	<C7F166CB-FB92-43D8-BDF6-A5C9ACCBBB5E@sinenomine.net>
+	<20140429171740.GB4367@redhat.com>
+In-Reply-To: <20140429171740.GB4367@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [96.247.198.211]
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_E55A0EB0-A912-4D47-89CA-5416429D7E04";
+	protocol="application/pgp-signature"; micalg=pgp-sha512
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -3.001  (BAYES_00, DCC_REPUT_00_12, RCVD_IN_DNSWL_LOW,
+	SPF_PASS)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 17:56:55 -0000
+
+--Apple-Mail=_E55A0EB0-A912-4D47-89CA-5416429D7E04
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=iso-8859-1
+
+Name        : python-genshi
+Arch        : s390x
+Version     : 0.5.1
+Release     : 7.1.el6
+
+On Apr 29, 2014, at 1:17 PM, Jan Pokorn=FD <jpokorny@redhat.com> wrote:
+>=20
+> Just to be sure could you provide also your python-genshi version?
+
+--Apple-Mail=_E55A0EB0-A912-4D47-89CA-5416429D7E04
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="signature.asc"
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Message signed with OpenPGP using GPGMail
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iQEcBAEBCgAGBQJTX+fhAAoJEPpbl1zym0JPIwoH/RRkakmDBf2axgOhqkwDm0xW
+sxk4TLpGYsU7fnfDMx8HoqYCOVMEjdOwUkvdwKzAXx2youcL2BRyonymE8xtLfoN
+uDgOai7U9WsVJG1g9SNkpwm5+YdCcNWZyzyqRBmFiGvFmNHE0BMdN/IF1jpcmtSK
+MI3QNdVcDE2s4C7o/YUs4ZceClC2jLFXKyYDzCTxRd3QXo9wrczhAvU+u0uF8tua
+rUAnkfEaBoT4kXIMlFQLmxa0UwMg9ahJBu/lk8RrTbH+uolLhooPGQ8gSF27riKG
+I+S9APap7KJdr86eu0hHYBAmIh64Mhmvx724g3AT5qevzRcw/EYf6Nk0omjzurE=
+=xzj3
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_E55A0EB0-A912-4D47-89CA-5416429D7E04--
+
+From jpokorny@redhat.com Tue Apr 29 14:27:51 2014
+Received: from int-mx01.intmail.prod.int.phx2.redhat.com
+	(int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3TIRpfu015576 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 14:27:51 -0400
+Received: from redhat.com (juicyfruit.brq.redhat.com [10.34.129.43])
+	by int-mx01.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3TIRmjK016022
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 14:27:50 -0400
+Date: Tue, 29 Apr 2014 20:27:48 +0200
+From: Jan =?utf-8?Q?Pokorn=C3=BD?= <jpokorny@redhat.com>
+To: linux clustering <linux-cluster@redhat.com>
+Message-ID: <20140429182748.GA9564@redhat.com>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+	<20140429151821.GA4367@redhat.com>
+	<C7F166CB-FB92-43D8-BDF6-A5C9ACCBBB5E@sinenomine.net>
+	<20140429171740.GB4367@redhat.com>
+	<EEE3033E-9AEC-40A3-BECE-6ED2D104B993@sinenomine.net>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="bp/iNruPH9dso1Pn"
+Content-Disposition: inline
+In-Reply-To: <EEE3033E-9AEC-40A3-BECE-6ED2D104B993@sinenomine.net>
+User-Agent: Mutt/1.5.21 (2012-12-30)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.11
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 18:27:51 -0000
+
+
+--bp/iNruPH9dso1Pn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 29/04/14 17:56 +0000, Neale Ferguson wrote:
+> Name        : python-genshi
+> Arch        : s390x
+> Version     : 0.5.1
+> Release     : 7.1.el6
+
+Thanks again, but I have to admit I am short of ideas.
+
+Please see my other post wrt. next possible pointers, notably
+inspecting a page dump (e.g., via save page as) because there could be
+also some weird styling issue despite the demanded content reached
+the browser.  Probably last item to check that I recalled is checking
+that no interfering EPEL or other non-RH package is installed, perhaps
+by running:
+
+rpm -q --qf "%{NEVRA}; %{VENDOR}\n" -- luci TurboGears2 pyOpenSSL    \
+ python python-babel python-beaker python-cheetah python-decorator   \
+ python-decoratortools python-formencode python-genshi python-mako   \
+ python-markdown python-markupsafe python-myghty python-nose         \
+ python-paste python-paste-deploy python-paste-script                \
+ python-peak-rules python-peak-util-addons python-peak-util-assembler\
+ python-peak-util-extremes python-peak-util-symbols                  \
+ python-prioritized-methods python-pygments python-pylons            \
+ python-repoze-tm2 python-repoze-what python-repoze-what-pylons      \
+ python-repoze-who python-repoze-who-friendlyform                    \
+ python-repoze-who-testutil python-routes python-setuptools          \
+ python-simplejson python-sqlalchemy python-tempita                  \
+ python-toscawidgets python-transaction python-turbojson             \
+ python-tw-forms python-weberror python-webflash python-webhelpers   \
+ python-webob python-webtest python-zope-filesystem                  \
+ python-zope-interface python-zope-sqlalchemy | grep -v 'Red Hat'
+
+("package python-tw-forms is not installed" in the output is OK, it's
+just a legacy thing)
+
+Sadly, having no direct access to IE8, cannot track this further on my
+own.
+
+--=20
+Jan
+
+--bp/iNruPH9dso1Pn
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJTX+8kAAoJEGG7sjqej43iR2kP/1HLo5GACIPYwn2SaPOSFoCs
+sNIxtMbuxaer7VC62EMsJjFo7XQJfg8QRVrfAUzU/mfDR2TcI8eYPuy829YeBBrj
+PQGIqyDmijS4dQThdXh92/z7EP2stpFtrc/QSSqeUaU3xFHTo6SgWps+8m6NkMZX
+At4y1GkA0WKWbGunbN0YplZFrKCl5rnILaqnciw8X5itz4G9RN6wToHuMHPFvywk
+YHUXC54ychIk0sSzv7Cp3qD/IuYfyb/630uTQKLvtZTETyqLnPS4yWHFwiZVEWZ6
+O5StmewWMZ07CvzPmE2c8zufk6IlP69qEH7jAAhoZBpKZXhS8PydF+ks8kMruG5A
+pdVw9RHlkLQbKC/DJpK40jJwvYoHdY7OT69YgkVL8yZSZ+DYM8YMAlSubYlBWiCv
+TfXvPa+/MACiiK5u3NwEs9CeQ9+4sFIZnW+19cgNe3dhi+L2K0Ok9Si1YGhXuNt9
+XrObPMYAnUdmSPyeiWF8OoZN+AFGTgRYkJ+vQmVgA246vDoovQ4RAMQIh1VCFwlJ
+1i4rhyiobQy/h5MZv5Lw/niWMywiCjc9rhdAL65+3PYTG8j6LAfqO7hKqQJHQEwT
+xBBReLXinhACr7NptIorKiS9haTPJHbSYsvhFzSs6VNdUK91HP1mvMEGno2wWjem
+3Jmpyi+GuCBTh+RxBt/2
+=T14s
+-----END PGP SIGNATURE-----
+
+--bp/iNruPH9dso1Pn--
+
+From neale@sinenomine.net Tue Apr 29 14:38:41 2014
+Received: from int-mx10.intmail.prod.int.phx2.redhat.com
+	(int-mx10.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s3TIcfPH014173 for <linux-cluster@listman.util.phx.redhat.com>;
+	Tue, 29 Apr 2014 14:38:41 -0400
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.17])
+	by int-mx10.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s3TIcf37006767
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 14:38:41 -0400
+Received: from smtp129.ord.emailsrvr.com (smtp129.ord.emailsrvr.com
+	[173.203.6.129])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s3TIcdiV001911
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 14:38:40 -0400
+Received: from smtp29.relay.ord1a.emailsrvr.com (localhost.localdomain
+	[127.0.0.1])
+	by smtp29.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	E57111089B9
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 14:38:38 -0400 (EDT)
+X-SMTPDoctor-Processed: csmtpprox beta
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp29.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTP id
+	DC1FF108800
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 14:38:38 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex05.mlsrvr.com (unknown [184.106.31.85])
+	by smtp29.relay.ord1a.emailsrvr.com (SMTP Server) with ESMTPS id
+	98BE810890F
+	for <linux-cluster@redhat.com>; Tue, 29 Apr 2014 14:38:38 -0400 (EDT)
+Received: from ORD2MBX03C.mex05.mlsrvr.com ([fe80::92e2:baff:fe20:c334]) by
+	ORD2HUB34.mex05.mlsrvr.com ([::1]) with mapi id 14.03.0169.001;
+	Tue, 29 Apr 2014 13:38:38 -0500
+From: Neale Ferguson <neale@sinenomine.net>
+To: linux clustering <linux-cluster@redhat.com>
+Thread-Topic: [Linux-cluster] luci question
+Thread-Index: AQHPYLpzEKo95RnDiEWqe4o9yg/plZspDt+AgAAMRICAABUSAIAACu8AgAAIqgCAAAMFgA==
+Date: Tue, 29 Apr 2014 18:38:38 +0000
+Message-ID: <832CABBC-F493-4032-AA3B-50D9A3B80BFB@sinenomine.net>
+References: <8C5B1F22-0A70-4705-9DC2-749230BEF1D0@sinenomine.net>
+	<20140429151821.GA4367@redhat.com>
+	<C7F166CB-FB92-43D8-BDF6-A5C9ACCBBB5E@sinenomine.net>
+	<20140429171740.GB4367@redhat.com>
+	<EEE3033E-9AEC-40A3-BECE-6ED2D104B993@sinenomine.net>
+	<20140429182748.GA9564@redhat.com>
+In-Reply-To: <20140429182748.GA9564@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [96.247.198.211]
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_A2DFF67B-E4E5-470C-850F-32BEAD8273E1";
+	protocol="application/pgp-signature"; micalg=pgp-sha512
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -3.001  (BAYES_00, DCC_REPUT_00_12, RCVD_IN_DNSWL_LOW,
+	SPF_PASS)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.17
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] luci question
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Tue, 29 Apr 2014 18:38:41 -0000
+
+--Apple-Mail=_A2DFF67B-E4E5-470C-850F-32BEAD8273E1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=iso-8859-1
+
+Thanks for the suggestions Jan. Your help is appreciated.
+
+Neale
+
+On Apr 29, 2014, at 2:27 PM, Jan Pokorn=FD <jpokorny@redhat.com> wrote:
+
+> Sadly, having no direct access to IE8, cannot track this further on my
+> own.
+
+--Apple-Mail=_A2DFF67B-E4E5-470C-850F-32BEAD8273E1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="signature.asc"
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Message signed with OpenPGP using GPGMail
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iQEcBAEBCgAGBQJTX/GtAAoJEPpbl1zym0JPCn0H/06f9n+iJJUVgjpH2PYhRilO
+gspwF/mpnureMvi4krGrpNpZ8iFAYz2vpSEaohNL/XklBR8xh5Hy8r4kLVXGYlwB
+qluhrJj2uvD81qAgtGcmWJogfK5wmikjRPz81wBpju1GPWOJpCarhuSt80QH8dZG
+EuYnIlZ77LoLSVBsW2RxB0QLyecGqW3BwrhpNTq8Tq7z9qw9IyfM7wQq+JbeVnqi
+JUxuSkmLWDCLBIOD0F0fNJiCvxUn5W6DkxK1V2IFctizrVEPHYxfDhMOPzfsIrOF
+2+QMFLoanNlAKWAnQ8+w9hXW0DGoJGxN5kHbm3m/Op3P0vstc5LTQfC5iUyBMO0=
+=awrm
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_A2DFF67B-E4E5-470C-850F-32BEAD8273E1--
+

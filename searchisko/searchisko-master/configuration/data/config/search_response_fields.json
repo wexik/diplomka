@@ -1,0 +1,25 @@
+{
+    "search_response_fields":[
+        "_id",
+	"id",
+        "sys_type",
+        "title",
+	"mailinglist",
+	"tags",
+	"from",
+	"subject",
+	"text_message_snippet",
+	"replies",
+	"date",
+        "sys_url_view",
+        "sys_description",
+        "sys_project",
+        "sys_project_name",
+        "sys_tags",
+        "sys_contributors",
+        "sys_created",
+        "sys_last_activity_date",
+        "sys_rating_avg",
+	"sys_rating_num"
+    ]
+}

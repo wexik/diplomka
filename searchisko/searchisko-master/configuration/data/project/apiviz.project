@@ -1,0 +1,11 @@
+{
+  "code": "apiviz",
+  "name": "APIviz",
+  "type_specific_code" : {
+    "jbossorg_blog": [""],
+    "jbossorg_jira": ["APIVIZ"],
+    "jbossorg_sbs" : [],
+    "jbossorg_mailing_list": "",
+    "jbossorg_project_info": "apiviz"
+  }
+}

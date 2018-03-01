@@ -1,0 +1,12 @@
+.project
+.classpath
+.settings
+*.ipr
+.idea
+*.iws
+*.iml
+*~
+.DS_Store
+target
+test-output
+.externalToolBuilders

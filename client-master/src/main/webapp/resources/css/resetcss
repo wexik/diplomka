@@ -1,0 +1,116 @@
+﻿
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
+ *  Author: Wesley Hales
+ *  Description: SlidFast is a minimalistic framework to writing mobile web apps.
+ *  It utilizes core HTML5 APIs for today's mobile web browsers.
+ */
+﻿    /**
+    * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+    * http://www.cssportal.com
+    */
+   @import url("reset.css");
+ 
+ 
+ 
+ * {
+  
+}
+
+ 
+ 
+
+
+body {
+    color:#333
+    margin: 0;
+	padding: 0;
+}
+
+.myHeader{
+    background: #858182;
+}
+
+
+#email-list {  
+     padding-top:1cm;
+}
+
+
+#wrapper {
+	leftmargin:0; topmargin:0; marginheight:0; marginwidth:0;
+    width: 100%;
+    min-width: 1000px;
+    max-width: 2000px;
+    
+}
+
+#header {
+	
+	border:5px solid red;
+	margin: 0 0 20px;
+    float: left;
+    height: 25px;
+    width: 100%;
+    background: #858182;
+}
+
+#contentliquid {
+    float: left;
+    min-height: 1000px;
+    width: 100%;
+}
+
+#content {
+    margin-left: 150px;
+    margin-right: 150px;
+    padding-left:2cm;
+    padding-right:2cm;
+ 
+}
+
+#leftcolumn {
+    width: 150px;
+    float: left;
+    margin-left:-100%;
+}
+
+#leftcolumnMenu {
+    
+}
+
+#controlBackgroundColor{
+	 background-color: #fae6b0;
+
+}
+
+#rightcolumn {
+    width: 150px;
+    float: left;
+    margin-left: -150px;
+}
+
+#footer {
+    height: 40px;
+    width: 100%;
+    background: #858182;
+    clear: both;
+}

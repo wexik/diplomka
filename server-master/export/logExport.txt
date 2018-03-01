@@ -1,0 +1,78 @@
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905247, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905247, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:33:44 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:35:30 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:36:59 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905227, timeSecond=1512001999, time=1512001999000, date=1512001999000}
+2017-12-01 19:41:51 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:42:14 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:42:14 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-01 19:42:14 ERROR SearchiskoResponseParser:72 - IDcko: {timestamp=1512001999, machineIdentifier=5835889, processIdentifier=-8438, counter=905236, timeSecond=1512001999, date=1512001999000, time=1512001999000}
+2017-12-01 19:42:14 ERROR SearchiskoResponseParser:73 - ID short proces: -8438
+2017-12-11 17:21:50 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:21:50 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:23:52 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:23:52 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:27:11 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:27:11 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:33:39 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:33:39 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:39:35 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:39:35 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:41:36 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:41:36 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:43:01 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:43:01 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:44:04 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:44:04 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:47:19 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:47:19 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:50:00 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:50:00 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:50:38 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:50:38 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:51:49 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:51:49 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:57:08 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 19:57:08 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:00:36 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:00:36 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:01:59 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:01:59 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:03:57 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:03:57 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:06:37 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:06:37 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:07:42 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:07:42 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:08:41 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 20:08:41 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true

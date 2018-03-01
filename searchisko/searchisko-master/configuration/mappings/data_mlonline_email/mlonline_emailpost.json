@@ -1,0 +1,22 @@
+   {
+	"mlonline_emailpost" : {
+		"_all" : {"enabled" : true},
+        	"properties" : {
+	  	    "_id"   : { "type" : "string", "store" : "yes" },
+        	    "messageId"   : { "type" : "string", "store" : "yes"},
+        	    "subject" : { "type" : "string", "store" : "yes" },
+		    "from" : { "type" : "string", "store" : "yes" },
+	  	    "date" : { "type" : "string", "store" : "yes" },
+          	    "mailinglist" : {"type" : "string", "store" : "yes" },
+              	    "mainContent" : {
+           	       "type" : "object",
+                       "properties" : {
+                      		"text" : { "type" : "string" },
+                      		"type" : { "type" : "string" }
+               		 }
+           	     },
+                     "tags" : { "type" : "string", "store" : "yes" }
+		}
+        }
+
+}

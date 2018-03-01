@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"	>
+
+
+<body>
+
+	<f:metadata>
+		<f:viewParam name="mailinglist"
+			value="#{selectedMailinglist.mailinglist}" />			
+		 <f:event type="postAddToView"
+			listener="#{panelChangeListener.processItemChange()}" /> 			
+	</f:metadata>
+
+
+	<ui:composition template="/templates/mainTemplate.xhtml">
+		<ui:define name="leftcolumnMenu">
+
+		</ui:define>
+		<ui:define name="content">						
+			<br />
+			<div>
+			
+					<br/>
+				<ul>
+					<h:panelGroup rendered="#{searchResponse.emails == null}">
+					<!--div class="container"-->
+						<table class="table table-hover mainTab" id="mainTable">
+							<thead>
+								<tr>
+									<h:panelGroup rendered="#{contentResponse.emails != null}">
+										<th>From</th>										
+										<th>Subject</th>
+										<h:panelGroup rendered="#{selectedMailinglist.mailinglist eq 'all'}">
+											<th>Mailing list</th>
+										</h:panelGroup>
+										<th>Date</th>
+										<th>Last reply</th>
+										<!--th>Message Snippet</th-->
+										<th>Detail&nbsp;</th>
+										
+									</h:panelGroup>
+								</tr>
+							</thead>
+							<tbody>
+								<ui:repeat rendered="#{contentResponse.emails != null}"
+											value="#{contentResponse.emails}" var="email">
+									<tr>
+										<td height="52">#{email.from}</td>										
+										<td>#{email.subject}</td>
+										<h:panelGroup rendered="#{selectedMailinglist.mailinglist eq 'all'}">
+											<td>#{email.mailinglist}</td>
+										</h:panelGroup>
+										<td>#{email.getDateInString()}</td>										
+										<td>
+											<!--h:panelGroup rendered="#{email.getReplies().size() > 0}">
+												<div class="dropdown">
+	    											<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+	    												Replies
+	    												<span class="caret"></span>
+	    											</button>
+												    <ul class="dropdown-menu">
+													    <ui:repeat value="#{email.replies}" var="reply">
+															<li>
+														      	<pretty:link mappingId="email">
+																	<f:param value="#{reply.mailinglist}" />
+																	<f:param value="#{reply.getId()}" />
+																	<h:outputLabel value="#{reply.from} #{reply.getReadableDate()}" />
+																</pretty:link>																
+															</li>														      														      
+														</ui:repeat>
+												    </ul>
+											  	</div>
+										  	</h:panelGroup-->
+										  	<h:panelGroup rendered="#{email.getLastMessageId() != null}">
+										  		<a href= "#{email.mailinglist}/#{email.lastMessageId}">
+										  			<span class="btn btn-primary">Last reply</span>
+										  		</a>
+										  	</h:panelGroup>
+										</td>
+										<!--td>
+											#{email.getMessageSnippet()}
+										</td-->
+										<td>															
+   											<a href="#{email.mailinglist}/#{email.id}" class="btn btn-primary buttonDetailMM">
+   												<span class="glyphicon glyphicon-circle-arrow-right btn-md"/>   												
+   											</a>        										         									   								
+										</td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					<!--/div-->	
+					</h:panelGroup>						
+					<ui:repeat rendered="#{searchResponse.emails != null}"
+						value="#{searchResponse.emails}" var="email">
+						<h:panelGroup layout="block">
+
+							<div>
+								<p>
+									<span class="blueText">Date&nbsp;&nbsp;</span><h:outputText
+									value="#{email.getReadableDate()}" />
+								</p>
+								<p>
+									<span class="blueText">From&nbsp;&nbsp;</span><h:outputText
+									value="#{email.from}" />
+								</p>
+								<p>
+									<span class="blueText">Subject&nbsp;&nbsp;</span><h:outputText
+									value="#{email.subject}" />
+								</p>
+								<p>
+									<span class="blueText">Tags&nbsp;&nbsp;</span>
+									<ui:repeat value="#{email.tags}" var="tag">
+									<h:outputText value="#{tag}&nbsp;" />
+									</ui:repeat>
+									
+								</p>
+								<p><span class="blueText">Body&nbsp;&nbsp;</span></p>
+								<ui:repeat
+								rendered="#{email.highlighted.get('main_content') != null}"
+								value="#{email.highlighted.get('main_content')}" var="highlight">
+								 ...<h:outputText value="#{highlight}" escape="false" />...<br />
+							</ui:repeat>
+							<br />
+							<a href="#{request.contextPath}/#{email.mailinglist}/#{email.id}"
+								class="btn btn-primary">
+								Show message
+							</a>
+							<hr class="dividerLine"/>
+							</div>							
+						</h:panelGroup>
+					</ui:repeat>
+				</ul>
+				<center>
+			<h:form rendered="#{searchResponse.emails == null}">
+						<h:commandLink  style="padding-right:40px; font-size:18px;" 
+							rendered="#{panelChangeListener.currentRootsStartNumber >0}"  
+							action="#{panelChangeListener.previousRootsList}" >
+							<button type="button" class="btn btn-primary" aria-label="my button" style="border: 0px">								
+       							<span class="glyphicon glyphicon-chevron-left" ></span>       						
+       							previous
+							</button>
+						</h:commandLink>
+						<h:outputLabel  value="#{panelChangeListener.currentRootsStartNumber} - #{panelChangeListener.currentRootsStartNumber + contentResponse.emails.size()} out of #{panelChangeListener.allRootsInMailinglist} emails" />
+						<h:commandLink style="padding-left:40px; font-size:18px;" 
+							rendered="#{panelChangeListener.allRootsInMailinglist > panelChangeListener.currentRootsStartNumber +10}" 
+							action="#{panelChangeListener.nextRootsList}" >							
+							<button type="button" class="btn btn-primary" aria-label="my button" style="border: 0px">
+								next
+       							<span class="glyphicon glyphicon-chevron-right" ></span>       							
+							</button>
+						</h:commandLink>
+					</h:form>
+					</center>
+			</div>
+
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+
+<body>
+	<ui:composition template="/templates/mainTemplate.xhtml">
+
+		<ui:define name="content">
+			<center><h:messages id="topMessages" for="topMessages" infoStyle="color:darkgreen" errorStyle="color:darkred" /> </center>
+			<center>
+			
+			<table>
+				<thead>
+					<tr style="border-bottom: 3px solid #337ab7;"><td><h3>Login</h3></td><td style="border-left: 3px solid #337ab7;padding: 15px;"><h3>Register</h3></td></tr>
+					<tr>
+						<td>
+							<form method="post" action="j_security_check">
+								<table class="table borderLessTable">																										
+									<tr><td><label for="usr">Username</label></td></tr>							
+									<tr><td><input type="text" name="j_username" class="form-control" id="usr"/></td></tr>							
+									<tr><td><label for="pwd">Password</label></td></tr>
+									<tr><td><input type="password" name="j_password" class="form-control" id="pwd"/></td></tr>
+									<tr><td><input type="submit" class="btn btn-primary" value="Login" /></td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+																
+								</table>
+							</form>
+						</td>
+						<td style="border-left: 3px solid #337ab7;">
+							<h:form>
+								<table class="table borderLessTable">
+									<tr><td colspan="2"><h:message for="username" style="color:red" /></td></tr>					
+									<tr><td><label for="username">Name</label></td></tr>							
+									<tr><td>
+										<h:inputText value="#{reg.username}" id="username" class="form-control">
+										</h:inputText>
+									</td></tr>
+									<tr>
+										<td colspan="2"><h:message for="password" style="color:red" /></td>
+									</tr>
+									<tr><td><label for="password">Password</label></td></tr>
+									<tr><td><h:inputSecret value="#{reg.password}" id="password" class="form-control">
+											</h:inputSecret></td></tr>
+									<tr>
+										<td colspan="2"><h:message for="passwordAgain"
+											style="color:red" /></td>
+									</tr>
+									<tr><td><label for="passwordAgain">Password again</label></td></tr>
+									<tr>								
+										<td><h:inputSecret value="#{reg.passwordAgain}" id="passwordAgain" class="form-control">
+										</h:inputSecret></td>
+									</tr>
+									<tr>
+										<td>
+											<h:commandLink type="submit" action="#{reg.register}">
+												<input type="submit" class="btn btn-primary" value="Register" />
+											</h:commandLink>
+										</td>
+									</tr>
+								</table>
+							</h:form>
+						</td>
+					</tr>
+				</thead>
+			</table>
+					
+			</center>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>

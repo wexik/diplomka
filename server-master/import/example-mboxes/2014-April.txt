@@ -1,0 +1,850 @@
+From Mark.Vallevand@UNISYS.com Thu Apr  3 16:58:44 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33Kwin8022940 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 16:58:44 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s33KwiWd002006
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 16:58:44 -0400
+Received: from mail1.bemta12.messagelabs.com (mail1.bemta12.messagelabs.com
+	[216.82.251.12])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33KwZcv025435
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 16:58:36 -0400
+Received: from [216.82.249.131:17202] by server-12.bemta-12.messagelabs.com id
+	0D/00-07335-B7BCD335; Thu, 03 Apr 2014 20:58:35 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-11.tower-28.messagelabs.com!1396558713!27008484!1
+X-Originating-IP: [192.61.61.105]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 28003 invoked from network); 3 Apr 2014 20:58:34 -0000
+Received: from naedge.unisys.com (HELO USEA-NAEDGE2.unisys.com) (192.61.61.105)
+	by server-11.tower-28.messagelabs.com with RC4-SHA encrypted SMTP;
+	3 Apr 2014 20:58:34 -0000
+Received: from USEA-NAHUBCAS4.na.uis.unisys.com (129.224.76.29) by
+	USEA-NAEDGE2.unisys.com (192.61.61.105) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Thu, 3 Apr 2014 15:58:33 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	USEA-NAHUBCAS4.na.uis.unisys.com ([129.224.76.29]) with mapi;
+	Thu, 3 Apr 2014 15:58:33 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: linux clustering <linux-cluster@redhat.com>
+Date: Thu, 3 Apr 2014 15:58:30 -0500
+Thread-Topic: Simple data replication in a cluster
+Thread-Index: Ac9Pf3ezZemHXOoLR+a/m/Y5L/1ngA==
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -2.008  (BAYES_00, DCC_REPUT_13_19, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE, SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+X-loop: linux-cluster@redhat.com
+Subject: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 20:58:44 -0000
+
+--_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I'm looking for a simple way to replicate data within a cluster.
+
+It looks like my resources will be self-configuring and may need to push ch=
+anges they see to all nodes in the cluster.  The idea being that when a nod=
+e crashes, the resource will have its configuration present on the node on =
+which it is restarted.  We're talking about a few kb of data, probably in o=
+ne file, probably text.  A typical cluster would have multiple resources (m=
+ore than two), one resource per node and one extra node.
+
+Ideas?
+
+Could I use the CIB directly to replicate data?  Use cibadmin to update som=
+ething and sync?
+How big can a resource parameter be?  Could a resource modify its parameter=
+s so that they are replicated throughout the cluster?
+Is there a simple file replication Resource Agent?
+Drdb seems like overkill.
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com<mailto:Mark.Vallevand@Unisys.c=
+om>
+May you live in interesting times, may you come to the attention of importa=
+nt people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MA=
+TERIAL and is thus for use only by the intended recipient. If you received =
+this in error, please contact the sender and delete the e-mail and its atta=
+chments from all computers.
+
+
+--_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head><meta http-equiv=3DContent-Type content=
+=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
+oft Word 12 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue vli=
+nk=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>I&#8217;m lookin=
+g for a simple way to replicate data within a cluster.<o:p></o:p></p><p cla=
+ss=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>It looks like my r=
+esources will be self-configuring and may need to push changes they see to =
+all nodes in the cluster.&nbsp; The idea being that when a node crashes, th=
+e resource will have its configuration present on the node on which it is r=
+estarted.&nbsp; We&#8217;re talking about a few kb of data, probably in one=
+ file, probably text.&nbsp; A typical cluster would have multiple resources=
+ (more than two), one resource per node and one extra node.<o:p></o:p></p><=
+p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Ideas?<o:p></=
+o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Coul=
+d I use the CIB directly to replicate data?&nbsp; Use cibadmin to update so=
+mething and sync?<o:p></o:p></p><p class=3DMsoNormal>How big can a resource=
+ parameter be?&nbsp; Could a resource modify its parameters so that they ar=
+e replicated throughout the cluster?<o:p></o:p></p><p class=3DMsoNormal>Is =
+there a simple file replication Resource Agent?<o:p></o:p></p><p class=3DMs=
+oNormal>Drdb seems like overkill.<o:p></o:p></p><p class=3DMsoNormal><o:p>&=
+nbsp;</o:p></p><p class=3DMsoNormal style=3D'mso-margin-top-alt:auto;mso-ma=
+rgin-bottom-alt:auto'><span style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif";color:black'>Regards.</span><span style=3D'font-size:12.0pt;fon=
+t-family:"Times New Roman","serif"'><br></span><span style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif";color:black'>Mark K Vallevand&nbsp;&nb=
+sp; <a href=3D"mailto:Mark.Vallevand@Unisys.com"><span style=3D'color:blue'=
+>Mark.Vallevand@Unisys.com</span></a></span><span style=3D'font-size:12.0pt=
+;font-family:"Times New Roman","serif"'><o:p></o:p></span></p><p class=3DMs=
+oNormal style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
+style=3D'font-size:12.0pt;font-family:"Times New Roman","serif"'>May you li=
+ve in interesting times, may you come to the attention of important people =
+and may all your wishes come true.<o:p></o:p></span></p><p class=3DMsoNorma=
+l style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span style=
+=3D'font-size:10.0pt;font-family:"Times New Roman","serif"'>THIS COMMUNICAT=
+ION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is t=
+hus for use only by the intended recipient. If you received this in error, =
+please contact the sender and delete the e-mail and its attachments from al=
+l computers.</span><span style=3D'font-size:12.0pt;font-family:"Times New R=
+oman","serif"'><o:p></o:p></span></p><p class=3DMsoNormal><o:p>&nbsp;</o:p>=
+</p></div></body></html>=
+
+--_000_99C8B2929B39C24493377AC7A121E21FC5E47F3C5DUSEAEXCH8naui_--
+
+From lists@alteeve.ca Thu Apr  3 17:17:44 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LHiq4009244 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 17:17:44 -0400
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.20])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LHiJO026870
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:17:44 -0400
+Received: from vm08-mail01.alteeve.ca (mail.alteeve.ca [65.39.153.71])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33LHfi2026501
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:17:42 -0400
+Received: from lemass.alteeve.ca (dhcp-108-168-20-202.cable.user.start.ca
+	[108.168.20.202])
+	by vm08-mail01.alteeve.ca (Postfix) with ESMTPSA id 7B3F120171
+	for <linux-cluster@redhat.com>; Thu,  3 Apr 2014 17:17:39 -0400 (EDT)
+Message-ID: <533DCFF4.2070404@alteeve.ca>
+Date: Thu, 03 Apr 2014 17:17:40 -0400
+From: Digimer <lists@alteeve.ca>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: linux clustering <linux-cluster@redhat.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+In-Reply-To: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+X-RedHat-Spam-Score: -2.451  (BAYES_00,RP_MATCHES_RCVD,URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.20
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 21:17:44 -0000
+
+On 03/04/14 04:58 PM, Vallevand, Mark K wrote:
+> I’m looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We’re talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+>
+> Regards.
+> Mark K Vallevand Mark.Vallevand@Unisys.com
+
+If you don't want to use DRBD + gfs2 (what I use), then you'll probably 
+want to look at corosync directly for keeping the data in sync. 
+Pacemaker itself is a cluster resource manager and I don't think the cib 
+is well suited for general data sync'ing.
+
+-- 
+Digimer
+Papers and Projects: https://alteeve.ca/w/
+What if the cure for cancer is trapped in the mind of a person without 
+access to education?
+
+From morpheus.ibis@gmail.com Thu Apr  3 17:36:23 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LaN4A030241 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 17:36:23 -0400
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.16])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s33LaMiP016840
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:36:22 -0400
+Received: from mail-wi0-f178.google.com (mail-wi0-f178.google.com
+	[209.85.212.178])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33LaLVP017497
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:36:21 -0400
+Received: by mail-wi0-f178.google.com with SMTP id bs8so161409wib.17
+	for <linux-cluster@redhat.com>; Thu, 03 Apr 2014 14:36:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:cc:subject:date:message-id:user-agent:in-reply-to
+	:references:mime-version:content-transfer-encoding:content-type;
+	bh=aoKnNJWa3IDoQcWgoM9rcWbd/xyAY3EF/s3KOf93luo=;
+	b=xpWUmkYd2XBrIxHYxPoiHyALRZ1kTEsV2CbMoi0p1HiDWixcjiQcRvQt2UfWKs/6RJ
+	/qNIbHoVOHzsKx8X0BvBwJxgk7M5uSn3A7DTb9V6NYSvum0/0LG+rk9Cd2NVnPFRgaOr
+	z1ZFAae+8CphOFYCckAY2CLEcjuuR1KjjZpW7pxyhwCrNYtF9ahBhUhc23+9JvhhBirB
+	jAEexOObORXJQX43xcbb1+kCc/HGl91B0N05oTIo5ZE5veT1RGXpflnqHhxR3iWpoT0Z
+	4hAmAUpQHSOwfI4oLiGVfAtaVG4XySi41Qy8ozIoOp79YqSGXCAF0TcVI05taKsVKR9A
+	ZaYw==
+X-Received: by 10.180.185.197 with SMTP id fe5mr41372671wic.56.1396560633770; 
+	Thu, 03 Apr 2014 14:30:33 -0700 (PDT)
+Received: from bloomfield.localnet ([2001:718:1e03:a01::514])
+	by mx.google.com with ESMTPSA id
+	h47sm14785006eey.13.2014.04.03.14.30.32 for <multiple recipients>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Thu, 03 Apr 2014 14:30:32 -0700 (PDT)
+From: Pavel Herrmann <morpheus.ibis@gmail.com>
+To: linux-cluster@redhat.com
+Date: Thu, 03 Apr 2014 23:30:32 +0200
+Message-ID: <2878037.uhyBF5WAPy@bloomfield>
+User-Agent: KMail/4.12.2 (Linux/3.10.9-gentoo; KDE/4.12.2; x86_64; ; )
+In-Reply-To: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-RedHat-Spam-Score: -3.099  (BAYES_00, DCC_REPUT_00_12, DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_LOW,
+	SPF_PASS, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.16
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 21:36:23 -0000
+
+Hi
+
+On Thursday 03 of April 2014 15:58:30 Vallevand, Mark K wrote:
+> I'm looking for a simple way to replicate data within a cluster.
+> 
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when a
+> node crashes, the resource will have its configuration present on the node
+> on which it is restarted.  We're talking about a few kb of data, probably
+> in one file, probably text.  A typical cluster would have multiple
+> resources (more than two), one resource per node and one extra node.
+
+I was facing a similar issue, but instead of going for full cluster stack (i 
+didnt need it for the failover), I went for csync2
+
+if you absolutely need to have the changes propagated instantly, you need to 
+hook csync2 to inotify (google should give you options), or if you dont expect 
+any changes right before crashes, running with cron every few minutes might 
+suit your needs
+
+Regards
+Pavel Herrmann
+
+> 
+> Ideas?
+> 
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync? How big can a resource parameter be?  Could a resource
+> modify its parameters so that they are replicated throughout the cluster?
+> Is there a simple file replication Resource Agent?
+> Drdb seems like overkill.
+> 
+> Regards.
+> Mark K Vallevand  
+> Mark.Vallevand@Unisys.com<mailto:Mark.Vallevand@Unisys.com> May you live in
+> interesting times, may you come to the attention of important people and
+> may all your wishes come true. THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL
+> AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the
+> intended recipient. If you received this in error, please contact the
+> sender and delete the e-mail and its attachments from all computers.
+
+From prvs=017099ED5C=ricks@alldigital.com Thu Apr  3 17:51:43 2014
+Received: from int-mx02.intmail.prod.int.phx2.redhat.com
+	(int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33Lph6M011314 for <linux-cluster@listman.util.phx.redhat.com>;
+	Thu, 3 Apr 2014 17:51:43 -0400
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.19])
+	by int-mx02.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s33LpgsF005789
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:51:43 -0400
+Received: from corp.alldigital.com (mex2-r1.alldigital.com [70.183.30.217])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s33LpelY006859
+	for <linux-cluster@redhat.com>; Thu, 3 Apr 2014 17:51:41 -0400
+Received: from prophead.hci.com (208.91.205.182) by
+	mex2-r1.corp.alldigital.com (192.168.4.180) with Microsoft SMTP Server
+	(TLS) id 14.1.438.0; Thu, 3 Apr 2014 14:51:37 -0700
+Message-ID: <533DD7E5.2020709@alldigital.com>
+Date: Thu, 3 Apr 2014 14:51:33 -0700
+From: Rick Stevens <ricks@alldigital.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: linux clustering <linux-cluster@redhat.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+In-Reply-To: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [208.91.205.182]
+X-RedHat-Spam-Score: -2.453  (BAYES_00, RP_MATCHES_RCVD, SPF_HELO_PASS,
+	SPF_PASS, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.19
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Thu, 03 Apr 2014 21:51:43 -0000
+
+On 04/03/2014 01:58 PM, Vallevand, Mark K issued this missive:
+> I’m looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We’re talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+
+If you're OK with it and it's a small group of files/directories,
+why not use something like inotifywait and have it run a script that
+rsyncs the altered files to the other nodes when the files change? I've
+done it before and it works pretty well.
+-- 
+----------------------------------------------------------------------
+- Rick Stevens, Systems Engineer, AllDigital    ricks@alldigital.com -
+- AIM/Skype: therps2        ICQ: 22643734            Yahoo: origrps2 -
+-                                                                    -
+-              Never eat anything larger than your head              -
+----------------------------------------------------------------------
+
+From Mark.Vallevand@UNISYS.com Fri Apr  4 10:44:54 2014
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34Eis6c022237 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 4 Apr 2014 10:44:54 -0400
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.17])
+	by int-mx09.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s34EirQn002882
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:44:54 -0400
+Received: from mail1.bemta8.messagelabs.com (mail1.bemta8.messagelabs.com
+	[216.82.243.202])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s34EiqTx008585
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:44:52 -0400
+Received: from [216.82.241.132:43665] by server-10.bemta-8.messagelabs.com id
+	B7/3A-27324-465CE335; Fri, 04 Apr 2014 14:44:52 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-15.tower-45.messagelabs.com!1396622687!29889044!13
+X-Originating-IP: [192.61.61.104]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 4901 invoked from network); 4 Apr 2014 14:44:51 -0000
+Received: from unknown (HELO USEA-NAEDGE1.unisys.com) (192.61.61.104)
+	by server-15.tower-45.messagelabs.com with RC4-SHA encrypted SMTP;
+	4 Apr 2014 14:44:51 -0000
+Received: from usea-nahubcas2.na.uis.unisys.com (129.224.76.115) by
+	USEA-NAEDGE1.unisys.com (192.61.61.104) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Fri, 4 Apr 2014 09:44:30 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	usea-nahubcas2.na.uis.unisys.com ([129.224.76.115]) with mapi;
+	Fri, 4 Apr 2014 09:44:28 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: linux clustering <linux-cluster@redhat.com>
+Date: Fri, 4 Apr 2014 09:44:26 -0500
+Thread-Topic: [Linux-cluster] Simple data replication in a cluster
+Thread-Index: Ac9Pg4iVDIIhyw3ATO6rCFvFm/n21gAkKjQQ
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E48A8EE3@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+	<533DCFF4.2070404@alteeve.ca>
+In-Reply-To: <533DCFF4.2070404@alteeve.ca>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: 0.691  (BAYES_50, DCC_REPUT_13_19, RCVD_IN_DNSWL_NONE,
+	SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.17
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s34Eis6c022237
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 04 Apr 2014 14:44:54 -0000
+
+Thanks.  I'll check out corosync.
+
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com
+May you live in interesting times, may you come to the attention of important people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the intended recipient. If you received this in error, please contact the sender and delete the e-mail and its attachments from all computers.
+
+
+-----Original Message-----
+From: linux-cluster-bounces@redhat.com [mailto:linux-cluster-bounces@redhat.com] On Behalf Of Digimer
+Sent: Thursday, April 03, 2014 04:18 PM
+To: linux clustering
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+
+On 03/04/14 04:58 PM, Vallevand, Mark K wrote:
+> I'm looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We're talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+>
+> Regards.
+> Mark K Vallevand Mark.Vallevand@Unisys.com
+
+If you don't want to use DRBD + gfs2 (what I use), then you'll probably 
+want to look at corosync directly for keeping the data in sync. 
+Pacemaker itself is a cluster resource manager and I don't think the cib 
+is well suited for general data sync'ing.
+
+-- 
+Digimer
+Papers and Projects: https://alteeve.ca/w/
+What if the cure for cancer is trapped in the mind of a person without 
+access to education?
+
+-- 
+Linux-cluster mailing list
+Linux-cluster@redhat.com
+https://www.redhat.com/mailman/listinfo/linux-cluster
+
+From Mark.Vallevand@UNISYS.com Fri Apr  4 10:48:51 2014
+Received: from int-mx13.intmail.prod.int.phx2.redhat.com
+	(int-mx13.intmail.prod.int.phx2.redhat.com [10.5.11.26])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34Emp24031319 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 4 Apr 2014 10:48:51 -0400
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.20])
+	by int-mx13.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s34EmocS027618
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:48:51 -0400
+Received: from mail1.bemta8.messagelabs.com (mail1.bemta8.messagelabs.com
+	[216.82.243.206])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s34Emdrf018943
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:48:39 -0400
+Received: from [216.82.241.196:53041] by server-14.bemta-8.messagelabs.com id
+	3D/C8-17171-646CE335; Fri, 04 Apr 2014 14:48:38 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-10.tower-46.messagelabs.com!1396622917!3040143!1
+X-Originating-IP: [192.61.61.104]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 26721 invoked from network); 4 Apr 2014 14:48:38 -0000
+Received: from unknown (HELO USEA-NAEDGE1.unisys.com) (192.61.61.104)
+	by server-10.tower-46.messagelabs.com with RC4-SHA encrypted SMTP;
+	4 Apr 2014 14:48:38 -0000
+Received: from USEA-NAHUBCAS4.na.uis.unisys.com (129.224.76.29) by
+	USEA-NAEDGE1.unisys.com (192.61.61.104) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Fri, 4 Apr 2014 09:48:33 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	USEA-NAHUBCAS4.na.uis.unisys.com ([129.224.76.29]) with mapi;
+	Fri, 4 Apr 2014 09:48:34 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: Pavel Herrmann <morpheus.ibis@gmail.com>, "linux-cluster@redhat.com"
+	<linux-cluster@redhat.com>
+Date: Fri, 4 Apr 2014 09:48:31 -0500
+Thread-Topic: [Linux-cluster] Simple data replication in a cluster
+Thread-Index: Ac9Pg/qPH7mlDJjRTxCCIHpnq6wHwgAkJd1A
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E48A8EFD@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+	<2878037.uhyBF5WAPy@bloomfield>
+In-Reply-To: <2878037.uhyBF5WAPy@bloomfield>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: -0.11  (BAYES_40, DCC_REPUT_13_19, RCVD_IN_DNSWL_NONE,
+	SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.26
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.20
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s34Emp24031319
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 04 Apr 2014 14:48:51 -0000
+
+Thanks.  A good idea.  I've considered using csync2 (and similar things).  I use unison for syncing in my current clusters.  But that is done to simplify installation/configuration by the user.  My scripts push the static application data around the cluster when the user is installing.  
+
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com
+May you live in interesting times, may you come to the attention of important people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the intended recipient. If you received this in error, please contact the sender and delete the e-mail and its attachments from all computers.
+
+
+-----Original Message-----
+From: Pavel Herrmann [mailto:morpheus.ibis@gmail.com] 
+Sent: Thursday, April 03, 2014 04:31 PM
+To: linux-cluster@redhat.com
+Cc: Vallevand, Mark K
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+
+Hi
+
+On Thursday 03 of April 2014 15:58:30 Vallevand, Mark K wrote:
+> I'm looking for a simple way to replicate data within a cluster.
+> 
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when a
+> node crashes, the resource will have its configuration present on the node
+> on which it is restarted.  We're talking about a few kb of data, probably
+> in one file, probably text.  A typical cluster would have multiple
+> resources (more than two), one resource per node and one extra node.
+
+I was facing a similar issue, but instead of going for full cluster stack (i 
+didnt need it for the failover), I went for csync2
+
+if you absolutely need to have the changes propagated instantly, you need to 
+hook csync2 to inotify (google should give you options), or if you dont expect 
+any changes right before crashes, running with cron every few minutes might 
+suit your needs
+
+Regards
+Pavel Herrmann
+
+> 
+> Ideas?
+> 
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync? How big can a resource parameter be?  Could a resource
+> modify its parameters so that they are replicated throughout the cluster?
+> Is there a simple file replication Resource Agent?
+> Drdb seems like overkill.
+> 
+> Regards.
+> Mark K Vallevand  
+> Mark.Vallevand@Unisys.com<mailto:Mark.Vallevand@Unisys.com> May you live in
+> interesting times, may you come to the attention of important people and
+> may all your wishes come true. THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL
+> AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the
+> intended recipient. If you received this in error, please contact the
+> sender and delete the e-mail and its attachments from all computers.
+
+
+From Mark.Vallevand@UNISYS.com Fri Apr  4 10:49:50 2014
+Received: from int-mx01.intmail.prod.int.phx2.redhat.com
+	(int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34EnoUl009158 for <linux-cluster@listman.util.phx.redhat.com>;
+	Fri, 4 Apr 2014 10:49:50 -0400
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.21])
+	by int-mx01.intmail.prod.int.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
+	id s34EnnlY013936
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:49:50 -0400
+Received: from mail1.bemta8.messagelabs.com (mail1.bemta8.messagelabs.com
+	[216.82.243.207])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s34EnlcZ024004
+	for <linux-cluster@redhat.com>; Fri, 4 Apr 2014 10:49:48 -0400
+Received: from [216.82.241.196:9577] by server-15.bemta-8.messagelabs.com id
+	68/8E-11047-B86CE335; Fri, 04 Apr 2014 14:49:47 +0000
+X-Env-Sender: Mark.Vallevand@UNISYS.com
+X-Msg-Ref: server-11.tower-46.messagelabs.com!1396622981!27783220!14
+X-Originating-IP: [192.61.61.104]
+X-StarScan-Received: 
+X-StarScan-Version: 6.11.1; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 18310 invoked from network); 4 Apr 2014 14:49:46 -0000
+Received: from unknown (HELO USEA-NAEDGE1.unisys.com) (192.61.61.104)
+	by server-11.tower-46.messagelabs.com with RC4-SHA encrypted SMTP;
+	4 Apr 2014 14:49:46 -0000
+Received: from usea-nahubcas2.na.uis.unisys.com (129.224.76.115) by
+	USEA-NAEDGE1.unisys.com (192.61.61.104) with Microsoft SMTP Server
+	(TLS) id 8.3.327.1; Fri, 4 Apr 2014 09:49:01 -0500
+Received: from USEA-EXCH8.na.uis.unisys.com ([129.224.76.41]) by
+	usea-nahubcas2.na.uis.unisys.com ([129.224.76.115]) with mapi;
+	Fri, 4 Apr 2014 09:49:01 -0500
+From: "Vallevand, Mark K" <Mark.Vallevand@UNISYS.com>
+To: linux clustering <linux-cluster@redhat.com>
+Date: Fri, 4 Apr 2014 09:48:58 -0500
+Thread-Topic: [Linux-cluster] Simple data replication in a cluster
+Thread-Index: Ac9PiBn5+3hg1lfCTKujYgvDmfJP+AAjN8iQ
+Message-ID: <99C8B2929B39C24493377AC7A121E21FC5E48A8F02@USEA-EXCH8.na.uis.unisys.com>
+References: <99C8B2929B39C24493377AC7A121E21FC5E47F3C5D@USEA-EXCH8.na.uis.unisys.com>
+	<533DD7E5.2020709@alldigital.com>
+In-Reply-To: <533DD7E5.2020709@alldigital.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+X-RedHat-Spam-Score: 0.691  (BAYES_50, DCC_REPUT_13_19, RCVD_IN_DNSWL_NONE,
+	SPF_PASS, UNPARSEABLE_RELAY, URIBL_BLOCKED)
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.68 on 10.5.110.21
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id s34EnoUl009158
+X-loop: linux-cluster@redhat.com
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+X-BeenThere: linux-cluster@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+Reply-To: linux clustering <linux-cluster@redhat.com>
+List-Id: linux clustering <linux-cluster.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-cluster>
+List-Post: <mailto:linux-cluster@redhat.com>
+List-Help: <mailto:linux-cluster-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-cluster>,
+	<mailto:linux-cluster-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Fri, 04 Apr 2014 14:49:50 -0000
+
+Yup.  I've considered similar.  Thanks!
+
+
+Regards.
+Mark K Vallevand   Mark.Vallevand@Unisys.com
+May you live in interesting times, may you come to the attention of important people and may all your wishes come true.
+THIS COMMUNICATION MAY CONTAIN CONFIDENTIAL AND/OR OTHERWISE PROPRIETARY MATERIAL and is thus for use only by the intended recipient. If you received this in error, please contact the sender and delete the e-mail and its attachments from all computers.
+
+
+-----Original Message-----
+From: linux-cluster-bounces@redhat.com [mailto:linux-cluster-bounces@redhat.com] On Behalf Of Rick Stevens
+Sent: Thursday, April 03, 2014 04:52 PM
+To: linux clustering
+Subject: Re: [Linux-cluster] Simple data replication in a cluster
+
+On 04/03/2014 01:58 PM, Vallevand, Mark K issued this missive:
+> I'm looking for a simple way to replicate data within a cluster.
+>
+> It looks like my resources will be self-configuring and may need to push
+> changes they see to all nodes in the cluster.  The idea being that when
+> a node crashes, the resource will have its configuration present on the
+> node on which it is restarted.  We're talking about a few kb of data,
+> probably in one file, probably text.  A typical cluster would have
+> multiple resources (more than two), one resource per node and one extra
+> node.
+>
+> Ideas?
+>
+> Could I use the CIB directly to replicate data?  Use cibadmin to update
+> something and sync?
+>
+> How big can a resource parameter be?  Could a resource modify its
+> parameters so that they are replicated throughout the cluster?
+>
+> Is there a simple file replication Resource Agent?
+>
+> Drdb seems like overkill.
+
+If you're OK with it and it's a small group of files/directories,
+why not use something like inotifywait and have it run a script that
+rsyncs the altered files to the other nodes when the files change? I've
+done it before and it works pretty well.
+-- 
+----------------------------------------------------------------------
+- Rick Stevens, Systems Engineer, AllDigital    ricks@alldigital.com -
+- AIM/Skype: therps2        ICQ: 22643734            Yahoo: origrps2 -
+-                                                                    -
+-              Never eat anything larger than your head              -
+----------------------------------------------------------------------
+
+-- 
+Linux-cluster mailing list
+Linux-cluster@redhat.com
+https://www.redhat.com/mailman/listinfo/linux-cluster
+

@@ -1,0 +1,362 @@
+﻿
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
+ *  Author: Wesley Hales
+ *  Description: SlidFast is a minimalistic framework to writing mobile web apps.
+ *  It utilizes core HTML5 APIs for today's mobile web browsers.
+ */
+﻿    /**
+    * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+    * http://www.cssportal.com
+    */
+   @import url("reset.css");
+ 
+ 
+ 
+ * {
+  
+}
+
+ 
+ 
+
+html, body {
+margin:0;
+padding:0;
+border:0;
+}
+
+
+
+/* .rf-tab-hdr-spcr{ content menu
+	border: none;
+	background: #FFFFFF  ;
+
+}
+*/ 
+.rf-dg-c {  /* richfaces replies */
+border-bottom: none !important;
+border-right :none !important;
+
+}
+/* tab height */
+.rf-tab{
+	height:0px !important;
+}
+
+#container {
+    width:100%;
+    text-align:center;
+}
+
+#container:left {
+    float:left;
+    width:100px;
+    height: 20px;
+    font-size:18px;
+    margin-right:10px;
+}
+
+table.mainTab tr{
+   height: 20px !important;
+}
+
+#container:center {
+    display: inline-block;
+    margin:0 auto;
+    width:100px;
+    height: 20px;
+    margin-right:10px;
+     margin-left:10px;
+     padding-left:10px;
+     padding-right:10px;
+}
+
+#container:right {
+    float:right;
+    width:100px;
+    height: 20px;
+    font-size:18px;
+    margin-left:10px;
+}
+
+
+
+.rf-tab-hdr-tabline-vis.rf-tab-hdr-tabline-top, .rf-tab-cnt,.rf-tab-hdr-inact, .rf-tab-hdr-act{ /* content menu */
+	border-color: #FFFFFF !important;
+	background: none !important;
+	outline: none;
+	
+	
+}
+
+.rf-ddm-sel{
+	background: #302E9A !important ;
+	border-color: #302E9A !important;
+}
+
+.rf-ddm-itm-sel{
+	background-color: none !important ;
+	border-color: #302E9A !important;
+}
+
+.myHeader{ /*  the top menu */
+    background: #302E9A  ;    
+    color: white;    
+    text-decoration: none;
+}
+.myHeaderDropDown{
+    background: white;    
+    color: #302E9A  ;
+}
+
+.hlt{
+    font-weight: bolder   ;
+}
+
+.leftContent{
+    width:40%;
+	/*border-right: solid;*/
+	margin:auto;
+	float:left;
+	text-align:right;
+	padding-right:15px;
+}
+
+.rightContent{
+     width:40%;  
+     margin:auto;
+     float:left;
+     padding-left:15px;
+     border-left: solid;
+     border-color: #337ab7;
+}
+
+.headerH2Border{
+	border-top: solid;
+	border-color: #337ab7;
+}
+
+.box-content {
+	display: inline-block;
+	width: 290px;
+    padding: 10px;
+}
+
+.bottomBord {
+	border-bottom: 3px solid #337ab7;
+	width: 800px;
+}
+
+.narrowInput{
+	width: 80px !important;
+}
+
+.rightBoaard{
+	border-right: 3px solid #337ab7;
+}
+
+.leftBoard{
+	border-left: 3px solid #337ab7;	
+}
+
+.blueText{
+	color: #337ab7;
+	font-weight: bold;
+	font-size: 16px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.noBordersPanel{	
+	border: none !important;	
+}
+
+.panelColor{
+	background-color: white !important;
+	border-bottom: 1px solid #337ab7 !important;
+}
+
+pre{
+	background-color: white !important;
+	border: none !important;
+}
+
+hr.dividerLine{
+   border: 1px solid #337ab7;
+}
+
+.borderLessTable td, .borderLessTable th {
+    border: none !important;    
+    padding: 10px !important;
+}
+
+.navbar-default {
+	background-color: #337ab7 !important;
+	border-bottom: 1px solid #337ab7 !important;
+}
+
+.whiteDropDown{
+	color: white !important;
+}
+
+a:hover, .nav .open > a:focus {
+    background-color: #337ab7 !important;
+    border-color: #337ab7;
+    color: white !important;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    color: white !important;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white !important;
+}
+
+.panel-title > a, .panel-title > small, .panel-title > .small, .panel-title > small > a, .panel-title > .small > a {
+    
+}
+
+
+.navbar-brand {
+	color: white !important;
+}
+
+.borderLessTable td {
+	/*text-align: center;*/
+}
+
+.borderLessTable{
+	padding: 15px !important;
+}
+
+#email-list {  
+     padding-top:1cm;
+}
+
+
+#wrapper {
+	leftmargin:0; topmargin:0; marginheight:0; marginwidth:0;
+    width: 100%;
+    min-width: 1000px;
+    max-width: 2000px;
+    
+}
+
+#header {
+
+	margin: 0 0 20px;
+    float: left;
+    height: 35px;
+    width: 100%;
+    background: #E8E8E8 ;
+}
+
+#contentliquid {
+    float: left;
+    min-height: 1000px;
+    width: 100%;
+}
+
+#content {
+	
+    margin-left: 150px;
+    margin-right: 150px;
+    padding-left:2cm;
+    padding-right:2cm;
+ 
+}
+#contentMenu{
+	max-width: 1000px;
+}
+
+
+.rf-tab-hdr{
+	background-color:transient;
+	border:none;'
+}
+#contentMenuRF{
+		
+}
+
+
+.rich-tabhdr-side-cell{
+border: none;
+background: transparent;
+}
+
+#contentEmails {
+	
+    topmargin:300px;
+    padding-left:2cm;
+    padding-right:2cm;
+ 
+}
+
+
+
+
+#leftcolumn {
+    width: 150px;
+    float: left;
+    margin-left:-100%;
+}
+
+#leftcolumnMenu {
+	text-decoration: none;
+	font-weight: bold;
+	margin-left: 40px;
+    
+}
+
+#leftcolumnMenu a{
+	text-decoration: none;
+	color:grey;
+    
+}
+
+
+
+#controlBackgroundColor{
+	 background-color: #fae6b0;
+
+}
+
+#rightcolumn {
+    width: 150px;
+    float: left;
+    margin-left: -150px;
+}
+
+#footer {
+    height: 40px;
+    width: 100%;
+    background: #E8E8E8;
+    clear: both;
+}
+
+.errorMessage{
+	color: red;
+}
+
+

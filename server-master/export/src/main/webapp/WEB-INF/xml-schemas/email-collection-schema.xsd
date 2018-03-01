@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="collection">
+        <xs:complexType>
+            <xs:sequence>
+
+                <xs:element name="email" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:choice minOccurs="1" maxOccurs="unbounded">
+
+                            <xs:element name="from" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="message_id" type="xs:string"/>
+                            <xs:element name="root" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="sent_date" type="xs:string"/>
+                            <xs:element name="subject" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="in_reply_to" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="main_content" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="content" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                        <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="attachments" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="attachment" minOccurs="1" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="content" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                                    <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="mailing_lists" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="mailing_list" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+
+
+
+
+                            <xs:element name="replies" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="reply" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:choice >
+
+                    </xs:complexType>
+
+                </xs:element>
+
+            </xs:sequence>
+
+        </xs:complexType>
+
+    </xs:element>
+
+</xs:schema>

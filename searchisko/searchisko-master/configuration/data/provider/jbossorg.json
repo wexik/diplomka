@@ -1,0 +1,353 @@
+{
+  "name": "jbossorg",
+  "description" : "Provider used by JBoss Community Team to manage Searchisko and push content from core jboss.org systems",
+  "contact_email" : "help@jboss.org",
+  "super_provider": true,
+  "type": {
+    "jbossorg_blog" : {
+      "description": "Blog posts pushed into system by Borg system - planet.jboss.org",
+      "sys_type": "blogpost",
+      "sys_content_content-type" : "text/html",
+      "input_preprocessors": [
+        {
+          "name": "Project mapper - feed to sys_project mapping",
+          "class": "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+          "settings": {
+            "index_name"       : "sys_projects",
+            "index_type"       : "project",
+            "source_field"     : "feed",
+            "idx_search_field" : "type_specific_code.jbossorg_blog",
+            "result_mapping"   : [{
+		            "idx_result_field": "code",
+		            "target_field": "sys_project"
+		          },{
+		            "idx_result_field" : "name",
+		            "target_field"     : "sys_project_name"
+	            }
+	          ]
+          }
+        },{ 
+          "name"     : "Max activity date extractor",
+          "class"    : "org.jboss.elasticsearch.tools.content.MaxTimestampPreprocessor",
+          "settings" : {
+            "source_field" : "sys_activity_dates",
+            "target_field" : "sys_last_activity_date"
+          } 
+        },{
+          "name"     : "Contributors mapper",
+          "class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+          "settings" : {
+              "index_name"       : "sys_contributors",
+              "index_type"       : "contributor",
+              "source_value"     : "{feed}.{author}",
+              "idx_search_field" : "type_specific_code.jbossorg_blog",
+              "result_mapping"   : [{
+                "idx_result_field" : "code",
+                "target_field"     : "sys_contributors"
+              }]
+          }
+        }
+      ],
+      "index": {
+        "name": "data_jbossorg_blog",
+        "type": "jbossorg_blogpost"
+      }
+    },
+    "jbossorg_project_info": {
+      "description": "Information about projects (name, links, icons, licenses used etc). Now pushed into system by Magnolia CMS.",
+      "sys_type": "project_info",
+      "search_all_excluded": "true",
+      "input_preprocessors": [
+        {
+          "name": "Project mapper - sys_content_id to sys_project mapping",
+          "class": "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+          "settings": {
+            "index_name"       : "sys_projects",
+            "index_type"       : "project",
+            "source_field"     : "sys_content_id",
+            "idx_search_field" : "type_specific_code.jbossorg_project_info",
+            "result_mapping"   : [{
+		            "idx_result_field" : "code",
+		            "target_field"     : "sys_project"
+	            },{
+			            "idx_result_field" : "name",
+			            "target_field"     : "sys_project_name"
+	            }
+	          ]
+          }
+        },{
+          "name": "Project consistency validator",
+          "class"    : "org.jboss.elasticsearch.tools.content.RequiredValidatorPreprocessor",
+          "settings" : {
+              "field"  : "sys_project"
+           } 
+        }
+      ],
+      "index": {
+        "name": "data_project_info",
+        "type": "jbossorg_project_info"
+      }
+    },
+    "jbossorg_jira_issue": {
+      "description": "Issues from JIRA running at issues.jboss.org collected by jbossorg_jira river",
+      "sys_type": "issue",
+      "sys_content_content-type" : "text/plain",
+      "input_preprocessors": [
+        {
+          "name": "Project mapper - project_key to sys_project mapping",
+          "class": "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+          "settings": {
+            "index_name"       : "sys_projects",
+            "index_type"       : "project",
+            "source_field"     : "project_key",
+            "idx_search_field" : "type_specific_code.jbossorg_jira",
+            "result_mapping"   : [{
+		            "idx_result_field" : "code",
+		            "target_field"     : "sys_project"
+	            },{
+		            "idx_result_field" : "name",
+		            "target_field"     : "sys_project_name",
+		            "value_default"    : "{project_name}"
+	            }
+            ]
+          }
+        },{ 
+          "name"     : "Contributors mapper",
+          "class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+          "settings" : {
+              "index_name"       : "sys_contributors",
+              "index_type"       : "contributor",
+              "source_field"     : "email_address",
+              "idx_search_field" : "email",
+              "result_mapping"   : [{
+                "idx_result_field" : "code",
+                "target_field"     : "sys_contributor",
+                "value_default"    : "{display_name} <{email_address}>"
+              }],
+              "source_bases"     : ["reporter", "assignee", "sys_comments.comment_author", "sys_comments.comment_updater"]
+          } 
+        },{ 
+          "name"     : "Contributors collector",
+          "class"    : "org.jboss.elasticsearch.tools.content.ValuesCollectingPreprocessor",
+          "settings" : {
+              "target_field"  : "sys_contributors",
+              "source_fields" : ["reporter.sys_contributor","assignee.sys_contributor", "sys_comments.comment_author.sys_contributor", "sys_comments.comment_updater.sys_contributor"]
+          } 
+        },{ 
+          "name"     : "Max activity date extractor",
+          "class"    : "org.jboss.elasticsearch.tools.content.MaxTimestampPreprocessor",
+          "settings" : {
+            "source_field" : "sys_activity_dates",
+            "target_field" : "sys_last_activity_date"
+          } 
+        }
+      ],
+      "index": {
+        "name": "data_jbossorg_jira",
+        "type": "jbossorg_jira_issue"
+      }
+    },
+    "jbossorg_sbs_forum": {
+      "description": "Forum threads from SBS running at community.jboss.org collected by jbossorg_sbs_forum river",
+      "sys_type": "forumthread",
+      "sys_content_content-type" : "text/html",
+      "input_preprocessors": [
+      			{ 
+                "name"     : "Projects mapper",
+                "class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+                "settings" : {
+                    "index_name"       : "sys_projects",
+                    "index_type"       : "project",
+                    "source_field"     : "space_key",
+                    "idx_search_field" : "type_specific_code.jbossorg_sbs",
+                    "result_mapping"   : [{
+		                    "idx_result_field" : "code",
+		                    "target_field"     : "sys_project"
+	                    },{
+						            "idx_result_field" : "name",
+						            "target_field"     : "sys_project_name"
+					            }
+                    ]
+                } 
+            },{ 
+                "name"     : "Contributors mapper",
+                "class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+                "settings" : {
+                    "index_name"       : "sys_contributors",
+                    "index_type"       : "contributor",
+                    "source_field"     : "email",
+                    "idx_search_field" : "email",
+                    "result_mapping"   : [{
+	                    "idx_result_field" : "code",
+	                    "target_field"     : "sys_contributor",
+	                    "value_default"    : "{display_name} <{email_address}>"
+                    }],
+                    "source_bases"     : ["authors","sys_comments.comment_author"]
+                } 
+            },{ 
+                "name"     : "Contributors collector",
+                "class"    : "org.jboss.elasticsearch.tools.content.ValuesCollectingPreprocessor",
+                "settings" : {
+                    "target_field"  : "sys_contributors",
+                    "source_fields" : ["authors.sys_contributor","sys_comments.comment_author.sys_contributor"]
+                } 
+            },{ 
+			          "name"     : "Max activity date extractor",
+			          "class"    : "org.jboss.elasticsearch.tools.content.MaxTimestampPreprocessor",
+			          "settings" : {
+			            "source_field" : "sys_activity_dates",
+			            "target_field" : "sys_last_activity_date"
+			          }
+		        } 
+      ],
+    	"index": {
+        "name": "data_jbossorg_sbs_forum",
+        "type": "jbossorg_sbs_forum"
+      }
+    },
+    "jbossorg_sbs_article": {
+      "description": "Articles from SBS running at community.jboss.org collected by jbossorg_sbs_article river",
+      "sys_type": "article",
+      "sys_content_content-type" : "text/html",
+      "input_preprocessors": [
+      			{ 
+                "name"     : "Projects mapper",
+                "class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+                "settings" : {
+                    "index_name"       : "sys_projects",
+                    "index_type"       : "project",
+                    "source_field"     : "space_key",
+                    "idx_search_field" : "type_specific_code.jbossorg_sbs",
+                    "result_mapping"   : [{
+		                    "idx_result_field" : "code",
+		                    "target_field"     : "sys_project"
+	                    },{
+						            "idx_result_field" : "name",
+						            "target_field"     : "sys_project_name"
+					            }
+                    ]
+                } 
+            },{ 
+                "name"     : "Contributors mapper",
+                "class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+                "settings" : {
+                    "index_name"       : "sys_contributors",
+                    "index_type"       : "contributor",
+                    "source_field"     : "email",
+                    "idx_search_field" : "email",
+                    "result_mapping"   : [{
+	                    "idx_result_field" : "code",
+	                    "target_field"     : "sys_contributor",
+	                    "value_default"    : "{display_name} <{email_address}>"
+                    }],
+                    "source_bases"     : ["authors","sys_comments.comment_author"]
+                } 
+            },{ 
+                "name"     : "Contributors collector",
+                "class"    : "org.jboss.elasticsearch.tools.content.ValuesCollectingPreprocessor",
+                "settings" : {
+                    "target_field"  : "sys_contributors",
+                    "source_fields" : ["authors.sys_contributor","sys_comments.comment_author.sys_contributor"]
+                } 
+            },{ 
+			          "name"     : "Max activity date extractor",
+			          "class"    : "org.jboss.elasticsearch.tools.content.MaxTimestampPreprocessor",
+			          "settings" : {
+			            "source_field" : "sys_activity_dates",
+			            "target_field" : "sys_last_activity_date"
+			          }
+		        } 
+      ],
+    	"index": {
+        "name": "data_jbossorg_sbs_article",
+        "type": "jbossorg_sbs_article"
+      }
+    },
+    "jbossorg_mailing_list": {
+        "description" : "Mails from project mailing list, public archive under https://lists.jboss.org/mailman/listinfo/",
+        "sys_type" : "mailing_list_message",
+		"sys_content_content-type" : "text/plain",
+        "input_preprocessors": [
+            {
+                "name" : "Map important fields",
+                "class" : "org.jboss.elasticsearch.tools.content.AddMultipleValuesPreprocessor",
+                "settings" : {
+                    "sys_content_id" : "{message_id}",
+                    "sys_created" : "{date}",
+                    "sys_title" : "{subject}",
+                    "sys_description" : "{message_snippet}",
+                    "sys_tags" : "{mail_list_category}"
+                }
+            },{
+                "name"     : "Projects mapper",
+                "class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+                "settings" : {
+                    "index_name"       : "sys_projects",
+                    "index_type"       : "project",
+                    "source_field"     : "project",
+                    "idx_search_field" : "type_specific_code.jbossorg_mailing_list",
+                    "result_mapping"   : [
+                        {
+                            "idx_result_field" : "code",
+                            "target_field"     : "sys_project"
+                        },{
+                            "idx_result_field" : "name",
+                            "target_field"     : "sys_project_name"
+                        }
+                    ]
+                }
+            },{
+				"name"     : "Contributors mapper",
+				"class"    : "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+				"settings" : {
+					"index_name"       : "sys_contributors",
+					"index_type"       : "contributor",
+					"source_field"     : "author_email",
+					"idx_search_field" : "email",
+					"result_mapping"   : [{
+						"idx_result_field" : "code",
+						"target_field"     : "sys_contributors",
+						"value_default"    : "{author_name} <{author_email}>"
+					}]
+				}
+			},{
+                "name"     : "Date collector",
+                "class"    : "org.jboss.elasticsearch.tools.content.ValuesCollectingPreprocessor",
+                "settings" : {
+                    "target_field"  : "sys_activity_dates",
+                    "source_fields" : ["sys_created"]
+                }
+            },{
+                "name"     : "Max activity date extractor",
+                "class"    : "org.jboss.elasticsearch.tools.content.MaxTimestampPreprocessor",
+                "settings" : {
+                    "source_field" : "sys_activity_dates",
+                    "target_field" : "sys_last_activity_date"
+                }
+            }
+        ],
+        "index" : {
+            "name" : "data_jbossorg_mailing_list",
+            "type" : "jbossorg_mailing_list_message"
+        }
+    },
+    "jbossorg_contributor_profile": {
+      "description": "Contributor profile - additional information to contributor system profiles",
+      "sys_type": "contributor_profile",
+      "sys_content_content-type" : "text/plain",
+      "input_preprocessors": [
+        {
+          "name": "Contributor consistency validator",
+          "class"    : "org.jboss.elasticsearch.tools.content.RequiredValidatorPreprocessor",
+          "settings" : {
+              "field"  : "sys_contributors"
+           } 
+        }
+      ],
+      "index": {
+        "name": "data_contributor_profile",
+        "type": "jbossorg_contributor_profile"
+      }
+    }
+  }
+}

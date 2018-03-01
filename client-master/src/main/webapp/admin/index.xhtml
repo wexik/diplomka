@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<h:body>
+		<ui:composition template="/templates/mainTemplate.xhtml" >
+			<ui:define name="content" >	
+			<h:panelGroup rendered="#{userSession.hasRole('admin')}">
+			<center>
+			<table>
+				<thead>
+					<tr style="border-bottom: 3px solid #337ab7;"><td><h3>Add mailinglist</h3></td><td style="border-left: 3px solid #337ab7;padding: 15px;"><h3>Grant admin rights to user</h3></td></tr>
+					<tr>
+						<td>
+							<h:form>
+								<table class="table borderLessTable">
+									<tr><td><h:messages id="topMessages" for="name" infoStyle="color:darkgreen" errorStyle="color:darkred" /></td></tr>					
+									<tr><td><label for="name">New Mailinglist Name:</label></td></tr>							
+									<tr>
+										<td>									
+											<h:inputText id="name" value="#{mailinglists.name}" 
+												validatorMessage="Invalid email format" 
+												class="form-control">
+										<f:validateRegex pattern="(?:[a-z0-9!#$%&mp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&mp;'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])" />								
+									</h:inputText>
+										</td>
+									</tr>							
+									<tr><td><label for="description">New Mailinglist description</label></td></tr>
+									<tr>
+										<td>									
+											<h:inputText id="description" value="#{mailinglists.description}" class="form-control"/>
+										</td>
+									</tr>
+									<tr>
+										<td>									
+											<h:commandLink action="#{mailinglists.addMailinglist()}"  >
+												<button type="submit" class="btn btn-primary">
+													Add
+												</button>
+											</h:commandLink>
+										</td>
+									</tr>														
+								</table>
+							</h:form>
+						</td>
+						<td style="border-left: 3px solid #337ab7;">
+							<h:form id="myForm">
+						<table class="table borderLessTable">
+							<tr><td>&nbsp;</td></tr>
+							<tr><td><h:message for="message" infoStyle="color:darkgreen" errorStyle="color:darkred" /></td></tr>					
+							<tr><td><label for="message">Name</label></td></tr>							
+							<tr><td>
+								<h:inputText value="#{reg.name}" id="message" class="form-control">
+								</h:inputText>
+							</td></tr>
+							<tr>							
+								<td>
+									<h:commandLink type="submit" action="#{reg.grantPermission()}">
+										<input type="submit" class="btn btn-primary" value="Grant" />
+									</h:commandLink>
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td></tr>
+							
+							
+						</table>
+					</h:form>
+						</td>
+					</tr>
+				</thead>
+			</table>
+			
+				
+			</center>
+			</h:panelGroup>														
+			</ui:define>		
+		</ui:composition>
+	</h:body>
+</html>

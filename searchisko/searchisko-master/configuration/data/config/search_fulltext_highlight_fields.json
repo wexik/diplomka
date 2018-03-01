@@ -1,0 +1,17 @@
+{
+    "subject":{
+        "fragment_size":"-1",
+        "number_of_fragments":"0",
+        "fragment_offset":"0"
+    },
+    "mainContent.text":{
+        "fragment_size":"50",
+        "number_of_fragments":"3",
+        "fragment_offset":"0"
+    },
+    "from":{
+        "fragment_size":"-1",
+        "number_of_fragments":"0",
+        "fragment_offset":"0"
+    }
+}

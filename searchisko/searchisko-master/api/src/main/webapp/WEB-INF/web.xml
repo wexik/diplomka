@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+		 version="3.0">
+
+	<display-name>Searchisko : API</display-name>
+	<description>The main Searchisko API</description>
+
+	<!-- Clustering -->
+	<distributable/>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+		<cookie-config>
+			<!-- Define if cookies should be transported only via secured connection -->
+			<secure>false</secure>
+		</cookie-config>
+	</session-config>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>REST api</web-resource-name>
+			<url-pattern>/v2/rest/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<!-- RestEasy Security activator -->
+	<!-- see https://docs.jboss.org/resteasy/2.0.0.GA/userguide/html/Securing_JAX-RS_and_RESTeasy.html -->
+	<context-param>
+		<param-name>resteasy.role.based.security</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<!-- UrlRewriteFilter to ensure RSS clients calling old APIs are redirected -->
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+		<init-param>
+			<param-name>logLevel</param-name>
+			<param-value>WARN</param-value>
+		</init-param>
+	</filter>
+
+	<!-- ###### CORS handling filter ###### -->
+	<filter>
+		<filter-name>CORS Filter</filter-name>
+		<filter-class>org.searchisko.api.filter.CORSWithCredentialsFilter</filter-class>
+	</filter>
+
+	<!-- ###### HTTP Basic Authentication Consumer ###### -->
+	<filter>
+		<filter-name>Basic Authentication Consumer Filter</filter-name>
+		<filter-class>org.searchisko.api.filter.BasicAuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>excludedUrl</param-name>
+			<param-value>/auth/status</param-value>
+		</init-param>
+	</filter>
+
+	<!-- ###### Actual Roles request wrapper (#147) ###### -->
+	<filter>
+		<filter-name>Actual Roles Request Wrapper</filter-name>
+		<filter-class>org.searchisko.api.security.util.ActualRolesRequestWrapperFilter</filter-class>
+	</filter>
+
+  <filter>
+		<filter-name>JSONP Restriction Filter</filter-name>
+		<filter-class>org.searchisko.api.filter.JSONPRestrictionFilter</filter-class>
+	</filter>
+
+	<!-- ###### CAS SSO begin ###### -->
+
+	<!-- SSO calls this to drop HTTP session if user is logged out -->
+	<filter>
+		<filter-name>CAS Single Sign Out Filter</filter-name>
+		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+	</filter>
+
+	<!-- if user is logged in SSO then this returns the ticket -->
+	<filter>
+		<filter-name>CAS JAAS Authentication Filter</filter-name>
+		<filter-class>org.searchisko.api.filter.CasServlet3AuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>serverName</param-name>
+			<param-value>${cas.serverName}</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<filter-class>org.jboss.cas.client.ExtendedAuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>casServerLoginUrl</param-name>
+			<param-value>${cas.ssoServerUrl}/login</param-value>
+		</init-param>
+		<init-param>
+			<param-name>serverName</param-name>
+			<param-value>${cas.serverName}</param-value>
+		</init-param>
+		<!-- Does not force login form if user is not authenticated -->
+		<init-param>
+			<param-name>gateway</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ignoreAjaxCalls</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<!-- ###### CAS SSO end ###### -->
+
+	<!-- ###### ES proxy handling filter ###### -->
+	<filter>
+		<filter-name>Search ES Filter</filter-name>
+		<filter-class>org.searchisko.api.filter.ESProxyFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>Stats ES Filter</filter-name>
+		<filter-class>org.searchisko.api.filter.ESProxyFilter</filter-class>
+		<init-param>
+			<param-name>useStatsClient</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<!-- Security control -->
+	<filter>
+		<filter-name>Jolokia Access Filter</filter-name>
+		<filter-class>org.searchisko.api.filter.SecurityConstraintFilter</filter-class>
+		<init-param>
+			<param-name>allowedRoles</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+	</filter>
+
+
+	<!-- Filter Mappings -->
+	<filter-mapping>
+		<filter-name>Basic Authentication Consumer Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>Actual Roles Request Wrapper</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+	  <filter-name>JSONP Restriction Filter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CORS Filter</filter-name>
+		<url-pattern>/v2/rest/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CAS Single Sign Out Filter</filter-name>
+		<url-pattern>/v2/rest/auth/status</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS JAAS Authentication Filter</filter-name>
+		<url-pattern>/v2/rest/auth/status</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/v2/rest/auth/status</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Search ES Filter</filter-name>
+		<url-pattern>/v2/rest/sys/es/search/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Stats ES Filter</filter-name>
+		<url-pattern>/v2/rest/sys/es/stats/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/v1/rest/feed</url-pattern>
+	</filter-mapping>
+
+	<!-- Jolokia -->
+	<filter-mapping>
+		<filter-name>Jolokia Access Filter</filter-name>
+		<url-pattern>/v2/rest/sys/metrics/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>Jolokia Agent</servlet-name>
+		<servlet-class>org.jolokia.http.AgentServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>mimeType</param-name>
+			<param-value>application/json</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Jolokia Agent</servlet-name>
+		<url-pattern>/v2/rest/sys/metrics/*</url-pattern>
+	</servlet-mapping>
+
+
+
+	<listener>
+		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+	</listener>
+
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

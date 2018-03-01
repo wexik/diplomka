@@ -1,0 +1,38 @@
+{
+    "name"    : "provider1",
+    "type"     : {
+        "provider1_issue" : {
+            "sys_type"  : "issue",
+            "sys_visible_for_roles" : [],
+            "index": {
+                "name" : "idx_provider1_issue",
+                "type"  : "t_provider1_issue"
+            }
+        },
+        "provider1_mailing" : {
+            "sys_type"  : "mailing",
+            "index": {
+                "name" : "idx_provider1_mailing",
+                "type"  : "t_provider1_mailing",
+                "search_indices" : ["idx_provider1_mailing1","idx_provider1_mailing2"]
+            }
+        },
+        "provider1_cosi" : {
+            "sys_type"  : "cosi",
+            "search_all_excluded" : "true",
+            "index": {
+                "name" : "idx_provider1_cosi",
+                "type"  : "t_provider1_cosi",
+                "search_indices" : ["idx_provider1_cosi1","idx_provider1_cosi2"]
+            }
+        },
+        "provider1_issue_secure" : {
+            "sys_type"  : "issue",
+            "sys_visible_for_roles" : ["ROLE1", "AAA"],
+            "index": {
+                "name" : "idx_provider1_issue_secure",
+                "type"  : "t_provider1_issue_secure"
+            }
+        }
+    }
+}

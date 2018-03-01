@@ -1,0 +1,2026 @@
+HOST: http://dcp.jboss.org/v2
+
+--- Searchisko API v2 ---
+---
+# Overview
+
+**Searchisko** is a system intended to store and search/retrieve information related to distinct JBoss Community OSS projects, aggregated from various heterogeneous source systems.
+This system is necessary to support/extend synergy of JBoss Community in the era of more distributed development environment, when project teams tend to use third party systems instead of systems provided and maintained by JBoss Community Team.
+
+Searchisko main design attributes:
+
+* high availability of services (both for common runtime and platform upgrade time)
+* simple, quick and flexible search of stored information
+* possibility to store information with guaranteed long term persistence for data sources where it is hard or impossible to obtain information again (eg. blog posts obtained over RSS protocol)
+* high flexibility of stored information structures
+* openness and easy use by other community members
+
+To support synergy, information stored into Searchisko will be normalized in these areas:
+
+* information type - so all pieces of information of same type (blog post, issue, commit) originated from distinct systems can be obtained by one search request
+* project - so all information/contributions related to one project can be obtained by one search request
+* contributor - so all information/contributions performed by one contributor can be simply obtained by one search request
+* tags - so you can obtain all pieces of information tagged with same value
+* activity date - so you can filter/analyze information/contributions by dates when they was created/updated
+
+**[Searchisko](https://github.com/searchisko/searchisko)** provides **REST API** for information manipulation and search/retrieve described in this document.
+Concrete implementation/deployment of **Searchisko** for JBoss Community (jboss.org website) is called **Distributed Contribution Platform** or **DCP**. 
+
+[Data structures used on this API are described here](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/).
+
+[This document describes structure of main content object](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/content/dcp_content_object.md) which can be pushed to and retrieved or searched from Searchisko.
+
+# Authentication
+## Provider authentication
+Some operation calls on REST API have to be authenticated by the Provider. The caller provides credentials (`provider` and `pwd`) via standard HTTP Basic authentication.
+Providers can be configured to have 'Searchisko administrator' role on the Searchisko REST API.
+
+## User authentication
+Some operation calls on REST API have to be authenticated by the User (eg. Personalized content rating API).
+
+When Searchisko REST API is called directly from Web browser, it may be configured to cooperate with CAS SSO authentication server.
+In this case user is authenticated from his SSO session established against CAS SSO server when 'User Authentication Status API' is called from Web browser.
+DCP uses jboss.org login server running at [sso.jboss.org](https://sso.jboss.org).
+
+
+# Description of usual server HTTP response codes
+
+* __200 ("OK")__ - the request was successful.
+* __400 ("Bad Request")__ - the request could not be understood or did not have some required parameters. The body of the HTTP response contains the description of the problem.
+* __401 ("Unauthorized")__ - authentication was required for the operation, but the credentials were not provided, or authentication failed.
+* __403 ("Forbidden")__ - user doesn't have permissions for the requested operation.
+* __404 ("Not Found")__ - resource was not found.
+* __500 ("Internal error")__ - internal application error or misconfiguration, it should be reported to administrators. The body of the HTTP response contains the description of problem.
+
+# Cross Domain Policy
+Client JavaScript applications running directly in user browser can use Searchisko REST API directly, even when served from another domain, thanks to these techniques:
+
+* [Cross-Origin Resource Sharing (CORS)](http://www.w3.org/TR/cors/) support: Response contains correct `Access-Control-Allow-Origin` and `Access-Control-Allow-Credentials` HTTP response headers if `Origin` request header is used. There is correct handling of CORS Preflight OPTIONS requests also. But DON'T FORGET to set `withCredentials: true` into `XMLHttpRequest` JavaScript objects to make correct use of this method!
+* [JSONP](http://en.wikipedia.org/wiki/JSONP): Searchisko provides JSONP technique, but it works only for unauthenticated GET requests. If you want to use JSONP, just add `callback` parameter to your request.
+
+---
+
+--
+Content Manipulation API
+This part of API is primarily used by *content providers* to manipulate [content](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/content/dcp_content_object.md) in Searchisko.
+
+Each provider has set of 'provider types' defined in Searchisko, which are passed on this API as `{sys_content_type}` URL path part.
+'Provider type' is one type of content object stored into Searchisko by given provider (eg. issue from provider's issue tracking system, blog post from provider's blogging system etc).
+To manipulate content objects over this API provider must use identifiers unique for given 'provider type'. These identifiers are referred as `{sys_content_id}` url path part in API documentation. 
+Identifier can't start with underscore and can't contain comma and star characters.
+--
+
+Get one content object of specified 'provider type' and 'provider id' from Searchisko.
+GET /rest/content/{sys_content_type}/{sys_content_id}
+< 200
+< Content-Type: application/json
+{
+  "tags": ["Content_tag1", "tag2", "tag3"],
+  "sys_content_provider": "jbossorg",
+  "sys_content_type": "jbossorg_jira_issue",
+  "sys_content_id": "AS7-1254",
+  "sys_id": "jbossorg_jira_issue-AS7-1254",
+  "sys_type": "issue",
+  "sys_title": "AS7-1254 - Set the port_range on JGroups stacks to 1",
+  "sys_url_view": "https://issues.jboss.org/browse/AS7-1254",
+  "sys_description": "Set the port_range on JGroups stacks to 1 to lock down the ports.",
+  "sys_updated": "2012-12-06T06:34:55.000Z",
+  "sys_project": "as7",
+  "sys_contributors": ["John Doe <john@doe.org>", "Pat Mat <pat@mat.org>"],
+  "sys_activity_dates": ["2012-12-06T06:34:55.000Z", "2012-12-05T01:48:05.000Z"],
+  "sys_tags": ["Content_tag1", "tag2", "tag3", "user_defined_additional_tag"]
+}
+
+
+Get all content objects of the specified 'provider type'.
+
+##### Request parameters
+
+* `from` index of the first content object returned in the results array. The default value is 0 (start from begin of list).
+* `size` of returned results array. Default is 10.
+* `sort` you can use 'asc' or 'desc' value to sort results by date of last update of content object in Searchisko (`sys_updated` field).
+
+##### Response content
+The response contains a JSON structure with overall number of the content objects of specified 'provider type' in `total` field, and an array of the content objects in `hits` field. The content of the array depends on `from` and `size` request parameters.
+Each record in the array contains `id` field with 'provider id' of the content object, and then `data` field with full content object structure:
+
+```
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "AS7-1254",
+      "data": {
+        //data object
+      }
+    }
+  ]
+}
+```
+
+GET /rest/content/{sys_content_type}{?from,size,sort}
+< 200
+< Content-Type: application/json
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "AS7-1254",
+      "data": {
+        "tags": ["Content_tag1", "tag2", "tag3"],
+        "sys_content_provider": "jbossorg",
+        "sys_content_type": "jbossorg_jira_issue",
+        "sys_content_id": "AS7-1254",
+        "sys_id": "jbossorg_jira_issue-AS7-1254",
+        "sys_type": "issue",
+        "sys_title": "AS7-1254 - Set the port_range on JGroups stacks to 1",
+        "sys_url_view": "https://issues.jboss.org/browse/AS7-1254",
+        "sys_description": "Set the port_range on JGroups stacks to 1 to lock down the ports.",
+        "sys_updated": "2012-12-06T06:34:55.000Z",
+        "sys_project": "as7",
+        "sys_contributors": ["John Doe <john@doe.org>", "Pat Mat <pat@mat.org>"],
+        "sys_activity_dates": ["2012-12-06T06:34:55.000Z", "2012-12-05T01:48:05.000Z"],
+        "sys_tags": ["Content_tag1", "tag2", "tag3", "user_defined_additional_tag"]
+      }
+    }
+  ]
+}
+
+Push the content object into Searchisko. The content is updated in Searchisko if exists or is inserted if does not. 
+The data normalizations are performed during this request processing and the content object is extended by the Searchisko system data fields - the performed normalization tasks depend on the configuration for the given `sys_content_type`.
+
+*Provider authentication required.*
+
+##### Request content
+JSON with content object to store in Searchisko.
+
+##### Response content
+The response contains a JSON structure with a `status` field containing `insert` or `update` string and `message` field with a human readable description of the status.
+There is also optional `warnings` array, where you can see warnings from data preprocessing (mainly from data normalization), which may point you to some problems in your data or normalization mappings stored in Searchisko. 
+
+```
+{
+  "status":"insert",
+  "message":"Content inserted successfully.",
+  "warnings" : [ {"preprocessor":"Contributor normalization" , "warning":"Contributor not found for 'author'='jdoe'"} ]
+}
+```
+
+POST /rest/content/{sys_content_type}/{sys_content_id}
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{
+  "status":"insert",
+  "message":"Content inserted successfully."
+}
+
+
+Push more content objects into Searchisko by one request. 
+This operation is more efficient than push one by one, but use reasonable number of documents only not to create too big input file.
+
+*Provider authentication required.*
+
+##### Request content
+JSON structure where key is `sys_content_id` identifier of content object you want to push, and value is content object to store in Searchisko.
+
+```
+{
+  "AS7-1254" : {
+    "tags": ["Content_tag1", "tag2", "tag3"],
+    "sys_title": "AS7-1254 - Set the port_range on JGroups stacks to 1",
+    "sys_url_view": "https://issues.jboss.org/browse/AS7-1254",
+    "sys_description": "Set the port_range on JGroups stacks to 1 to lock down the ports."
+  },
+  "AS7-1255" : {
+    "tags": ["Content_tag1", "tag2", "tag3"],
+    "sys_title": "AS7-1255 - another issue",
+    "sys_url_view": "https://issues.jboss.org/browse/AS7-1255",
+    "sys_description": "Another description"
+  }
+}
+```
+
+##### Response content
+The response contains a JSON structure where key is `sys_content_id` identifier of pushed content object and 
+value is status structure same as for one document push. `status` field can contain `error` value indicating 
+there is a problem for given content. 
+
+```
+{
+  "AS7-1254" : {
+    "status":"insert",
+    "message":"Content inserted successfully.",
+    "warnings" : [ {"preprocessor":"Contributor normalization" , "warning":"Contributor not found for 'author'='jdoe'"} ]
+  },
+  "AS7-1255" : {
+    "status":"update",
+    "message":"Content updated successfully.",
+    "warnings" : [ {"preprocessor":"Contributor normalization" , "warning":"Contributor not found for 'author'='jdoe'"} ]
+  },
+  "AS7-125*" : {
+    "status":"error",
+    "message":"Identifier is invalid as it contains star"
+  }
+}
+```
+
+POST /rest/content/{sys_content_type}
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{
+  "AS7-1254" : {
+    "status":"insert",
+    "message":"Content inserted successfully.",
+    "warnings" : [ {"preprocessor":"Contributor normalization" , "warning":"Contributor not found for 'author'='jdoe'"} ]
+  },
+  "AS7-1255" : {
+    "status":"update",
+    "message":"Content updated successfully.",
+    "warnings" : [ {"preprocessor":"Contributor normalization" , "warning":"Contributor not found for 'author'='jdoe'"} ]
+  },
+  "AS7-125*" : {
+    "status":"error",
+    "message":"Identifier is invalid as it contains star"
+  }
+}
+
+Delete defined content object from Searchisko.
+
+*Provider authentication required.* 
+
+##### Request parameters
+
+* `ignore_missing` if set to 'true' then __200 (OK)__ is returned instead of __404 (Not Found)__ if deleted content object doesn't exists in Searchisko.  
+ 
+DELETE /rest/content/{sys_content_type}/{sys_content_id}{?ignore_missing}
+< 200
+< Content-Type: plain/text
+Content deleted successfully.
+
+
+Delete more of defined content objects from Searchisko by one request. This operation is more efficient than delete one by one.  
+
+*Provider authentication required.* 
+
+##### Request content
+JSON structure with `id` field containing array of content identifiers to delete.
+
+```
+{
+  "id":["id_1","id_2","id_3"]
+}
+```
+
+##### Response content
+JSON structure where key is content identifiers and value is status message for delete. 
+It can be `ok` or `not_found` or `error: mmm` where mmm is error description.
+
+```
+{
+  "id_1" : "ok", 
+  "id_2" : "not_found",
+  "id_3" : "error: something is wrong in search subsystem"
+}
+```
+
+ 
+DELETE /rest/content/{sys_content_type}
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{
+  "id_1" : "ok", 
+  "id_2" : "not_found",
+  "id_3" : "error: something is wrong in search subsystem"
+}
+
+
+--
+Content Indexers API
+This part of API is primarily used by *content providers* in case when Searchisko hosted indexer is used for some of provider's content type.
+
+Each provider has set of 'provider types' defined in Searchisko, some of them may use Searchisko internal indexers to pull content into Searchisko. 
+This 'provider type' is used as `{sys_content_type}` URL path part for this API. 
+--
+
+Get status information of indexer used for specified content 'provider type'. Response contains JSON document with structure depending on indexer type used for given content.
+Example of status information structure for currently supported indexer types:
+
+* [elasticsearch-river-remote](https://github.com/searchisko/elasticsearch-river-remote/blob/master/src/main/resources/examples/mgm/rest_river_info.json) 
+* [elasticsearch-river-jira](https://github.com/searchisko/elasticsearch-river-jira/blob/master/src/main/resources/examples/mgm/rest_river_info.json)
+
+GET /rest/indexer/{sys_content_type}/_status
+< 200
+< Content-Type: application/json
+{
+  "river_name" : "my_remote_river",
+  "info_date" : "2012-09-26T12:00:00.000Z",
+  "indexing": {
+    "state" : "running",
+    "last_restart" : "2012-09-26T11:45:12.000Z"
+  },
+  "node" : {
+      "id" : "rwoeirjwfjawfkq",
+      "name" : "Mr. wung"
+  },
+  "current_indexing" : [
+      { "space_key" : "ORG", "update_type" : "FULL", "start_date" : "2012-09-26T11:56:03.000Z", "documents_updated" : 10, "documents_deleted" : 5 },
+      { "space_key" : "AAA", "update_type" : "INCREMENTAL", "start_date" : "2012-09-26T11:56:03.000Z", "documents_updated" : 10, "documents_deleted" : 0 }
+  ],
+  "indexed_spaces" : [
+      {
+        "space_key" : "ORG",
+        "last_indexing" : { "update_type" : "FULL", "start_date" : "2012-09-26T11:56:03.000Z", "result" : "OK", "time_elapsed" : "50ms", "documents_updated" : 10, "documents_deleted" : 5 }
+      },
+      {
+        "space_key" : "AAA",
+        "last_indexing" : { "update_type" : "FULL", "start_date" : "2012-09-26T11:56:03.000Z", "result" : "ERROR", "time_elapsed" : "50ms", "documents_updated" : 10, "documents_deleted" : 5, "error_message" : "Http Timeout" }
+      }
+  ]      
+}
+
+
+Get status info for all indexers you have right to manage.
+
+##### Response content
+JSON structure with info about all indexers you have right to manage. Key is identifier of provider type indexer is for, value is status info from indexer (depends on indexer type). 
+
+GET /rest/indexer/_all/_status
+< 200
+< Content-Type: application/json
+{
+  "jbossorg_sbs_forum": {
+	  "river_name" : "my_remote_river",
+	  "info_date" : "2012-09-26T12:00:00.000Z",
+	  "indexing": {
+	    "state" : "running",
+	    "last_restart" : "2012-09-26T11:45:12.000Z"
+	  },
+	  "current_indexing" : [
+	      { "space_key" : "ORG", "update_type" : "FULL", "start_date" : "2012-09-26T11:56:03.000Z", "documents_updated" : 10, "documents_deleted" : 5 }
+	  ],
+	  "indexed_spaces" : [
+	      {
+	        "space_key" : "ORG",
+	        "last_indexing" : { "update_type" : "FULL", "start_date" : "2012-09-26T11:56:03.000Z", "result" : "OK", "time_elapsed" : "50ms", "documents_updated" : 10, "documents_deleted" : 5 }
+	      },
+	      {
+	        "space_key" : "AAA",
+	        "last_indexing" : { "update_type" : "FULL", "start_date" : "2012-09-26T11:56:03.000Z", "result" : "ERROR", "time_elapsed" : "50ms", "documents_updated" : 10, "documents_deleted" : 5, "error_message" : "Http Timeout" }
+	      }
+	  ]      
+	},
+  "jbossorg_jira_issue": "Indexer name or type is not configured correctly because indexer instance has not found"
+}
+
+
+Force indexer for given 'provider type' to start indexing work just now. 
+Indexers typically perform content reindex in defined time period, but you 
+can use this operation to start reindexing work ASAP (it typically takes few 
+seconds after this call before reindexing is started, depends on indexer implementation).
+
+POST /rest/indexer/{sys_content_type}/_force_reindex
+< 200
+
+
+Permanently stop indexer for given 'provider type'. You have to use `_restart` operation to start it again.
+  
+POST /rest/indexer/{sys_content_type}/_stop
+< 200
+
+
+Permanently stop all indexers you have right to manage. You have to use `_restart` operation to start them again.
+
+##### Response content
+JSON structure with info about all indexers you have right to manage. Key is identifier of provider type indexer is for, value is status message from stop operation. 
+  
+POST /rest/indexer/_all/_stop
+< 200
+< Content-Type: application/json
+{
+  "jbossorg_sbs_forum": "Indexer stopped successfuly",
+  "jbossorg_jira_issue": "Indexer name or type is not configured correctly because indexer instance has not found"
+}
+
+
+Restart indexer for given 'provider type'. Restart reloads indexer configuration if changed. 
+It also starts indexer back after `_stop` operation has been used.
+  
+POST /rest/indexer/{sys_content_type}/_restart
+< 200
+
+
+Restart all indexers you have right to manage.
+
+##### Response content
+JSON structure with info about all indexers you have right to manage. Key is identifier of provider type indexer is for, value is status message from restart operation. 
+  
+POST /rest/indexer/_all/_restart
+< 200
+< Content-Type: application/json
+{
+  "jbossorg_sbs_forum": "Indexer restarted successfuly",
+  "jbossorg_jira_issue": "Indexer name or type is not configured correctly because indexer instance has not found"
+}
+
+
+--
+Search API
+This part of the API is used by all systems that need to use [content](https://github.com/searchisko/searchisko/tree/master/documentation/rest-api/) stored in Searchisko.
+--
+
+Search content based on input parameters
+
+##### Request parameters
+
+* `query` full text query string
+* `query_highlight` when set to `true` and full text search is used over `query` param, then results contains data with query matches highlighted by `<span class='hlt'>***</span>`.
+* `from` start index or returned entries. Default value is 0. Useful together with `size` for results pagination.
+* `size` maximal number of returned entries. Default is 10, maximal value is 500.
+* `field` you can use this param multiple times to specify which [fields](http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.4/search-request-fields.html) from search index will be returned in results. If not used then predefined set of basic `sys_xx` fields is returned. If you want complete documents use `_source` value for this param. Be careful about performance impact of this param, consult DCP administrators if necessary!
+
+###### Sorting
+
+* `sortBy` sort result. Results are by default sorted by fulltext score if parameter is not present. Available values are:
+  * `old` - to sort content from oldest to newest activity
+  * `new` - to sort from newest to oldest activity
+  * `new-create` - to sort from newest to oldest by creation
+
+###### Aggregations
+
+* `agg` URL parameter can be used to specify name of [aggregation](http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.4/search-aggregations.html) you want to include in response. This param can be used multiple times to get more aggregations data in the response. List of available aggregations is configurable (see [Management API](#managementapiconfiguration)). [Current configuration](https://github.com/searchisko/searchisko/blob/master/configuration/data/config/search_fulltext_aggregations_fields.json) enables the following aggregations:
+  * `top_contributors` - add [terms agg][] for `sys_contributors` field.
+  * `activity_dates_histogram` - add [date histogram agg][] for `sys_activity_dates` field.
+  * `per_project_counts` - add [terms agg][] for `sys_project` field.
+  * `per_sys_type_counts` - add [terms agg][] for `sys_type` field.
+  * `tag_cloud` - add [terms agg][] for `sys_tags` field.
+
+###### Filtering
+
+You can specify name of [filter](http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.4/query-dsl-filters.html)s you want to filter by. List of available filters is configurable (see [Management API](#managementapiconfiguration)). [Current configuration](https://github.com/searchisko/searchisko/blob/master/configuration/data/config/search_fulltext_filter_fields.json) enables the following filters:
+
+ * `content_provider` - filters result only to data provided by specified provider `sys_content_provider` field
+ * `type` - filters result only to specific `sys_content_type`. This param can be used multiple times to get results for more `type`s.
+ * `sys_type` - filters result only to specific `sys_type`. This param can be used multiple times to get results for more `sys_type`s.
+ * `tag` - filters result to specific tag defined in `sys_tags` field. This param can be used multiple times to get results for more tags.
+ * `project` - filters result to specific project defined in `sys_project` field. This param can be used multiple times to get results for more projects.
+ * `activity_date_interval` - filters results only for data with some activity in defined period before now. Available values `year`, `quarter`, `month`, `week`, `day`.
+ * `activity_date_from` - filters results only for data with some activity (field `sys_activity_dates`) after given date. ISO format used, eg. `2012-12-21T12:12:12Z`. Ignored if `activity_date_interval` is used.
+ * `activity_date_to` - filters results only for data with some activity (field `sys_activity_dates`) before given date. ISO format used, eg. `2012-12-21T12:12:12Z`. Ignored if `activity_date_interval` is used.
+ * `contributor` - filters results only for data with activity from given contributor (field `sys_contributors`), This param can be used multiple times to get results for more contributors.
+
+For more information about configuration formats see:
+
+* [Configuration of fields which are allowed for aggregations execution](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/config_search_fulltext_aggregations_fields.md).
+* [Configuration of fields which are allowed for filters](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/config_search_fulltext_filter_fields.md).
+
+[terms agg]: http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.4/search-aggregations-bucket-terms-aggregation.html
+[date histogram agg]: http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.4/search-aggregations-bucket-datehistogram-aggregation.html
+
+##### Response content
+
+```
+{
+  "uuid" : "f87e7875-85a1-42e3-a39e-e64d3f0e155d",
+  "took":3,
+  "timed_out":false,
+  "_shards":{
+    "total":5,
+    "successful":5,
+    "failed":0
+   },
+   "hits":{
+     "total":393,
+     "max_score":null,
+     "hits":[
+       {
+			    "_index": "data_jbossorg_jira",
+			    "_type": "jbossorg_jira_issue",
+			    "_id": "jbossorg_jira_issue-AEROGEAR-2",
+			    "_score": 1,
+			    "fields": {
+			        "sys_last_activity_date": "2012-01-10T15:29:02.000Z",
+			        "sys_project": "aerogear",
+			        "sys_project_name": "Aerogear",
+			        "sys_description": "At the bottom of the current site is a feed of aerogear tweets. This needs to be expanded to include multiple sources. The RichFaces project does this, but I think they needed to use a good feed aggregator to get a single stream.",
+			        "sys_title": "AEROGEAR-2 - Project page needs a consolidated feed of various content, not just tweets",
+			        "sys_url_view": "https://issues.jboss.org/browse/AEROGEAR-2",
+			        "sys_contributors": [
+			            "Jay Balunas <tech4j@gmail.com>",
+			            "Wesley Hales <wesleyhales@gmail.com>"
+			        ],
+			        "sys_type": "issue",
+			        "sys_rating_avg" : 4.3,
+			        "sys_rating_num" : 5
+			    }
+			 },{
+         ...
+       }
+     ]
+   },
+   "aggregations": {
+     ...
+   }
+}
+```
+
+Description of important response fields:  
+
+* `uuid` field holds unique identifier of search response (also written into search statistics record)
+* `hits` object containing info about search hits
+* `hits/total` total number of documents matching search request - search hits
+* `hits/hits` array with documents forming part of search hits matching `from` and `size` request parameters
+* `hits/hits/_id` unique identifier of document in Searchisko
+* `hits/hits/fields` document fields, see `field` request parameter
+* `hits/hits/highlight` highlights of fulltext matching in given document, see `query_highlight` request parameter
+* `aggregations` values from aggregations, see `agg` request parameter
+
+GET /rest/search{?query,query_highlight,sortBy,from,size,agg,field,content_provider,type,sys_type,tag,project,activity_date_interval,activity_date_from,activity_date_to,contributor}
+< 200
+< Content-Type: application/json
+< Access-Control-Allow-Origin: *
+{
+  "uuid" : "f87e7875-85a1-42e3-a39e-e64d3f0e155d",
+  "took":3,
+  "timed_out":false,
+  "_shards":{
+    "total":5,
+    "successful":5,
+    "failed":0
+   },
+   "hits":{
+     "total":393,
+     "max_score":null,
+     "hits":[]
+   }
+}
+
+
+Write statistics record about hit returned in search response was "useful" for
+user, eg. user clicked URL related with given hit or viewed hit detail. 
+These statistics records may be analyzed later to improve fulltext search engine 
+configuration to bring better search results for users. 
+
+##### Request parameters
+
+* `search_result_uuid` - value of `uuid` field from search response this statistics record is for 
+* `hit_id` - unique identifier of search hit document (`hits/hits[]/_id` field 
+in response) from given search response which was "useful" for user (eg. he clicked it 
+or viewed detail). Validation is performed during server side record write to ensure this 
+identifier has been part of given search response. 
+* `session_id` - optional, identifier of user's frontend session to allow more precise user behavior analyze
+
+PUT /rest/search/{search_result_uuid}/{hit_id}{?session_id}
+< 200
+< Access-Control-Allow-Origin: *
+
+
+Execute [registered query](#managementapiregisteredqueries) using provided URL parameters.
+
+##### Request parameters
+
+ * `registered_query_id` id of registered query
+ * `params` all URL params will be passed into registered query processing step.
+   See [https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/query.md] for further details.
+
+GET /rest/search/{registered_query_id}{?params}
+< 200
+< Content-Type: application/json
+< Access-Control-Allow-Origin: *
+{
+  "uuid" : "f87e7875-85a1-42e3-a39e-e64d3f0e155d",
+  "took":3,
+  "timed_out":false,
+  "_shards":{
+    "total":5,
+    "successful":5,
+    "failed":0
+   },
+   "hits":{
+     "total":393,
+     "max_score":null,
+     "hits":[ ... ]
+   },
+   "aggs":{
+     ...
+   }
+}
+
+
+--
+Feed API
+This part of the API is used by all systems that want to consume [content](https://github.com/searchisko/searchisko/tree/master/documentation/rest-api/)
+stored in Searchisko as feed in [Atom Syndication Format](http://tools.ietf.org/html/rfc4287). 
+Request parameters can be used to filter feed content by distinct criteria.
+
+Because RSS clients may not support HTTP Redirects well Searchisko forwards internally any request from `/v1/rest/feed` to `/v2/rest/feed`.
+Thanks to this forward clients that registered for previous API version will still work without any issues after Searchisko API
+is upgraded to new version.
+--
+
+Get Atom feed with filtered content.
+
+##### Request parameters
+
+* `project` filters feed to specific project defined in `sys_project` field. This param can be used multiple times to get feed for more projects.
+* `contributor` filters feed only for data with activity from given contributor (field `sys_contributors`). This param can be used multiple times to get feed for more contributors.
+* `sys_type` filters feed only to specific `sys_type`, This param can be used multiple times to get feed for more types.
+* `tag` filters feed to specific tag defined in `sys_tags` field. This param can be used multiple times to get feed for more tags.
+* `type` filters feed only to specific `sys_content_type`
+* `content_provider` filters feed only to data provided by specified provider - `sys_content_provider` field
+* `query` full text query string
+* `from` start index or returned entries. Default value is 0. Useful together with `size` for results pagination.
+* `size` maximal number of returned entries. Default is 20, maximal value is 500.
+* `sortBy` sort result. If not used then date of last content modification is 
+  used to include content in feed. You can use `new-create` value here to 
+  include content in feed by date of its creation (so later modifications are ignored and content is not included in feed again).
+* `feed_title` optional param allows to customize title of generated feed. By default it's generated from the filter criteria used for feed.  
+
+
+GET /rest/feed{?project,contributor,sys_type,tag,type,content_provider,query,sortBy,feed_title}
+< 200
+< Content-Type: application/atom+xml
+< Access-Control-Allow-Origin: *
+	<?xml version="1.0" encoding="utf-8"?>
+	<feed xmlns="http://www.w3.org/2005/Atom">
+	  <title>DCP whole content feed</title>
+	  <id>http://dcp.org/v2/rest/feed</id>
+	  <updated>2012-12-06T06:34:55.000Z</updated>
+	  <generator>DCP</generator>
+	  <entry>
+	     <title>AS7-1254 - Set the port_range on JGroups stacks to 1</title>
+	     <link href="https://issues.jboss.org/browse/AS7-1254" />
+	     <id>searchisko:content:jbossorg_jira_issue-AS7-1254</id>
+	     <published>2012-12-06T06:34:55.000Z</published>
+	     <updated>2012-12-06T06:34:55.000Z</updated>
+	     <summary>Set the port_range on JGroups stacks to 1 to lock down the ports.</summary>
+	     <author>
+	       <name>John Doe</name>
+	     </author>
+	  </entry>
+	</feed>
+
+
+--
+User Authentication Status API
+
+When Searchisko REST API is called directly from Web browser, and Searchisko is configured to cooperate with web SSO authentication server, 
+then this endpoint can be used from JavaScript to check if user is authenticated. 
+This information can be used then to show user necessary controls and/or to perform call to other Searchisko APIs used to obtain personalized 
+data (like 'content rating' endpoint).  
+--
+
+Check if user is authenticated.
+
+##### Request parameters
+
+* `roles` if this http param is not empty then response contains array of roles if user is authenticated.
+
+##### Response content
+The response contains a JSON object with fields:
+
+* `authenticated` - `true` means user is authenticated, `false` for not authenticated user.
+* `roles` - contains array of user roles if user is authenticated and `roles` request param is not empty.
+
+```
+{
+  "authenticated":true,
+  "roles" : ["contributor","another_role"]
+}
+```
+
+GET /rest/auth/status{?roles}
+< 200
+< Content-Type: application/json
+{
+  "authenticated":true
+}
+
+--
+Personalized Content Rating API
+
+This part of API allows to obtain and store personalized rating for any document stored inside Searchisko. 
+Rating is number between 1 (wort) and 5 (best).
+
+Average rating and number of users who rated document are available directly in document data
+over system fields `sys_rating_avg` and `sys_rating_num`. These fields are updated automatically by Searchisko as users add rating over this API.
+
+This API requires User authentication. All calls of this API return `403` Forbidden http response code if user is not authenticated!
+
+When called directly from Web Browser, this API cooperates with 'User Authentication Status API' to establish user authenticity,
+so you have to call 'User Authentication Status API' before you call this API in this case.
+--
+
+Get personalized content rating for one document.
+
+##### Request parameters
+
+* `_id` unique identifier of the document in Searchisko to get personalized rating for (`_id` document field in search API results).
+
+##### Response content
+
+The response contains a JSON object where `rating` holds value of the rating.
+
+```
+{
+  "rating" : 2
+}
+```
+
+GET /rest/rating/{_id}
+< 200
+< Content-Type: application/json
+{
+  "rating" : 2
+}
+
+
+Get personalized content rating for more documents.
+
+##### Request parameters
+
+* `id` unique identifier of the document in Searchisko to get personalized content rating for (`_id` document field in search API results). Parameter can be used multiple times in one request to obtain rating for more documents at once.
+
+##### Response content
+
+The response contains a JSON object, where key is unique identifier of document in Searchisko (`id` request parameter) and value is structure with info about rating.
+`rating` field holds value of the rating.
+If user did not provided his rating for some requested document yet, it is not present in response.
+
+```
+{
+  "id1" : { "rating" : 2},
+  "id2" : { "rating" : 3}
+}
+```
+
+GET /rest/rating{?id}
+< 200
+< Content-Type: application/json
+{
+  "id1" : { "rating" : 2},
+  "id2" : { "rating" : 3}
+}
+
+
+Rate content.
+
+##### Request parameter
+
+* `id` unique identifier of the document in Searchisko to store personalized content rating for (`_id` document field in search API results).
+
+##### Request content
+JSON object with rating value to store in `rating` mandatory field.
+
+```
+{
+  "rating" : 2
+}
+```
+
+##### Response content
+JSON object with identifier and new rating statistics for the document (average rating and number of users who rated it).
+
+```
+{
+  "_id" : "wp-85654",
+  "sys_rating_avg" : 4.2,
+  "sys_rating_num" : 24
+}
+```
+
+POST /rest/rating/{_id}
+> Content-Type: application/json
+{
+  "rating" : 2
+}
+< 200
+< Content-Type: application/json
+{
+  "_id" : "wp-85654",
+  "sys_rating_avg" : 4.2,
+  "sys_rating_num" : 24
+}
+
+--
+Custom Tag API
+
+This part of API allows to store and retrieve custom tags for any document stored inside Searchisko. 
+Custom tags allow users to classify the content in the Searchisko and improve searching.
+
+Custom tags are stored in the field `sys_tags` together with tags provided by the content provider.
+
+This API requires User authentication. All calls of this API return `403` Forbidden http response code if user is not authenticated!
+More specifically, user needs `tags_manager` role to work with all custom tags or
+`tags_manager_[contentTypeId]` role to work with custom tags for given content type.
+
+When called directly from Web Browser, this API cooperates with 'User Authentication Status API' to establish user authenticity,
+so you have to call 'User Authentication Status API' before you call this API in this case.
+--
+
+Get all custom tags for one document.
+
+##### Request parameters
+
+* `_id` unique identifier of the document in Searchisko to get all tags for (`_id` document field in search API results).
+
+##### Response content
+
+The response contains a JSON object where `tag` holds array of all the tags.
+
+```
+{
+  "tag" : [
+	"linux",
+	"red hat"
+  ]
+}
+```
+
+GET /rest/tagging/{_id}
+< 200
+< Content-Type: application/json
+{
+  "tag" : [
+	"linux",
+	"red hat"
+  ]
+}
+
+
+Get all existing custom tags for documents of one content type.
+
+##### Request parameters
+
+* `_id` unique identifier of the content type in Searchisko to get all tags for (`_type` document field in search API results).
+
+##### Response content
+
+The response contains a JSON object where `tag` holds array of all the tags.
+
+```
+{
+  "tag" : [
+	"linux",
+	"red hat"
+  ]
+}
+```
+
+GET /rest/tagging/type/{_id}
+< 200
+< Content-Type: application/json
+{
+  "tag" : [
+	"linux",
+	"red hat"
+  ]
+}
+
+
+Assign tag to document.
+
+##### Request parameter
+
+* `id` unique identifier of the document in Searchisko to store custom tag for (`_id` document field in search API results).
+
+##### Request content
+JSON object with tag label to store in `tag` mandatory field.
+
+```
+{
+  "tag" : "label"
+}
+```
+
+##### Response status
+201 (Created) when the tag was created
+
+200 (OK) when there was same tag for the document (no changes)
+
+POST /rest/tagging/{_id}
+> Content-Type: application/json
+{
+  "tag" : "label"
+}
+< 201
+
+
+Delete tag.
+
+##### Request parameter
+
+* `_id` unique identifier of the document in Searchisko to delete custom tag for (`_id` document field in search API results).
+
+##### Request content
+JSON object with tag label to delete in `tag` mandatory field.
+
+```
+{
+  "tag" : "label"
+}
+```
+
+DELETE /rest/tagging/{_id}
+> Content-Type: application/json
+{
+  "tag" : "label"
+}
+< 200
+
+
+Delete all tags for content.
+
+##### Request parameter
+
+* `_id` unique identifier of the document in Searchisko to delete custom tag for (`_id` document field in search API results).
+
+DELETE /rest/tagging/{_id}/_all
+> Content-Type: application/json
+< 200
+
+
+--
+Normalization API
+
+This part of API allows *content providers* to run normalizations defined in Searchisko instance to use them for own work (eg. static html generation for website). 
+These normalizations can use Searchisko internal data (like Projects and Contributor configurations) commonly available for normalizations performed during Content Push only.
+--
+
+Get information about all available normalizations.
+Available normalizations are configured by Searchisko [normalizations](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/config_normalizations.md) config file.
+
+##### Response content
+
+The response contains a JSON object with all available normalizations, where key is name of the normalization, and value is description for the normalization.
+
+```
+{
+  "normalizationName1" : "Description of normalization 1",
+  "normalizationName2" : "Description of normalization 2",
+  ... other normalizations 
+}
+```
+
+GET /rest/normalization
+< 200
+< Content-Type: application/json
+{
+  "normalizationName1" : "Description of normalization 1",
+  "normalizationName2" : "Description of normalization 2"
+}
+
+Perform given normalization for one input values.
+
+##### Request parameters
+
+* `normalizationName` name of normalization to perform.  
+* `value` input value we want to run normalization for (meaning depends on normalization configuration).
+
+##### Response content
+
+The response contains a JSON object where `input_id` field holds input value normalization has been performed for, 
+optional `warnings` field contains array of warnings from normalization process, and other fields 
+depend on configuration for given normalization.
+
+```
+{
+  "input_id" : "{value}",
+  "warnings" : [],
+  ... other fields provided by normalization
+}
+```
+
+GET /rest/normalization/{normalizationName}/{value}
+< 200
+< Content-Type: application/json
+{
+  "input_id" : "john@doe.com",
+  "name" : "John Doe",
+  "sys_contributor" : "John Doe <john@doe.com>"
+}
+
+
+Perform given normalization for more input values. This operation is same as previous obe, but 
+you can pass more values for normalization at once by passing multiple request parameters called `id`.
+Response contains JSON structure where one output record (same as for single call) exists for each input value.
+
+GET /rest/normalization/{normalizationName}{?id}
+< 200
+< Content-Type: application/json
+{
+  "id_1" : {
+    "input_id" : "id_1",
+    "name" : "John Doe",
+    "sys_contributor" : "John Doe <john@doe.com>"
+  },
+  "id_2" : {
+    "input_id" : "id_2",
+    "name" : "No One",
+    "sys_contributor" : "No One <one@no.com>"
+  }
+}
+
+
+--
+Management API - content providers
+
+This part of the API allows to manage configurations of *content providers*. *Content provider* is an entity which stores content into Searchisko (see Content Push API).
+
+This part of the API is used by 'Searchisko administrators', some operations can be used by *content providers* alone too.
+
+[Data structure used on this API is documented here](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/content_provider.md).
+--
+
+Get configuration for provider of given name.
+
+*Each authenticated provider can use this method to obtain own configuration.*
+GET /rest/provider/{name}
+< 200
+< Content-Type: application/json
+{
+  "name": "jborg",
+  "description" : "Provider used by JBoss.org Development Team to manage DCP and push content from core jboss.org systems",
+  "contact_email" : "help@jboss.org",
+  "super_provider": true,
+  "type": {
+    "jbossorg_blog": {
+      "description" : "Blog posts pushed into DCP by Borg system - planet.jboss.org",
+      "sys_type": "blogpost",
+      "sys_content_content-type" : "text/html",
+	    "persist" : true,
+      "input_preprocessors": [
+        {
+          "name": "DCP project mapper - feed to sys_project mapping",
+          "class": "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+          "settings": {
+            "target_field": "sys_project",
+            "index_name": "sys_projects",
+            "idx_search_field": "type_specific_code.jbossorg_blog",
+            "idx_result_field": "code",
+            "source_field": "feed",
+            "value_default": "unknown",
+            "index_type": "project"
+          }
+        }
+      ],
+      "index": {
+        "name": "jbossorg_blog",
+        "type": "jbossorg_blogpost"
+      }
+    },
+    "jbossorg_project_info": {
+      "description" : "Informations about projects (name, links, icons, licenses used etc) pushed into DCP by Magnolia CMS",
+      "sys_type": "project_info",
+      "search_all_excluded" : "true",
+      "input_preprocessors": [
+        {
+          "name": "DCP project mapper - nodePath to sys_project mapping",
+          "class": "org.jboss.elasticsearch.tools.content.ESLookupValuePreprocessor",
+          "settings": {
+            "target_field": "sys_project",
+            "index_name": "sys_projects",
+            "idx_search_field": "type_specific_code.jbossorg_project_info",
+            "idx_result_field": "code",
+            "source_field": "nodePath",
+            "value_default": "unknown",
+            "index_type": "project"
+          }
+        }
+      ],
+      "index": {
+        "name": "project_info",
+        "type": "jbossorg_project_info"
+      }
+    }
+  }
+}
+
+List provider definitions.
+
+##### Request parameters
+
+* `from` index of the first content object returned in the results array. The default value is 0 (start from begin of list).
+* `size` of returned results array. Default is 10.
+
+##### Response content
+The response contains a JSON structure with overall number of the providers in `total` field, and an array of the provider configuration data in `hits` field. The content of the array depends on `from` and `size` request parameters.
+Each record in the array contains `id` field with provider name and `data` field with full provider configuration structure:
+
+```
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "provider name",
+      "data": {
+        // content provider configuration object
+      }
+    }
+  ]
+}
+```
+
+GET /rest/provider{?from,size}
+< 200
+< Content-Type: application/json
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "jborg",
+      "data": {
+        "name": "jborg",
+        "description" : "Provider used by JBoss Community Team to manage DCP and push content from core jboss.org systems",
+        "contact_email" : "help@jboss.org"
+      }
+    }
+  ]
+}
+
+Create/update configuration for provider. `name` field inside of provider configuration structure is used as primary ID for update.  
+
+##### Request content
+JSON with provider configuration structure.
+
+##### Response content
+The response contains a JSON structure with `id` field returning `name` o provider.
+
+POST /rest/provider
+> Accept: application/json
+{
+  "name" : "jborg",
+  "description" : "Provider used by JBoss.org Development Team to manage DCP and push content from core jboss.org systems"
+}
+< 200
+< Content-Type: application/json
+{
+  "id":"jborg"
+}
+
+Change password for provider with given `name`.
+
+*Each authenticated provider can use this method to change his password.*
+
+##### Request content
+New password is posted in request body.
+
+POST /rest/provider/{name}/password
+> Accept: text/plain
+< 200
+
+
+Delete provider with given `name`.
+DELETE /rest/provider/{name}
+< 200
+
+
+Get information about current locks of "Content Manipulation API". Lock means 
+that "Content Manipulation API" can't be used by named provider/s or all providers if `_all` value is used 
+- "Content Manipulation API" call returns http code `503` - Service Unavailable if locked.
+
+##### Request parameters
+
+* `name` - name of provider to get lock status for. Value `_all` means info for all 
+providers is returned. Each authenticated provider can use this method for itself, Searchisko 
+administrator can use `_all` also.
+
+##### Response content
+
+The response contains a JSON structure with one field called `content_manipulation_lock`. 
+It contains array of names of locked providers (value `_all` is there if all providers are locked). 
+Field is not present in response if no any lock is currently in place for requested provider/s.  
+
+
+GET /rest/provider/{name}/content_manipulation_lock
+< 200
+< Content-Type: application/json
+{
+  "content_manipulation_lock": ["provider1", "provider2"]
+}
+
+
+Create lock of "Content Manipulation API" (see previous operation description for details).
+
+##### Request parameters
+
+* `name` - name of provider to create lock for. Value `_all` means all providers 
+(it removes all previously placed individual locks if any). Each authenticated provider can use this method for itself, Searchisko 
+administrator can use `_all` also.
+
+POST /rest/provider/{name}/content_manipulation_lock
+< 200
+
+
+Remove lock of "Content Manipulation API" (see previous operation description for details).
+
+##### Request parameters
+
+* `name` - name of provider to remove lock for. Value `_all` means to remove 
+all locks, even if created indivudually. Lock created for `_all` can be removed by `_all` only. 
+Each authenticated provider can use this method for itself, Searchisko administrator can use `_all` also.
+
+DELETE /rest/provider/{name}/content_manipulation_lock
+< 200
+
+
+--
+Management API - projects
+
+This part of the API allows to manage configurations of *projects*. This configuration is used by preprocessors in 'Content Push API' to normalize project identifier for `sys_project` field.
+This part of the API is used by 'Searchisko administrators'. Get operations can be used without authentication.
+
+[Data structure used on this API is documented here](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/project.md).
+--
+
+Get project configuration for given project code.
+
+*Authentication not required to use this method*
+GET /rest/project/{code}
+< 200
+< Content-Type: application/json
+{
+  "code": "jbosstools",
+  "name": "JBoss Tools",
+  "description" : "",
+  "type_specific_code" : {
+    "jbossorg_blog": ["jbosstools"],
+    "jbossorg_jira": ["JBIDE"],
+    "jbossorg_mailing_list": [],
+    "jbossorg_project_info": "/jbosstools"
+  }
+}
+
+Search project configuration by some of available identifiers.
+
+##### Request parameters
+
+Method expects one request parameter. Name of parameter is name of identifier you can search in. 
+It may be `code` or any other identifier type used inside of `type_specific_code` map of project definition (eg. `jbossorg_jira` etc.).
+Value of parameter is identifier value you can search for then.   
+
+
+GET /rest/project/search?{idName}={idValue}
+< 200
+< Content-Type: application/json
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "project code",
+      "data": {
+			  "code": "project code",
+			  "name": "JBoss Tools",
+			  "type_specific_code" : {
+			    "jbossorg_blog": ["jbosstools"],
+			    "jbossorg_jira": ["JBIDE"],
+			    "jbossorg_mailing_list": [],
+			    "jbossorg_project_info": "/jbosstools"
+			  }
+			}
+    }
+  ]
+}
+
+
+List project definitions.
+
+*Authentication not required to use this method*
+
+##### Request parameters
+
+* `from` index of the first content object returned in the results array. The default value is 0 (start from begin of list).
+* `size` of returned results array. Default is 10.
+
+##### Response content
+The response contains a JSON structure with overall number of the projects in `total` field, and an array of the project configuration data in `hits` field. 
+The content of the array depends on `from` and `size` request parameters.
+Each record in the array contains `id` field with project code and `data` field with full provider configuration structure:
+
+```
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "project code",
+      "data": {
+        // project configuration object
+      }
+    }
+  ]
+}
+```
+
+GET /rest/project{?from,size}
+< 200
+< Content-Type: application/json
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "jbosstools",
+      "data": {
+			  "code": "jbosstools",
+			  "name": "JBoss Tools",
+			  "description" : "",
+			  "type_specific_code" : {
+			    "jbossorg_blog": ["jbosstools"],
+			    "jbossorg_jira": ["JBIDE"],
+			    "jbossorg_mailing_list": "",
+			    "jbossorg_project_info": "/jbosstools"
+			  }
+			}
+    }
+  ]
+}
+
+Create/update project configuration. `code` field inside of project configuration structure is used as primary ID for update.  
+
+##### Request content
+JSON with project configuration structure.
+
+##### Response content
+The response contains a JSON structure with `id` field returning `code` o provider.
+
+POST /rest/project
+> Accept: application/json
+{
+  "code": "jbosstools",
+  "name": "JBoss Tools",
+  "description" : "",
+  "type_specific_code" : {
+    "jbossorg_blog": ["jbosstools"],
+    "jbossorg_jira": ["JBIDE"],
+    "jbossorg_mailing_list": "",
+    "jbossorg_project_info": "/jbosstools"
+  }
+}
+< 200
+< Content-Type: application/json
+{
+  "id":"jbosstools"
+}
+
+Delete project configuration for given project's `code`.
+DELETE /rest/project/{code}
+< 200
+
+
+--
+Management API - contributors
+
+This part of the API allows to manage configurations of *contributors*. This configuration contains distinct information/identifiers used by preprocessors in 'Content Push API' to normalize project identifier for `sys_contributors` field.
+This part of the API is used by 'Searchisko administrators' only.
+
+[Data structure used on this API is documented here](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/contributor.md).
+--
+
+Get contributor configuration for given `id`.
+
+GET /rest/contributor/{id}
+< 200
+< Content-Type: application/json
+{
+  "code" : "John Doe <john@doe.org>",
+  "email" : ["john@doe.org", "john.doe@gmail.com"],
+  "name" : "John Doe",
+  "type_specific_code" : {
+    "jbossorg_username" : "jdoe",
+    "github_username" : "john.doe",
+    "jbossorg_blog": ["jbosstools.John Doe", "aerogear.John Doe"]
+  }
+}
+
+Search contributor configuration by some of available identifiers.
+
+##### Request parameters
+
+Method expects one request parameter. Name of parameter is name of identifier you can search in. 
+It may be `code`, `email`, `name` or any other identifier type used inside of `type_specific_code` map of contributor definition (eg. `jbossorg_username`, `github_username` etc.).
+Value of parameter is identifier value you can search for then.   
+
+
+GET /rest/contributor/search?{idName}={idValue}
+< 200
+< Content-Type: application/json
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "21",
+      "data": {
+				  "code" : "John Doe <john@doe.org>",
+				  "email" : ["john@doe.org", "john.doe@gmail.com"],
+				  "name" : "John Doe"
+				}
+			}
+    }
+  ]
+}
+
+List contributor definitions.
+
+##### Request parameters
+
+* `from` index of the first content object returned in the results array. The default value is 0 (start from begin of list).
+* `size` of returned results array. Default is 10.
+
+##### Response content
+The response contains a JSON structure with overall number of the contributor definitions in `total` field, and an array of the contributor configuration data in `hits` field. 
+The content of the array depends on `from` and `size` request parameters.
+Each record in the array contains `id` field with unique id for other REST operations, and `data` field with full contributor configuration structure:
+
+```
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "unique id in Searchisko",
+      "data": {
+        // contributor configuration object
+      }
+    }
+  ]
+}
+```
+
+GET /rest/contributor{?from,size}
+< 200
+< Content-Type: application/json
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "21",
+      "data": {
+				  "code" : "John Doe <john@doe.org>",
+				  "email" : ["john@doe.org", "john.doe@gmail.com"],
+				  "name" : "John Doe"
+				}
+			}
+    }
+  ]
+}
+
+Create new contributor configuration with generated `id`. 
+
+##### Request content
+JSON with contributor configuration structure. `code` field is mandatory and must be unique!
+
+##### Response content
+The response contains a JSON structure with `id` generated for newly created record.
+
+POST /rest/contributor
+> Accept: application/json
+{
+  "code" : "John Doe <john@doe.org>",
+  "email" : ["john@doe.org","john.doe@gmail.com"],
+  "name" : "John Doe"
+}
+< 200
+< Content-Type: application/json
+{
+  "id":"21"
+}
+
+Create/update contributor configuration for requested `id`. 
+
+##### Request content
+JSON with contributor configuration structure. `code` field is mandatory and must be unique! 
+`code` field can't be changed by this operation not to break data consistency. See specialized operation later.
+
+##### Response content
+The response contains a JSON structure with `id`.
+
+POST /rest/contributor/{id}
+> Accept: application/json
+{
+  "code" : "John Doe <john@doe.org>",
+  "email" : ["john@doe.org", "john.doe@gmail.com"],
+  "name" : "John Doe"
+}
+< 200
+< Content-Type: application/json
+{
+  "id":"22"
+}
+
+Change contributor's `code` for contributor with requested `id`. Searchisko will maintain data consistency as part of this
+operation. It will start background reindexing task (se API for tasks later) to patch `sys_contributor` field for whole affected content.
+
+##### Response content
+The response contains a JSON structure with Contributor data after `code` change.
+
+POST /rest/contributor/{id}/code/{code}
+< 200
+< Content-Type: application/json
+{
+  "code" : "John Doe <john@doe.org>",
+  "email" : ["john@doe.org","john.doe@gmail.com"],
+  "name" : "John Doe"
+}
+
+
+Merge Contributor with identifier `idFrom` into Contributor with `idTo`. 
+`email` and `type_specific_code` fields are merged together from both records, so all values from both records are kept.
+Merge result is stored into Contributor with identifier `idTo`, `code` of this Contributor is preserved.  
+Contributor with identifier `idFrom` is deleted form Searchisko together with his `code`.
+Searchisko will maintain data consistency as part of this operation. It will start background reindexing
+task (se API for tasks later) to patch `sys_contributor` field for whole affected content.
+
+##### Response content
+The response contains a JSON structure with merged Contributor data.
+
+POST /rest/contributor/{idFrom}/mergeTo/{idTo}
+< 200
+< Content-Type: application/json
+{
+  "code" : "John Doe <john@doe.org>",
+  "email" : ["john@doe.org","john.doe@gmail.com"],
+  "name" : "John Doe"
+}
+
+Delete contributor configuration with given `id`.
+DELETE /rest/contributor/{id}
+< 200
+
+
+--
+Management API - registered queries
+
+This part of the API is used by 'Searchisko administrators' to manage [registered queries](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/query.md).
+GET operations can be also used by anyone (no special role is required) but only registered query *id* and *description* values are returned in the response.
+--
+
+Get all registered queries.
+
+GET /rest/query
+< 200
+< Content-Type: application/json
+{
+  "id" : "query_name",
+  "description" : "Template description",
+  "template" : {
+    "query" : {
+      "match_all" : {}
+    }
+  }
+}
+
+
+Get registered query using its id.
+
+GET /rest/query/{id}
+< 200
+< Content-Type: application/json
+{
+  "id" : "query_name",
+  "description" : "Template description",
+  "template" : {
+    "query" : {
+      "match_all" : {}
+    }
+  }
+}
+
+
+Create new registered query. See [Query](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/query.md)
+data structure for further details about request data format.
+
+POST /rest/query
+< 200
+< Content-Type: application/json
+{
+  "id" : "query_name",
+  "description" : "Template description",
+  "template" : {
+    "query" : {
+      "match_all" : {}
+    }
+  }
+}
+
+
+Update (or create) register query. See [Query](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/query.md)
+data structure for further details about request data format.
+
+POST /rest/query/{id}
+< 200
+< Content-Type: application/json
+{
+  "id" : "query_name",
+  "description" : "Template description",
+  "template" : {
+    "query" : {
+      "match_all" : {}
+    }
+  }
+}
+
+
+Delete registered query using its id.
+
+DELETE /rest/query/{id}
+< 200
+< Content-Type: plain/text
+OK
+
+
+
+--
+Management API - configuration
+
+This part of the API is used by 'Searchisko administrators' to manage Searchisko configuration documents.
+Configuration documents use distinct structures depending on Searchisko feature they configure. 
+They are referenced from Searchisko code by defined `id`. For list of supported configuration document id's and related configuration document structure see [`config_` prefixed files in management part of Searchisko documentation](https://github.com/searchisko/searchisko/blob/master/documentation/rest-api/management/).
+--
+
+Get configuration document for given `id`.
+
+GET /rest/config/{id}
+< 200
+< Content-Type: application/json
+{
+  "code1" : "sfehgsdg",
+  "code2" : "aerafa"
+}
+
+
+List all configuration documents.
+
+##### Request parameters
+
+* `from` index of the first document returned in the results array. The default value is 0 (start from begin of list).
+* `size` of returned results array. Default is 10.
+
+##### Response content
+The response contains a JSON structure with overall number of the configuration documents in `total` field, and an array of the configuration documents in `hits` field. 
+The content of the array depends on `from` and `size` request parameters.
+Each record in the array contains `id` field with unique id for other REST operations, and `data` field with full configuration document:
+
+```
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "unique id in Searchisko",
+      "data": {
+        // configuration document
+      }
+    }
+  ]
+}
+```
+
+GET /rest/config{?from,size}
+< 200
+< Content-Type: application/json
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "search_config_codes",
+      "data": {
+				  "code1" : "sfehgsdg",
+  				"code2" : "aerafa"
+				}
+			}
+    }
+  ]
+}
+
+Create/update configuration document for given `id`. 
+
+##### Request content
+JSON with configuration document.
+
+##### Response content
+The response contains a JSON structure with `id`.
+
+POST /rest/config/{id}
+> Accept: application/json
+{
+  "code1" : "sfehgsdg",
+  "code2" : "aerafa"
+}
+< 200
+< Content-Type: application/json
+{
+  "id":"22"
+}
+
+Delete configuration document with given `id`.
+DELETE /rest/config/{id}
+< 200
+
+
+--
+Management API - content reindexing tasks
+
+This part of the API is used by 'Searchisko administrators' to operate long running reindexing tasks.
+These task are used to refresh search indices in case of contributor or project mapping change.
+Special task type is used to put content from persistent store into search indices also.
+--
+
+List all task types available in Searchisko. Task types are used in some other calls.
+
+GET /rest/tasks/type
+< 200
+< Content-Type: application/json
+[  
+  "reindex_from_persistence"
+]
+
+
+List information about all tasks in system. More recent tasks on top.
+
+##### Request parameters
+
+* `from` index of the first task info returned in the results array. The default value is 0 (start from begin of list).
+* `size` of returned results array. Default is 10.
+* `taskType` optional filter over task type
+* `taskStatus` optional filter over task status, multiple values may be used. Allowed values `new`, `running`, `failover`, `canceled`, `finished_ok`, `finished_error`
+
+
+GET /rest/tasks/task{?taskType,taskStatus,from,size}
+< 200
+< Content-Type: application/json
+[
+  {
+    "id": "egde9g8d9fg8d9fg",
+    "taskType" : "reindex_from_persistence",
+    "taskStatus" : "NEW",
+    "taskCreatedAt" : "2013-03-27 12:24:35"
+  }
+]
+
+Get information about execution of task with given identifier.
+
+GET /rest/tasks/task/{taskId}
+< 200
+< Content-Type: application/json
+{
+  "id": "egde9g8d9fg8d9fg",
+  "taskType" : "reindex_from_persistence",
+  "taskStatus" : "FINISHED_OK",
+  "taskCreatedAt" : "2013-03-27 12:24:35",
+  "lastRunStartedAt" : "2013-03-27 12:25:05",
+  "lastRunFinishedAt" : "2013-03-27 12:27:47",
+  "runCount" : 1,
+  "processingLog" : ""
+}
+
+Create new task of given task type to be executed. 
+
+##### Request content
+JSON with task configuration document. Available task types and related configuration structures are:
+
+* `reindex_from_persistence`
+Get all content of 'provider type' passed in task configuration from Searchisko persistent store (so given provider type must be defined as persistent) and store/update it into Searchisko search index.  
+
+```
+{
+  "sys_content_type" : "jbossorg_blog"
+}
+```
+
+
+* `renormalize_by_content_type`
+Get all content of 'provider type' passed in task configuration from Searchisko search index, run all data normalizations on it, and update it back into Searchisko search index.  
+
+``` 
+{
+  "sys_content_type" : "jbossorg_blog"
+}
+```
+
+
+* `renormalize_by_project_code`
+Get all content with `sys_project` matching values passed in task configuration from Searchisko search indices, run all data normalizations on it, and update it back into Searchisko search index. Used for example when project code or project name changes in Searchisko project configuration, so we need to update content in search indices for it.
+
+``` 
+{
+  "project_code" : ["jbosstools", "jbossas7"]  
+}
+```
+
+
+ * `renormalize_by_project_lookup_id`
+Get all content which is bound to some `sys_project` over defined values of defined normalization identifier passed in task configuration from Searchisko search indices, run all data normalizations on it, and update it back into Searchisko search index. Used mainly when new project mapping identifier is added into Searchisko project configuration in `type_specific_code` section, so we need to update content in search indices to be correctly bound to this project.
+
+``` 
+{
+  "project_id_type" : "type_specific_code.jbossorg_jira",
+  "project_id_value" : ["JBIDE","AS7"]  
+}
+```
+	
+
+ * `renormalize_by_contributor_lookup_id`
+Get all content which is bound to some contributor over defined values of defined normalization identifier passed in task configuration from Searchisko search indices, run all data normalizations on it, and update it back into Searchisko search index. Used mainly when new contributor mapping identifier is added into Searchisko project configuration in `email` or `type_specific_code` section, so we need to update content in search indices to be correctly bound to this project. 
+ 
+```
+{
+  "contributor_id_type" : "email",
+  "contributor_id_value" : ["john.doe@gmail.com","john.doe@hotmail.com"]  
+}
+```
+
+* `renormalize_by_contributor_code`
+Get all content where `sys_contributors` contains value passed in task configuration from Searchisko search indices, run all data normalizations on it, and update it back into Searchisko search index. Used for example when contributor code is changed in Searchisko contributor configuration, or some normalization identifier is removed from Searchisko contributor configuration (one normalized contributor is split into more), so we need to update content in search indices for it.
+
+``` 
+{
+  "contributor_code" : ["John Doe <john@doe.org>"]  
+}
+```
+
+* `update_contributor_profile`
+Create/Update 'contributor profile' and Contributor records from Profile provider defined in `contributor_type_specific_code_type` config field. In case of DCP only profile provider available is developer.jboss.org under `jbossorg_username`.
+Optional `contributor_type_specific_code_value` config field allow s you to list usernames to create/update. All contributor profiles for given type are updated if not provided.
+
+```
+{
+  "contributor_type_specific_code_type" : "jbossorg_username",
+  "contributor_type_specific_code_value" : ["jdoyle","quimby","homers"]
+}
+```
+
+* `sync_contributors_and_profiles`
+Get all profiles based on `contributor_type_specific_code_type` config field from contributor provider and create new 'contributor' entries if existing and update 'contributor profile'.
+In case of DCP only profile provider available is developer.jboss.org under `jbossorg_username`.
+Fields `start` and `size` are optional. If they're not present then default value from contributor profile provider is used for `size` and start is 0.
+
+Caution! This task can run for a long time (hours) based on amount of data from Contributor Profile Providers
+
+```
+{
+  "contributor_type_specific_code_type" : "jbossorg_username",
+  "start" : 0,
+  "size" : 100
+}
+```
+
+* `reindex_contributor` and `reindex_project`
+May be used to rebuild internal search indices for Contributor or Project configurations from persistent store. Useful after search indices lost (due ES or mapping upgrade or some fatal failure of ES).
+
+```
+{
+}
+``` 
+ 
+
+##### Response content
+The response contains a JSON structure with `id` of created task.
+
+POST /rest/tasks/task/{taskType}
+> Accept: application/json
+{
+  "cfg_param_1" : "cfg value 1"
+}
+< 200
+< Content-Type: application/json
+{
+  "id":"egde9g8d9fg8d9fh"
+}
+
+Cancel execution of task with given `id`.
+DELETE /rest/tasks/task/{id}
+< 200
+
+--
+Management API - System
+
+This part of the API is used by 'Searchisko administrators' for some system operations.
+--
+
+Get system info about current instance of Searchisko. 
+Common user get basic info only, authenticated 'Searchisko administrator' gets full info. 
+
+GET /rest/sys/info
+< 200
+< Content-Type: application/json
+{
+  "build": {
+    "version": "0.9.0",
+    "build-java-vendor": "Oracle Corporation",
+    "build-java-version": "1.7.0",
+    "build-commit": "dfgjw456w03tjesp684w9t",
+    "build-timestamp": "2014-03-27T15:55:45.454+0100"
+  }
+}
+
+
+Get system audit log. 'Searchisko administrator' authentication required.
+
+##### Request parameters
+
+* `operation` HTTP operation e.g. `GET`, `POST`
+* `path` HTTP Path of audited action
+* `username` username who performed an action
+* `usertype` type of user can be `PROVIDER` or `CONTRIBUTOR`
+* `id` id of audited content
+* `from` index of the first content object returned in the results array. The default value is 0 (start from begin of list).
+* `size` of returned results array. Default is 10.
+* `sort` you can use 'asc' or 'desc' value to sort results by date when audit entry has been written (`date` field).
+
+##### Response content
+
+The response contains a JSON structure with overall number of the contributor definitions in `total` field, and an array of the audit entries data in `hits` field.
+The content of the array depends on `from` and `size` request parameters.
+Each record in the array contains `id` field with unique id for other REST operations, and `data` field with full auditlog entry:
+
+
+```
+{
+  "total": "1",
+  "hits": [
+    {
+      "id": "unique id in Searchisko",
+      "data": {
+        // auditlog object
+      }
+    }
+  ]
+}
+```
+
+
+GET /rest/sys/auditlog{?operation,path,username,usertype,id,from,size,sort}
+< 200
+< Content-Type: application/json
+{
+    "total": 2,
+    "hits": [
+        {
+            "id": "LPuQw4_mSemX8RFfoeqkpg",
+            "data": {
+                "id": null,
+                "content": null,
+                "operation": "GET",
+                "username": null,
+                "user_type": null,
+                "path": "/v2/rest/sys/info",
+                "type": "audit",
+                "date": "2014-05-27T12:13:38.258Z"
+            }
+        },
+        {
+            "id": "32k5WtccR--dN8UJJQ9qtg",
+            "data": {
+                "id": null,
+                "content": null,
+                "operation": "GET",
+                "username": "jbossorg",
+                "user_type": "PROVIDER",
+                "path": "/v2/rest/sys/info",
+                "type": "audit",
+                "date": "2014-05-27T12:14:01.646Z"
+            }
+        }
+    ]
+}
+
+
+Get list of persistence tables along with count of records for each table (or error message).
+
+GET /rest/sys/persistence
+< 200
+< Content-Type: application/json
+{
+  "tables": {
+    "counts": {
+      "TABLE_NAME_1": 10,
+      "TABLE_NAME_2": 0,
+      "TABLE_NAME_3": 144,
+      "TABLE_NAME_4": "ERROR: Table TABLE_NAME_4 does not exist."
+    }
+  }
+}
+
+
+Get info from MBeans via HTTP. 'Searchisko administrator' authentication required.
+
+GET /rest/sys/metrics
+< 200
+{
+  "timestamp": 1437568971,
+  "status": 200,
+  ...
+}
+
+
+Elasticsearch "Search" cluster [full REST API](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html).
+
+GET /rest/sys/es/search/*
+< 200
+< Content-Type: application/json
+
+
+Elasticsearch "Statistics" cluster [full REST API](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html).
+
+GET /rest/sys/es/stats/*
+< 200
+< Content-Type: application/json

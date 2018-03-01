@@ -1,0 +1,55 @@
+<!--
+  ~ JBoss, Home of Professional Open Source
+  ~ Copyright 2013, Red Hat, Inc., and individual contributors
+  ~ by the @authors tag. See the copyright.txt in the distribution for a
+  ~ full listing of individual contributors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!--
+Datasource Configuration - online docs:
+https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html/Administration_and_Configuration_Guide/sect-Datasource_Configuration.html
+
+Actual datasource configuration used in OpenShift:
+https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-jbosseap/versions/shared/standalone/configuration
+-->
+
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://www.ironjacamar.org/doc/schema/datasources_1_1.xsd">
+    <!-- The datasource is bound into JNDI at this location. We reference this in META-INF/persistence.xml -->
+    <datasource jndi-name="java:jboss/datasources/SearchiskoDS"
+                pool-name="SearchiskoDS" enabled="true"
+                use-java-context="true" use-ccm="true">
+        <connection-url>${datasource.connection.url}</connection-url>
+        <connection-property name="autoReconnect">true</connection-property>
+        <connection-property name="useUnicode">true</connection-property>
+        <connection-property name="characterEncoding">UTF-8</connection-property>
+        <driver>${datasource.driver}</driver>
+        <pool>
+            <min-pool-size>10</min-pool-size>
+            <max-pool-size>100</max-pool-size>
+            <prefill>true</prefill>
+        </pool>
+        <security>
+            <user-name>${datasource.username}</user-name>
+            <password>${datasource.password}</password>
+        </security>
+        <validation>
+            <!--<check-valid-connection-sql>SELECT 1</check-valid-connection-sql>-->
+            <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"></valid-connection-checker>
+            <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"></exception-sorter>
+            <background-validation>true</background-validation>
+            <background-validation-millis>60000</background-validation-millis>
+        </validation>
+    </datasource>
+</datasources>

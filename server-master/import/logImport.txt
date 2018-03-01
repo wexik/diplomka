@@ -1,0 +1,678 @@
+2017-11-22 23:03:22 ERROR MongoClient:275 - PARENT ID 5a15f42a797afad77b8e3005
+2017-11-22 23:03:22 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:03:22 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f42a797afad77b8e3005, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3AKUvW1ia3MAPWjE1Mrwfu10F=dCt+E48nicSJDjbJhrA@mail.gmail.com>, messageSnippet=are you using clvmd? if your answer is = yes, you need to be sure, you pv
+is visibile to your cluster nodes
+
+
+2014-08-30 16:12 GMT+02:00 manish vaidya, subject=Re: [Linux-cluster] Please help me on cluster error, date=1409410388000, highlighted=null, from=emi2fast@gmail.com, tags=null]]
+2017-11-22 23:03:22 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:03:22 ERROR MongoClient:275 - PARENT ID 5a15f42a797afad77b8e3005
+2017-11-22 23:03:22 ERROR MongoClient:276 -  before replies[MiniEmail [id=5a15f42a797afad77b8e3005, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3AKUvW1ia3MAPWjE1Mrwfu10F=dCt+E48nicSJDjbJhrA@mail.gmail.com>, messageSnippet=are you using clvmd? if your answer is = yes, you need to be sure, you pv
+is visibile to your cluster nodes
+
+
+2014-08-30 16:12 GMT+02:00 manish vaidya, subject=Re: [Linux-cluster] Please help me on cluster error, date=1409410388000, highlighted=null, from=emi2fast@gmail.com, tags=null]]
+2017-11-22 23:03:22 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f42a797afad77b8e3005, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3AKUvW1ia3MAPWjE1Mrwfu10F=dCt+E48nicSJDjbJhrA@mail.gmail.com>, messageSnippet=are you using clvmd? if your answer is = yes, you need to be sure, you pv
+is visibile to your cluster nodes
+
+
+2014-08-30 16:12 GMT+02:00 manish vaidya, subject=Re: [Linux-cluster] Please help me on cluster error, date=1409410388000, highlighted=null, from=emi2fast@gmail.com, tags=null], MiniEmail [id=5a15f42a797afad77b8e3010, mailinglist=linux-cluster@redhat.com, messageId=<5401FD68.8000407@alteeve.ca>, messageSnippet=Can you share your cluster information please?
+
+This could be a network problem, as the messages below happen when the 
+network between the nodes isn', subject=Re: [Linux-cluster] Please help me on cluster error, date=1409416552000, highlighted=null, from=lists@alteeve.ca, tags=null]]
+2017-11-22 23:03:22 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:03:22 ERROR MboxImporter:146 - 5a15f42a797afad77b8e2ffc
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5ea797afad77b8e5f56
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5f7b, mailinglist=linux-cluster@redhat.com, messageId=<67506B71-8594-4C16-82C1-F94779F59826@beekhof.net>, messageSnippet=
+On 22 Aug 2014, at 10:37 am, Ferenc Wagner <wferi@niif.hu> wrote:
+
+> Hi,
+> 
+> While my Pacemaker cluster was in maintenance mode, resources were move, subject=Re: [Linux-cluster] on exiting maintenance mode, date=1409038850000, highlighted=null, from=andrew@beekhof.net, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5ea797afad77b8e5f5b
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5f86, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3BsQtgeO9pHquqtA_STd_HCTh=RXTrNEMFNQzRSM2A0Tg@mail.gmail.com>, messageSnippet=from man fenced
+
+Post-fail delay is the number of seconds the daemon will wait before
+fencing any victims after a domain member fails.
+
+It's used for , subject=Re: [Linux-cluster] totem token & post_fail_delay question, date=1409040699000, highlighted=null, from=emi2fast@gmail.com, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5ea797afad77b8e5f5b
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before replies[MiniEmail [id=5a15f5eb797afad77b8e5f86, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3BsQtgeO9pHquqtA_STd_HCTh=RXTrNEMFNQzRSM2A0Tg@mail.gmail.com>, messageSnippet=from man fenced
+
+Post-fail delay is the number of seconds the daemon will wait before
+fencing any victims after a domain member fails.
+
+It's used for , subject=Re: [Linux-cluster] totem token & post_fail_delay question, date=1409040699000, highlighted=null, from=emi2fast@gmail.com, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5f86, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3BsQtgeO9pHquqtA_STd_HCTh=RXTrNEMFNQzRSM2A0Tg@mail.gmail.com>, messageSnippet=from man fenced
+
+Post-fail delay is the number of seconds the daemon will wait before
+fencing any victims after a domain member fails.
+
+It's used for , subject=Re: [Linux-cluster] totem token & post_fail_delay question, date=1409040699000, highlighted=null, from=emi2fast@gmail.com, tags=null], MiniEmail [id=5a15f5eb797afad77b8e5f91, mailinglist=linux-cluster@redhat.com, messageId=<53FC43F2.2010003@redhat.com>, messageSnippet=On 26/08/14 07:56, Vasil Valchev wrote:
+> Hello,
+>
+> I have a cluster that sometimes has intermittent network issues on the
+> heartbeat network.
+> Unf, subject=Re: [Linux-cluster] totem token & post_fail_delay question, date=1409041394000, highlighted=null, from=ccaulfie@redhat.com, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5f91
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5f9d, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3Ae29bUz4CRo41Lv+8CSUD9cQC35zr2mP0A__Bvu40eZQ@mail.gmail.com>, messageSnippet=i think, you are talking about:
+
+ Post-join delay is the number of seconds the daemon will wait before
+fencing any victims after a node joins the doma, subject=Re: [Linux-cluster] totem token & post_fail_delay question, date=1409047728000, highlighted=null, from=emi2fast@gmail.com, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5f7b
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5fa9, mailinglist=linux-cluster@redhat.com, messageId=<87iolf9mkc.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 22 Aug 2014, at 10:37 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> While my Pacemaker cluster was i, subject=Re: [Linux-cluster] on exiting maintenance mode, date=1409074819000, highlighted=null, from=wferi@niif.hu, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5fb0
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5fbb, mailinglist=linux-cluster@redhat.com, messageId=<EBFD09CA-65DD-4759-B7F3-B73039FC6B3F@beekhof.net>, messageSnippet=
+On 27 Aug 2014, at 6:42 am, Ferenc Wagner <wferi@niif.hu> wrote:
+
+> Hi,
+> 
+> crm_resource --locate finds the hosting node of a running (successfully
+, subject=Re: [Linux-cluster] locating a starting resource, date=1409096778000, highlighted=null, from=andrew@beekhof.net, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5fa9
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5fc9, mailinglist=linux-cluster@redhat.com, messageId=<F1686CC9-7920-4B72-981D-D6057EC2B754@beekhof.net>, messageSnippet=
+On 27 Aug 2014, at 3:40 am, Ferenc Wagner <wferi@niif.hu> wrote:
+
+> Andrew Beekhof <andrew@beekhof.net> writes:
+> 
+>> On 22 Aug 2014, at 10:37 am, Fe, subject=Re: [Linux-cluster] on exiting maintenance mode, date=1409115273000, highlighted=null, from=andrew@beekhof.net, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5fc9
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5fd5, mailinglist=linux-cluster@redhat.com, messageId=<87iold7tba.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 27 Aug 2014, at 3:40 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> Andrew Beekhof <andrew@beekhof.ne, subject=Re: [Linux-cluster] on exiting maintenance mode, date=1409159385000, highlighted=null, from=wferi@niif.hu, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5fbb
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5fe1, mailinglist=linux-cluster@redhat.com, messageId=<877g1t7odb.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 27 Aug 2014, at 6:42 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> crm_resource --locate finds the h, subject=Re: [Linux-cluster] locating a starting resource, date=1409165792000, highlighted=null, from=wferi@niif.hu, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5fd5
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e5ff2, mailinglist=linux-cluster@redhat.com, messageId=<749665C4-F970-4C43-9228-BCFD2EE1B442@beekhof.net>, messageSnippet=
+On 28 Aug 2014, at 3:09 am, Ferenc Wagner <wferi@niif.hu> wrote:
+
+> Andrew Beekhof <andrew@beekhof.net> writes:
+> 
+>> On 27 Aug 2014, at 3:40 am, Fer, subject=Re: [Linux-cluster] on exiting maintenance mode, date=1409180246000, highlighted=null, from=andrew@beekhof.net, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5fe1
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6005, mailinglist=linux-cluster@redhat.com, messageId=<9D0DD413-AB20-4F25-ADF5-02D8471EAA18@beekhof.net>, messageSnippet=
+On 28 Aug 2014, at 4:56 am, Ferenc Wagner <wferi@niif.hu> wrote:
+
+> Andrew Beekhof <andrew@beekhof.net> writes:
+> 
+>> On 27 Aug 2014, at 6:42 am, Fer, subject=Re: [Linux-cluster] locating a starting resource, date=1409180303000, highlighted=null, from=andrew@beekhof.net, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e6005
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6018, mailinglist=linux-cluster@redhat.com, messageId=<87sikgb4on.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 28 Aug 2014, at 4:56 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> Andrew Beekhof <andrew@beekhof.ne, subject=Re: [Linux-cluster] locating a starting resource, date=1409266824000, highlighted=null, from=wferi@niif.hu, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e5ff2
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6024, mailinglist=linux-cluster@redhat.com, messageId=<87oav4azdq.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 28 Aug 2014, at 3:09 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> So crm_resource -r whatever -C is, subject=Re: [Linux-cluster] on exiting maintenance mode, date=1409273697000, highlighted=null, from=wferi@niif.hu, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e6005
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before replies[MiniEmail [id=5a15f5eb797afad77b8e6018, mailinglist=linux-cluster@redhat.com, messageId=<87sikgb4on.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 28 Aug 2014, at 4:56 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> Andrew Beekhof <andrew@beekhof.ne, subject=Re: [Linux-cluster] locating a starting resource, date=1409266824000, highlighted=null, from=wferi@niif.hu, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6018, mailinglist=linux-cluster@redhat.com, messageId=<87sikgb4on.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 28 Aug 2014, at 4:56 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> Andrew Beekhof <andrew@beekhof.ne, subject=Re: [Linux-cluster] locating a starting resource, date=1409266824000, highlighted=null, from=wferi@niif.hu, tags=null], MiniEmail [id=5a15f5eb797afad77b8e6030, mailinglist=linux-cluster@redhat.com, messageId=<87ha0waz8x.fsf@lant.ki.iif.hu>, messageSnippet=Andrew Beekhof <andrew@beekhof.net> writes:
+
+> On 28 Aug 2014, at 4:56 am, Ferenc Wagner <wferi@niif.hu> wrote:
+>
+>> Andrew Beekhof <andrew@beekhof.ne, subject=Re: [Linux-cluster] locating a starting resource, date=1409273870000, highlighted=null, from=wferi@niif.hu, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e6030
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6042, mailinglist=linux-cluster@redhat.com, messageId=<77CDE52A-401F-4851-ABFB-3A643F9913CD@beekhof.net>, messageSnippet=
+On 29 Aug 2014, at 10:57 am, Ferenc Wagner <wferi@niif.hu> wrote:
+
+> Andrew Beekhof <andrew@beekhof.net> writes:
+> 
+>> On 28 Aug 2014, at 4:56 am, Fe, subject=Re: [Linux-cluster] locating a starting resource, date=1409279496000, highlighted=null, from=andrew@beekhof.net, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e6024
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6050, mailinglist=linux-cluster@redhat.com, messageId=<B9EF793F-8CCC-4AA7-82C9-CFDD64EC9537@beekhof.net>, messageSnippet=
+On 29 Aug 2014, at 10:54 am, Ferenc Wagner <wferi@niif.hu> wrote:
+
+> Andrew Beekhof <andrew@beekhof.net> writes:
+> 
+>> On 28 Aug 2014, at 3:09 am, Fe, subject=Re: [Linux-cluster] on exiting maintenance mode, date=1409279570000, highlighted=null, from=andrew@beekhof.net, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e6057
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before repliesnull
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6060, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3AKUvW1ia3MAPWjE1Mrwfu10F=dCt+E48nicSJDjbJhrA@mail.gmail.com>, messageSnippet=are you using clvmd? if your answer is = yes, you need to be sure, you pv
+is visibile to your cluster nodes
+
+
+2014-08-30 16:12 GMT+02:00 manish vaidya, subject=Re: [Linux-cluster] Please help me on cluster error, date=1409410388000, highlighted=null, from=emi2fast@gmail.com, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MongoClient:275 - PARENT ID 5a15f5eb797afad77b8e6057
+2017-11-22 23:10:51 ERROR MongoClient:276 -  before replies[MiniEmail [id=5a15f5eb797afad77b8e6060, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3AKUvW1ia3MAPWjE1Mrwfu10F=dCt+E48nicSJDjbJhrA@mail.gmail.com>, messageSnippet=are you using clvmd? if your answer is = yes, you need to be sure, you pv
+is visibile to your cluster nodes
+
+
+2014-08-30 16:12 GMT+02:00 manish vaidya, subject=Re: [Linux-cluster] Please help me on cluster error, date=1409410388000, highlighted=null, from=emi2fast@gmail.com, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:278 -  after replies[MiniEmail [id=5a15f5eb797afad77b8e6060, mailinglist=linux-cluster@redhat.com, messageId=<CAE7pJ3AKUvW1ia3MAPWjE1Mrwfu10F=dCt+E48nicSJDjbJhrA@mail.gmail.com>, messageSnippet=are you using clvmd? if your answer is = yes, you need to be sure, you pv
+is visibile to your cluster nodes
+
+
+2014-08-30 16:12 GMT+02:00 manish vaidya, subject=Re: [Linux-cluster] Please help me on cluster error, date=1409410388000, highlighted=null, from=emi2fast@gmail.com, tags=null], MiniEmail [id=5a15f5eb797afad77b8e606b, mailinglist=linux-cluster@redhat.com, messageId=<5401FD68.8000407@alteeve.ca>, messageSnippet=Can you share your cluster information please?
+
+This could be a network problem, as the messages below happen when the 
+network between the nodes isn', subject=Re: [Linux-cluster] Please help me on cluster error, date=1409416552000, highlighted=null, from=lists@alteeve.ca, tags=null]]
+2017-11-22 23:10:51 ERROR MongoClient:281 - AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5eb797afad77b8e6057
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f56
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5eb797afad77b8e5fb0
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5eb797afad77b8e600c
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f5b
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f51
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f4c
+2017-11-22 23:10:51 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f46
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5eb797afad77b8e6057
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f56
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5eb797afad77b8e5fb0
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5eb797afad77b8e600c
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f5b
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f51
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f4c
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a15f5ea797afad77b8e5f46
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a1605af797afad77b90598c
+2017-11-23 00:18:07 ERROR MboxImporter:146 - 5a1605af797afad77b905993
+2017-12-11 16:31:25 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:31:25 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:31:25 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:31:26 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:27 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:31:27 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:31:27 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:31:27 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:27 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:31:27 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:27 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:27 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:31:27 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:27 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:31:27 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:31:27 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:31:27 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:27 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:27 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 16:31:27 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 16:31:27 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 16:31:28 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:31:28 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:28 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:31:28 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:29 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:31:29 INFO  MboxImporter:167 - Done.
+2017-12-11 16:31:29 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:31:29 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:31:29 INFO  MboxImporter:167 - Done.
+2017-12-11 16:36:59 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:36:59 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:39:52 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:39:52 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:44:57 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:44:57 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:44:58 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:44:59 INFO  MboxImporter:167 - Done.
+2017-12-11 16:44:59 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:44:59 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:44:59 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:44:59 INFO  MboxImporter:167 - Done.
+2017-12-11 16:44:59 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:45:00 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:00 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:00 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:45:00 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:00 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:45:00 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:45:00 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:45:00 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:00 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:00 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 16:45:00 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 16:45:00 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 16:45:01 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:45:01 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:01 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:45:02 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:02 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:45:03 INFO  MboxImporter:167 - Done.
+2017-12-11 16:45:03 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:45:03 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:45:03 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:30 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:47:30 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:47:31 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:47:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:32 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:47:32 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:47:32 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:47:32 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:32 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:47:33 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:33 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:33 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:47:33 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:33 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:47:33 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:47:33 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:47:33 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:33 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:33 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 16:47:33 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 16:47:33 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 16:47:34 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:47:34 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:34 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:47:34 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:35 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:47:36 INFO  MboxImporter:167 - Done.
+2017-12-11 16:47:36 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:47:36 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:47:36 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:26 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:49:26 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:49:27 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:49:27 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:28 ERROR SearchiskoResponseParser:121 - org.codehaus.jackson.map.exc.UnrecognizedPropertyException: Unrecognized field "sys_content_type" (Class mailinglistonline.server.export.database.entities.Email), not marked as ignorable
+ at [Source: java.io.StringReader@a22cb6a; line: 1, column: 125] (through reference chain: mailinglistonline.server.export.database.entities.Email["sys_content_type"])
+2017-12-11 16:49:28 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:49:28 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:49:28 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:49:28 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:28 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:49:28 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:28 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:28 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:49:28 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:28 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:49:28 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:49:28 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:49:29 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:29 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:29 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 16:49:29 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 16:49:29 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 16:49:30 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:49:30 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:30 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:49:30 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:31 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:49:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:49:31 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:49:31 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:49:32 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:29 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:53:29 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 16:53:29 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:53:30 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:30 ERROR SearchiskoResponseParser:121 - org.codehaus.jackson.map.exc.UnrecognizedPropertyException: Unrecognized field "sys_content_type" (Class mailinglistonline.server.export.database.entities.Email), not marked as ignorable
+ at [Source: java.io.StringReader@a22cb6a; line: 1, column: 125] (through reference chain: mailinglistonline.server.export.database.entities.Email["sys_content_type"])
+2017-12-11 16:53:31 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:53:31 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:53:31 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:53:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:31 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:53:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:31 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 16:53:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:31 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:53:31 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:53:31 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:53:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:31 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:32 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 16:53:32 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 16:53:32 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 16:53:32 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:53:33 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:33 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:53:33 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:34 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 16:53:34 INFO  MboxImporter:167 - Done.
+2017-12-11 16:53:34 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 16:53:34 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 16:53:34 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:00 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:06:00 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:06:01 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:06:01 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:02 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:06:02 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:06:02 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:06:02 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:02 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:06:02 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:02 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:02 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:06:02 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:02 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:06:02 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:06:02 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:06:03 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:03 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:03 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 17:06:03 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 17:06:03 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 17:06:03 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:06:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:04 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:06:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:05 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:06:05 INFO  MboxImporter:167 - Done.
+2017-12-11 17:06:05 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:06:05 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:06:05 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:35 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:07:35 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:07:36 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:07:36 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:37 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:07:37 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:07:37 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:07:37 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:37 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:07:38 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:38 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:38 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:07:38 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:38 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:07:38 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:07:38 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:07:38 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:38 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:38 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 17:07:38 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 17:07:38 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 17:07:39 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:07:39 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:39 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:07:39 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:40 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:07:40 INFO  MboxImporter:167 - Done.
+2017-12-11 17:07:40 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:07:40 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:07:41 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:24 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:09:24 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:09:24 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:09:25 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:26 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:09:26 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:09:26 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:09:26 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:26 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:09:26 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:26 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:26 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:09:26 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:26 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:09:26 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:09:26 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:09:26 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:26 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:27 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 17:09:27 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 17:09:27 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 17:09:27 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:09:27 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:27 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:09:28 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:28 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:09:29 INFO  MboxImporter:167 - Done.
+2017-12-11 17:09:29 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:09:29 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:09:29 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:02 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:16:02 DEBUG DocumentProvider:60 - Unable to retrieve config: expandEntityReferences defaults to true
+2017-12-11 17:16:02 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:16:03 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:04 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:16:04 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:16:04 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:16:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:04 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:16:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:04 INFO  MboxImporter:144 - Importing1 messages.
+2017-12-11 17:16:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:04 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:16:04 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:16:04 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:16:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:04 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:05 INFO  MessageReceiver:46 - Message received through the terminal
+2017-12-11 17:16:05 INFO  MessageReceiver:47 - Message ID: <4E7CA9DA.9040904@gmail.com>
+2017-12-11 17:16:05 INFO  MessageReceiver:48 - Message content: ahojte,
+instalujem cistu instalaciu debian 6 z oficialneho zdroja na masinu, 
+ktora nepodporuje hw raid. akonahle chcem pocas instalacie vytvorit lvm 
+pre ine ako /boot adresare (ci uz v sw raid1, alebo bez sw raidu), 
+system nenabootuje. bootloader (grub) zbehne, no system skonci s hlaskou 
+'vg not found' (v pripade pouzitia raidu naviac prida 'md not found', 
+takze logicky nenajde ani lvm, ktore je postavene nad md).
+
+moja otazka smeruje k tomu, ci je oficialna instalacia (cd1) pouzitelna 
+pre tento setup instalacie. kedysi pri instalacii starsich debianov som 
+s tym nemal problem. riesim to uz dlho, tak sa reku spytam.
+
+dik za nazor.
+
+--
+mk
+_______________________________________________
+https://lists.linux.sk/mailman/listinfo/linux
+Meta FAQ: http://www.sklug.sk/lists/linux/metafaq.html
+
+
+2017-12-11 17:16:05 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:16:06 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:06 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:16:06 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:07 INFO  MboxImporter:144 - Importing62 messages.
+2017-12-11 17:16:07 INFO  MboxImporter:167 - Done.
+2017-12-11 17:16:07 INFO  MboxImporter:144 - Importing73 messages.
+2017-12-11 17:16:07 ERROR MessageManager:368 - exceptions.MalformedMessageException
+2017-12-11 17:16:07 INFO  MboxImporter:167 - Done.
